@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">VegeBun-csj’s blog</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-08-23T15:41:01&#43;08:00</updated>
+    <updated>2020-08-23T20:51:04&#43;08:00</updated>
     <id>https://VegeBun-csj.github.io/</id>
     <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://VegeBun-csj.github.io/atom.xml" />
@@ -17,27 +17,43 @@
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.74.3">Hugo</generator>
         <entry>
-            <title type="text">Hello World</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/hello-world/" />
-            <id>https://VegeBun-csj.github.io/posts/hello-world/</id>
-            <updated>2020-08-23T10:25:13&#43;08:00</updated>
-            <published>2020-08-23T09:58:25&#43;08:00</published>
+            <title type="text">BTC—思考(11)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E6%80%9D%E8%80%8311/" />
+            <id>https://VegeBun-csj.github.io/posts/btc%E6%80%9D%E8%80%8311/</id>
+            <updated>2020-08-23T20:23:07&#43;08:00</updated>
+            <published>2020-08-23T20:20:45&#43;08:00</published>
             <author>
                     <name>Bun</name>
                     <uri>https://VegeBun-csj.github.io</uri>
                     <email>1071285741@qq.com</email>
                     </author>
-            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">1 fmt.println(&amp;#34;这是我的都一篇hugo的博客&amp;#34;)</summary>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Hash 指针 比特币中的hash指针有两个作用：（1）区块之间的链接（2）交易时说明币的来源……</summary>
             
-                <content type="html">&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
-&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
-&lt;td class=&#34;lntd&#34;&gt;
-&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span class=&#34;nx&#34;&gt;fmt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;println&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;这是我的都一篇hugo的博客&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content>
+                <content type="html">&lt;ul&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;hash-指针&#34;&gt;Hash 指针&lt;/h3&gt;
+&lt;p&gt;比特币中的hash指针有两个作用：（1）区块之间的链接（2）交易时说明币的来源&lt;/p&gt;
+&lt;p&gt;1.指针保存的是本地内存的地址，只在本地这台计算机才有意义，发送到其他的计算机上就没有意义，那么再发布区块时，hash指针是如何通过网络进行传输的呢？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;所谓的hash指针只是一种形象的说法，实际系统在使用的时候，只有hash，没有指针，或者可以理解为hash值本身就是一个指针！！&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;2.如何找到前一个区块的内容呢？&lt;/p&gt;
+&lt;p&gt;全节点一般是把这些区块存储在一个&amp;lt;key,value&amp;gt;数据库中，key是区块的hash，value是区块的内容，一个常用的kv数据库是levelDB，所以，如过拿到了最后一个区块的区块hash（key），那么就可以通过kv数据库查找到对应的区块内容（value），而该value中有上一个区块的hash，这样又能查找到上一个区块的内容，以此类推，一步一步往前找，可以把整个区块链找到。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;区块恋&#34;&gt;区块恋&lt;/h3&gt;
+&lt;p&gt;多余多个人的共享账户，一定不要用共享私钥的方法，因为BTC的密钥安全性是与密钥的长度挂钩的，BTC的私钥长度为256位，如果截断，那么，破解的难度会降低，会有很大的安全风险。&lt;/p&gt;
+&lt;p&gt;如何解决呢？？？？&lt;/p&gt;
+&lt;p&gt;可以使用&lt;strong&gt;多重签名&lt;/strong&gt;（多重签名中每个私钥都是独立产生的）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;比特币稀疏性&#34;&gt;比特币稀疏性&lt;/h3&gt;
+&lt;p&gt;BTC的总量一定，流通性有障碍&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h3 id=&#34;量子计算&#34;&gt;量子计算&lt;/h3&gt;
+&lt;p&gt;BTC的地址是公钥取hash，所以对安全性来说有很大提升。hash函数是不可逆的，量子计算机也没办法做到。BTC中使用SHA-256算法。如果只是收款，只需要提供公钥的hash就行，只有将来需要取钱的时候得有公钥还有私钥产生的签名。所以取钱的时候尽量一次性取出来，这样有利于安全性（即使是公钥也不要随便暴露，如果你担心量子计算机的话！！！！）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
             
             
             
@@ -45,7 +61,733 @@
             
                 
                     
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
                 
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">BTC—匿名性(10)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E5%8C%BF%E5%90%8D%E6%80%A710/" />
+            <id>https://VegeBun-csj.github.io/posts/btc%E5%8C%BF%E5%90%8D%E6%80%A710/</id>
+            <updated>2020-08-23T20:20:18&#43;08:00</updated>
+            <published>2020-08-23T20:19:54&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">BTC的匿名性 在BTC中，账户的地址用的是公钥的hash，当然BTC也不是没有账户名……</summary>
+            
+                <content type="html">&lt;h3 id=&#34;btc的匿名性&#34;&gt;BTC的匿名性&lt;/h3&gt;
+&lt;p&gt;在BTC中，账户的地址用的是公钥的hash，当然BTC也不是没有账户名的，可以使用化名（类似于网名）&lt;/p&gt;
+&lt;p&gt;有的人可能会为了匿名性使用多个账户来进行转账交易，从而保证自己的隐秘性，但是BTC如果这样，匿名性可能会被弱化。&lt;/p&gt;
+&lt;p&gt;（1）当多个账户出现转账交易是，产生产生多个Outputs，但是这些Outputs会被关联起来，从而找到某个确定的账户。&lt;/p&gt;
+&lt;p&gt;（2）如果被找到的账户一旦与实体世界发生关联，其真实身份就会被暴露，因为在实际中可以通过交易发生的事件去BTC网络上查看，在这个时间附近发生的某些交易， 从而推算出是哪个账户或者某个确定的人。&lt;/p&gt;
+&lt;p&gt;所以BTC的安全性并没有那么好，只要你花了BTC-coin，匿名性就不能得到保证，而且，匿名性也是相对的，对谁匿名也是匿名性的衡量标准（ 比如对警察局和对普通人）&lt;/p&gt;
+&lt;p&gt;当然，也可以通过coin mixing（多币种混淆）的方式进行匿名。&lt;/p&gt;
+&lt;p&gt;区块链是不可篡改的，但是对于隐私保护来说，是灾难性的，因为一旦某个交易暴露了一个人的身份信息，同时这笔交易会永久保存在链上。&lt;/p&gt;
+&lt;h3 id=&#34;同态隐藏&#34;&gt;同态隐藏&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;若x!=y，那么存在加密函数使得E(x)!=E(y) (也就是说，如果E(x)=E(y)，那么x=y)&lt;/p&gt;
+&lt;p&gt;注意：加密函数与hash函数不同，哈希算法是将目标文本转换成具有&lt;strong&gt;相同长度的、不可逆的杂凑字符串&lt;/strong&gt;（或叫做消息摘要），而加密（Encrypt）是将目标文本转换成具有&lt;strong&gt;不同长度的、可逆的密文。&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;给定E(x)的值，无法推算出x的值 （即hiding property,这点与hash函数相同）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;给定E(x)和E(y)&lt;/p&gt;
+&lt;p&gt;​	---同态加法：通过E(x)和E(y)，可以计算出E(x+y)&lt;/p&gt;
+&lt;p&gt;​	---同台乘法：通过E(x)和E(y)，可以计算出E(xy)&lt;/p&gt;
+&lt;p&gt;​	---扩展到多项式&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;零知识证明&#34;&gt;零知识证明&lt;/h3&gt;
+&lt;p&gt;指一方（证明者）向另一方（验证者）证明一个陈述时是正确的，而无需透露除了该陈述是正确的之外的其他任何信息。&lt;/p&gt;
+&lt;p&gt;例子：Alice向Bob证明，她知道一组数 x+y = 7,同时不让Bob知道x和y的具体值，该怎么办？&lt;/p&gt;
+&lt;p&gt;（1）Alice只需要向Bib提供E(x)和E(y)		（利用同态隐藏第二个性质）&lt;/p&gt;
+&lt;p&gt;（2）Bob可以通过同态加法，运算得到E(x+y)			（利用与同态隐藏第三个性质）&lt;/p&gt;
+&lt;p&gt;（3）Bob再计算出E(7)的值，如果E(x+y) = E(7),那么就证明，Alice知道x和y的值	（利用同态隐藏第一个性质）&lt;/p&gt;
+&lt;h3 id=&#34;盲签名&#34;&gt;盲签名&lt;/h3&gt;
+&lt;p&gt;在不知道具体内容的情况下，对其进行签名&lt;/p&gt;
+&lt;p&gt;（1）用户A需要转账，并提供序列码(serial num)，银行在不知道serial num的情况下对其进行签名， 并将该签名token返回给A，并减少A的存款&lt;/p&gt;
+&lt;p&gt;（2）用户A把已经被签名过的serial num和Token交给B完成交易（B知道serial num）&lt;/p&gt;
+&lt;p&gt;（3）用户B拿着serial num和Token给银行进行验证，银行验证通过，增加B的存款。&lt;/p&gt;
+&lt;p&gt;（4）银行无法通过上述的而过程将A推测出来，即使它是中心化的机构（这样A的消费被隐藏）&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">BTC—问答(9)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E9%97%AE%E7%AD%949/" />
+            <id>https://VegeBun-csj.github.io/posts/btc%E9%97%AE%E7%AD%949/</id>
+            <updated>2020-08-23T20:19:43&#43;08:00</updated>
+            <published>2020-08-23T20:19:32&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">1.转账时，如果接收者不在线怎么办？ 转账时无需接受者在线，转账只是在账本上记账，无需……</summary>
+            
+                <content type="html">&lt;p&gt;1.转账时，如果接收者不在线怎么办？&lt;/p&gt;
+&lt;p&gt;转账时无需接受者在线，转账只是在账本上记账，无需实时在线，而且记账可以由网络的矿工进行&lt;/p&gt;
+&lt;p&gt;2.假设一个节点收到一个交易，有没有可能转账的tx中接收者的收款地址时节点以前从未听说的？&lt;/p&gt;
+&lt;p&gt;是有可能的，因为创建一个比特币的账户是非常容易的，只需要产生一个公私钥对即可，而且创建账户时无需通知其他节点，只有在以后该账户作为收款地址，第一次收到钱时，其他节点才知道这个账户。&lt;/p&gt;
+&lt;p&gt;3.如果账户的私钥丢失怎么办？&lt;/p&gt;
+&lt;p&gt;没有任何办法，账户上的钱会变成死钱，永远也取不出来了，BTC不提供类似于银行的类似于重置密码的功能。&lt;/p&gt;
+&lt;p&gt;4.如果转账的地址写错了，怎么办？&lt;/p&gt;
+&lt;p&gt;没有任何办法，BTC无法取消一个已经发布的交易，一旦发布被打包进区块，写入最长合法链，就无法取消咯！！！唯一的办法就是让对方再转给你，而且这个也是不可强求的，可以私下解决。&lt;/p&gt;
+&lt;p&gt;5.BTC中每个矿工都会寻找符合难度要求的nounce，如果一个矿工找到了nounce，并把这个区块发布到网络中，有没有可能，其他矿工收到该区块后，得到其中的nounce后，把区块中的地址改为自己的地址，偷走这个nounce答案？&lt;/p&gt;
+&lt;p&gt;是不可能的，如果A挖出了一个矿，那么区块中就有了A的地址，如果某个矿工B要偷答案（nounce），那么B就需要将这个地址改为自己的，如果这个，那么coinbase tx就会发生改变（铸币交易是用来奖励挖出区块的矿工的，它的输出就是该矿工的地址，也就是将出块奖励打到该矿工的账户地址上），而coinbase tx是作为Merkle tree的一部分的，那么Merkle tree root hash就会发生改变，从而就会导致该nounce不符合难度目标预值，这个nounce也就作废了，所以是不可能偷走nounce（别人的劳动成果！！！）&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">BTC—分叉(8)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E5%88%86%E5%8F%898/" />
+            <id>https://VegeBun-csj.github.io/posts/btc%E5%88%86%E5%8F%898/</id>
+            <updated>2020-08-23T20:50:44&#43;08:00</updated>
+            <published>2020-08-23T20:10:23&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">BTC分叉(fork) 1.在挖矿时。如果两个peer几乎同时出了一个块，那就会出现一……</summary>
+            
+                <content type="html">&lt;h1 id=&#34;btc分叉fork&#34;&gt;BTC分叉(fork)&lt;/h1&gt;
+&lt;pre&gt;&lt;code class=&#34;language-什么是分叉？何时出现分叉&#34; data-lang=&#34;什么是分叉？何时出现分叉&#34;&gt;1.在挖矿时。如果两个peer几乎同时出了一个块，那就会出现一个暂时性的fork，这种fork成为state fork,它是在网络中自然发生的，是不可避免的一种分叉，当然之前说的forking attack也是属于这种state fork，只不过分叉攻击是人为的恶意分叉
+2.当比特币的协议发生改变时，也会造成分叉，这种分叉称为protocal fork(协议分叉)
+（根据协议修改内容的不同，分叉又分为硬分叉和软分叉）
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;分叉的分类&#34;&gt;分叉的分类&lt;/h1&gt;
+&lt;h3 id=&#34;hard-fork硬分叉&#34;&gt;Hard fork（硬分叉）&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;当比特币中增加了某些新特性，一些节点没有升级更新新特性（旧区块），当BTC系统继续运行并产生新的区块时，旧节点就不会认可这些新节点产生的区块，这样，旧节点和新节点产生的区块就产生了分叉&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;区块的大小限制发生改变（Block size limit）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;由于比特币当前的区块大小限制为1M，如果粗略的来算，1M就为1000000bit，一笔交易的大小大约为250bit，所以算下来1000000bit/250bit= 4000笔交易/区块，又因为每10min产生一个区块（4000笔交易），所以每秒大约4000/60 = 7笔交易，所以这个交易量是非常小的。&lt;/p&gt;
+&lt;p&gt;所以就有人提议将区块大小改为4M，从而提高交易量，此处假设网络中的绝大部分算力的节点更新了这个特性&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://VegeBun-csj.github.io/image/BTC/hardforking.png&#34; alt=&#34;硬分叉&#34;&gt;&lt;/p&gt;
+&lt;p&gt;可以从图上看出来在Block3后面出现了分叉，此时旧节点是按照小区块记账，新节点按照大区快记账，但是&lt;strong&gt;旧节点并不认可大区块，新节点认可小区块&lt;/strong&gt;（因为只要不超过4M，新节点都认可），所以会出现Block5小区块在Block_4后面（&lt;strong&gt;因为新节点是绝大部分的算力，所以记账会由掌握绝大部分算力的新节点进行，所以在分叉的小区块后面不会出现小区块，而是会被新节点进行分叉，追加大区块，因为他们掌握了绝大部分的算力&lt;/strong&gt;），然后大区块Block_6在小区块Block5后面又会产生分叉，所以只要网络中有节点不更新新特性，就会产生这样永久性的断断续续的分叉（因为对于小区块而言，新旧节点都认可），即大区块中含有小区块的情况！！！（途中的黄色线是最长合法链）&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;历史上，出现的经典的硬分叉的例子就是以太坊的The DAO事件，为了解决这个黑客攻击事件，以太坊不得不硬分叉，也就形成了现在的ETH和ETC（以太坊经典）并存的局面，ETC曾经是原来最纯正血统的以太坊，如今两个链分家，并且拥有自己的币！！！&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id=&#34;soft-fork软分叉&#34;&gt;Soft fork（软分叉）&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;区块的大小限制发生改变（Block size limit）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果把区块的大小由1M改为0.5M，此时没有更新的节点（旧节点）仍然会打包1M大小的区块，而新节点会打包0.5M的区块，但是旧节点会认可新节点的区块，因为新节点的区块没有超过1M，所以掌握绝大部分的算力的新节点节点（假设绝大部分算力的节点更新了特性）会对小区块记账，同时旧节点也认可小区块，所以大家都会在小区块后面记账（&lt;strong&gt;第一个分叉&lt;/strong&gt;），但是如果旧节点继续出大区块，那么依然会在大区块前面的这个小区块上面发生分叉，链上仍然会被小区块占领（&lt;strong&gt;第二个分叉&lt;/strong&gt;，红色箭头是表示无效的追加区块），即分叉后的链上不会存在大区块，只要小区块，如果旧节点长时间不升级，就会导致自己挖矿的努力白费，频繁被分叉，会过的很难受。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://VegeBun-csj.github.io/image/BTC/softforking.png&#34; alt=&#34;软分叉&#34;&gt;&lt;/p&gt;
+&lt;p&gt;所以，根据上面的两个例子，可以看出&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;硬分叉：必须半数以上算力的节点由新特性之后才不会出现永久性分叉&lt;/li&gt;
+&lt;li&gt;软分叉：只要系统中有半数的算力更新新特性，就不会出现永久性的分叉&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;如何简单地来区分硬分叉还是软分叉：只要是旧节点不接受新区块就会产生硬分叉，只要是旧节点可以接受新区块就不会产生硬分叉（软分叉）&lt;/p&gt;
+&lt;p&gt;2016年的以太坊的The DAO事件就是硬分叉的典型例子，一开始通过软分叉来解决问题，但是攻击者通过某些指令不消耗gas，大量发起交易进行攻击，导致矿工资源消耗严重，迫使矿工降为旧版本，从而使这一方案以失败告终，最终以太坊社区不得不采取硬分叉的方式，使得曾经的ETH分裂为ETH和ETC(以太坊经典classic，实际上ETC是根正苗红的ETH)，现在的ETH是分叉后回滚交易的ETH。（以太坊由此分为了两派，支持回滚交易的一派也就是现在的ETH，不支持回滚交易的一派是ETC，似乎也是两种不同思想的人的追求，支持ETC没有进行硬分叉的人坚持这种去“中心化的思想”）&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">BTC—脚本(7)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E8%84%9A%E6%9C%AC7/" />
+            <id>https://VegeBun-csj.github.io/posts/btc%E8%84%9A%E6%9C%AC7/</id>
+            <updated>2020-08-23T20:10:09&#43;08:00</updated>
+            <published>2020-08-23T20:09:50&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">比特币的交易 交易结构 实际中为了安全起见脚本都是单独执行的！！！ 输入输出脚本的形式 （1……</summary>
+            
+                <content type="html">&lt;h1 id=&#34;比特币的交易&#34;&gt;比特币的交易&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200728192656381.png&#34; alt=&#34;image-20200728192656381&#34;&gt;&lt;/p&gt;
+&lt;h1 id=&#34;交易结构&#34;&gt;交易结构&lt;/h1&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200728193228573.png&#34; alt=&#34;image-20200728193228573&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200728193557698.png&#34; alt=&#34;image-20200728193557698&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200728194144832.png&#34; alt=&#34;image-20200728194144832&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200728194802246.png&#34; alt=&#34;image-20200728194802246&#34;&gt;&lt;/p&gt;
+&lt;p&gt;实际中为了安全起见脚本都是单独执行的！！！&lt;/p&gt;
+&lt;h1 id=&#34;输入输出脚本的形式&#34;&gt;输入输出脚本的形式&lt;/h1&gt;
+&lt;h3 id=&#34;1p2pk最简单&#34;&gt;（1）P2PK(最简单):&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;D:%5C%E9%A1%B9%E7%9B%AE%E8%B5%84%E6%96%99%5Cstudy_notes%5C%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%AC%E5%BC%80%E8%AF%BE%E2%80%94%E2%80%94%E5%8C%97%E5%A4%A7%E8%82%96%E8%87%BB%5Cp2pk.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801172815056.png&#34; alt=&#34;image-20200801172815056&#34;&gt;&lt;/p&gt;
+&lt;p&gt;从上往下一次入栈，CHRECKSIG是将前两个入栈的弹出，如果正确就返回TRUE,说明验证通过。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801173158962.png&#34; alt=&#34;image-20200801173158962&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2p2pkh最常用的&#34;&gt;（2）P2PKH(最常用的)：&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;D:%5C%E9%A1%B9%E7%9B%AE%E8%B5%84%E6%96%99%5Cstudy_notes%5C%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%AC%E5%BC%80%E8%AF%BE%E2%80%94%E2%80%94%E5%8C%97%E5%A4%A7%E8%82%96%E8%87%BB%5Cp2pkh.png&#34; alt=&#34;&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这个与P2PK的不同在于，输出脚本中并没有给出公钥，而是给出的公钥的hash，公钥放在了输入脚本中。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801173930129.png&#34; alt=&#34;image-20200801173930129&#34;&gt;&lt;/p&gt;
+&lt;p&gt;执行细节如下：（注意：&lt;strong&gt;前两个脚本是输入脚本，后面的脚本是输出脚本&lt;/strong&gt;）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801174548528.png&#34; alt=&#34;image-20200801174548528&#34;&gt;&lt;/p&gt;
+&lt;p&gt;上述7个脚本从上往下依次执行， 首先1和2脚本入栈，然后DUP的作用是复制一份PubKey然后压栈，HASH160作用是将栈顶的PubKey取hash，然后压栈，第五个脚本是将公钥的hash（收款人公钥的hash）入栈，第5个脚本是对栈顶的两个PubKeyHash进行判断，如果两个Hash值相等，那么这两个Hash值就消失了（&lt;strong&gt;目的是防止有人冒名顶替，用他自己的公钥冒充收款人的公钥&lt;/strong&gt;），然后执行最后一步，用公钥来判断签名，是否正确，如果正确就返回TRUE。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801175758383.png&#34; alt=&#34;image-20200801175758383&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;3p2sh&#34;&gt;（3）P2SH:&lt;/h3&gt;
+&lt;p&gt;输出脚本给出的不是收款人公钥的hash，而是&lt;strong&gt;收款人提供的脚本(redeem script)的hash&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801180437621.png&#34; alt=&#34;image-20200801180437621&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801180637566.png&#34; alt=&#34;image-20200801180637566&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801180733938.png&#34; alt=&#34;image-20200801180733938&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801181050100.png&#34; alt=&#34;image-20200801181050100&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;执行的详细过程如下：（最上面两个是输入脚本，下面的都是输出脚本的内容）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801181417735.png&#34; alt=&#34;image-20200801181417735&#34;&gt;&lt;/p&gt;
+&lt;p&gt;首先执行最上面两个脚本，先入栈，然后HASH160，对栈顶脚本取hash，压栈，第四步就是将收款人给出的赎回脚本压栈，然后执行EQUAL操作，比较两个hash是否相等，如果不相等就结束，如果相等就消失，最后剩下Sig签名。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801181907620.png&#34; alt=&#34;image-20200801181907620&#34;&gt;&lt;/p&gt;
+&lt;p&gt;在第一阶段的基础上，执行赎回脚本（redeem script），也就是将公钥的hash入栈，然后执行CHECKS，使用公钥来验证签名，正确无误就返回TRUE。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801182230825.png&#34; alt=&#34;image-20200801182230825&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;为什么要用p2sh&#34;&gt;为什么要用P2SH?&lt;/h4&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801183241108.png&#34; alt=&#34;image-20200801183241108&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801183341826.png&#34; alt=&#34;image-20200801183341826&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最后执行CHECKMULTISIG验证栈中是不是含有三个签名中的两个，如果是，那么验证通过。&lt;/p&gt;
+&lt;p&gt;注意：&lt;strong&gt;这个过程中并没有用到Hash，就是用原生的多重签名实现的。但是这也带来了复杂性，带来了不方便&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;例如：某个用户取网上购物，某个电商使用多重签名，要求必须要有5个合伙人中的三个人进行签名才能把钱取出来，这就要求购物的用户在进行网上购物时，给出这5个合伙人的公钥，同时还要给出N和M（分别代表几个公钥中至少有几个公钥才能合法，例如N=5,M=3代表5个合伙人中必须三个人进行签名，电商需要在网上公布出来，用户可以看到然后在进行转账交易的时候，就把这些信息填进去，不同的电商采用的多重签名的规则是不一样的，即N和M不一样，这就给用户生成转账交易带来不方便的地方，因为这些复杂性都暴露给用户了）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;所以就需用P2SH实现多重签名（本质是把复杂度从输出脚本转移到了输入脚本）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801192559444.png&#34; alt=&#34;image-20200801192559444&#34;&gt;&lt;/p&gt;
+&lt;p&gt;输出脚本中只需要提供赎回脚本的hash，输入脚本中需要提供赎回脚本(其中包含N和公钥和N与M的值)，这个赎回脚本是由收款人提供的（前面提到的）&lt;/p&gt;
+&lt;p&gt;再回到前面的例子：收款人是电商，他只要在网上公布赎回脚本的hash值,然后用户生成转账交易的时候，只需要把这个赎回脚本的hash值包含在交易的输出脚本中即可，至于这个电商用什么样的多重签名规则，对于用户来说是不可见的，用户没必要知道。采用这种方式与之前说的P2PKH没有什么区别（只不过把公钥的hash值改成了赎回脚本的hash值）&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801193332388.png&#34; alt=&#34;image-20200801193332388&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801193750202.png&#34; alt=&#34;image-20200801193750202&#34;&gt;&lt;/p&gt;
+&lt;p&gt;以上是执行的第一阶段，然后进行第二阶段。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801193840212.png&#34; alt=&#34;image-20200801193840212&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最后验证多重签名的有效性，正确返回TRUE。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801194050454.png&#34; alt=&#34;image-20200801194050454&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;现在的多重签名基本都是采用的这种P2SH的形式&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;4proof-of-burn&#34;&gt;（4）Proof of Burn&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801194207991.png&#34; alt=&#34;image-20200801194207991&#34;&gt;&lt;/p&gt;
+&lt;p&gt;这种销毁比特币的特性适用于以下几种场景：&lt;/p&gt;
+&lt;p&gt;（1）为了得到altcoin（alternative coin）这种小币种，有的币要求销毁一个BTC就能获得其一部分币，这样确保是付出代价的。&lt;/p&gt;
+&lt;p&gt;（2）向区块链中永久写入内容。可以内容写入RETURN语句的后面，类似于coinbase域写入内容（两者虽然都可以写入一部分内容，但是有些不一样：RETURN语句不论是哪个节点都可以写入，但是coinbase域只有获得记账权的矿工才能写入信息）&lt;/p&gt;
+&lt;p&gt;下面是是一个&lt;strong&gt;Coinbase交易&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801195558212.png&#34; alt=&#34;image-20200801195558212&#34;&gt;&lt;/p&gt;
+&lt;p&gt;下面是一个普通的交易：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200801195757733.png&#34; alt=&#34;image-20200801195757733&#34;&gt;&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">BTC—挖矿(6)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E6%8C%96%E7%9F%BF6/" />
+            <id>https://VegeBun-csj.github.io/posts/btc%E6%8C%96%E7%9F%BF6/</id>
+            <updated>2020-08-23T20:09:29&#43;08:00</updated>
+            <published>2020-08-23T20:09:06&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">挖矿难度 调整挖矿的难度就是调整使得找到符合 H(block header) &amp;lt;= target的nounce的难度 比特……</summary>
+            
+                <content type="html">&lt;h1 id=&#34;挖矿难度&#34;&gt;挖矿难度&lt;/h1&gt;
+&lt;p&gt;调整挖矿的难度就是调整使得找到符合 H(block header) &amp;lt;= target的nounce的难度&lt;/p&gt;
+&lt;p&gt;比特币的hash算法是采用的是SHA-256算法，也就是hash值得整个输出空间为2得256次方&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;挖矿难度（difficulty）与目标预值（target）成反比例&lt;/strong&gt;，也就是target越大时，挖矿时越容易的&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-在比特币系统中需要调整挖矿难度，为什么？&#34; data-lang=&#34;在比特币系统中需要调整挖矿难度，为什么？&#34;&gt;现在算力越来越强大，需要调整挖矿难度，使得出块的时间维持在10分钟左右，不能让出块的时间变得很快，这样会让攻击者发送分叉攻击（因为当出块的时间很短时，系统中可能会出现很多矿工同时打包到区块，假设这些矿工都是诚实的节点，这样在这些诚实的节点之间就产生了很多分叉，这就给恶意节点创造了机会，恶意节点可以在出现多个分叉的区块之前恶意分叉，然后在那个分叉的区块后面追加区块，这样，恶意节点就能跟容易的构造出一条最长合法链，因为此时诚实节点的算力被分割了，原本需要百分之51算力进行分叉攻击，而此时则不需要这么大的算力就能进行攻击）
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;如何调整挖矿难度&#34;&gt;如何调整挖矿难度&lt;/h2&gt;
+&lt;p&gt;比特币中规定每隔2016个区块，就调整一次目标预值，大概时每2个星期调整一次&lt;/p&gt;
+&lt;h5 id=&#34;迭代公式target--target--actual-timeexpected&#34;&gt;迭代公式：target = target * (actual time/expected)&lt;/h5&gt;
+&lt;p&gt;注意：挖矿是&lt;strong&gt;无记忆性的（memoryless/progress free）&lt;/strong&gt;，也就是说，只要区块还没有被产生，那么挖出来区块的难度都是一定的，并不是说，一个节点在网络中挖出了块多就意味着后面他有更大的可能挖出区块，任何时候，在挖出区块之前，挖矿的难度都是一样的。&lt;/p&gt;
+&lt;h1 id=&#34;挖矿&#34;&gt;挖矿&lt;/h1&gt;
+&lt;h3 id=&#34;一节点分类&#34;&gt;一.节点分类&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;D:%5C%E9%A1%B9%E7%9B%AE%E8%B5%84%E6%96%99%5Cstudy_notes%5C%E5%8C%BA%E5%9D%97%E9%93%BE%E8%AF%BE%E2%80%94%E2%80%94%E5%8C%97%E5%A4%A7%E8%82%96%E8%87%BB%5CScreenshot_20200728_172520.jpg&#34; alt=&#34;Screenshot_20200728_172520&#34;&gt;&lt;/p&gt;
+&lt;p&gt;1.验证交易的合法性是看交易中是否有签名以及是否存在double spending（去UTXO集合中验证）&lt;/p&gt;
+&lt;p&gt;2.验证其他矿工挖出的块的合法性是看：&lt;/p&gt;
+&lt;p&gt;​	（1）块中TX是否合法&lt;/p&gt;
+&lt;p&gt;​	（2）看块头的Hash是否满足难度要求&lt;/p&gt;
+&lt;p&gt;​	（3）是否延伸最长合法链&lt;/p&gt;
+&lt;p&gt;3.挖矿沿着最长合法连挖下去，出现等长的分叉时，最先选择先监听到的块进行分叉&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;D:%5C%E9%A1%B9%E7%9B%AE%E8%B5%84%E6%96%99%5Cstudy_notes%5C%E5%8C%BA%E5%9D%97%E9%93%BE%E8%AF%BE%E2%80%94%E2%80%94%E5%8C%97%E5%A4%A7%E8%82%96%E8%87%BB%5CScreenshot_20200728_172507.jpg&#34; alt=&#34;Screenshot_20200728_172507&#34;&gt;&lt;/p&gt;
+&lt;p&gt;1.比特币网络中绝大部分节点是轻节点（也成为SPV Client）&lt;/p&gt;
+&lt;p&gt;2.轻节点虽然无法验证交易的有效性，但是能够验证块的挖矿难度是否符合要求（因为挖矿难度计算只需要块头即可，而轻节点就是只有块头）&lt;/p&gt;
+&lt;h3 id=&#34;二挖矿的历程&#34;&gt;二.挖矿的历程&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;center&#34;&gt;第一代&lt;/th&gt;
+&lt;th&gt;CPU&lt;/th&gt;
+&lt;th&gt;效率低，浪费很多其他资源&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;第二代&lt;/td&gt;
+&lt;td&gt;GPU（显卡）&lt;/td&gt;
+&lt;td&gt;效率有所提升，但是只用到整数运算(计算hash)，浪费了浮点运算，也是浪费了资源&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;第三代&lt;/td&gt;
+&lt;td&gt;ASIC芯片（矿机）&lt;/td&gt;
+&lt;td&gt;一种专门用于挖矿的芯片，特定的币只能用特定的ASIC芯片，除非两种币的挖矿模式一样&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td align=&#34;center&#34;&gt;第四代&lt;/td&gt;
+&lt;td&gt;大型矿池&lt;/td&gt;
+&lt;td&gt;由许多矿工组成，其中有一个pool manager，管理着许多Miner，Minder只负责计算manaer分配的任务来计算出hash,出块后给manager即可，不做其他的事，而manager负责作为全节点中除了计算hash的其他任务&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;大型矿池的引入带来了一些好处，也带来了一些坏处：&lt;/p&gt;
+&lt;p&gt;（1）好处：给予了矿工稳定的收入来源，当矿池中出块之后，只要矿池中的矿工参与了计算hash的任务，产生了一定的share，就会的到manager的奖励分红。（share越多，分红越多）&lt;/p&gt;
+&lt;p&gt;（2）坏处：矿工并不知道自己是否在帮诚实的矿池干活还是不诚实的矿池干活，容易引发矿池的利用他们的算力发起攻击，因为矿工们只负责计算hash，没有其他的任务，他们无法验证交易的合法性。一旦矿池掌握了绝大部分的算力，就可以对比特币网络发起攻击，其中最常见的就是分叉攻击，从而实现双花攻击，还可以引发Boycott封锁攻击(不让某个账户的交易被写进区块中，封锁某些账户)&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">BTC—网络(5)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E7%BD%91%E7%BB%9C5/" />
+            <id>https://VegeBun-csj.github.io/posts/btc%E7%BD%91%E7%BB%9C5/</id>
+            <updated>2020-08-23T20:08:52&#43;08:00</updated>
+            <published>2020-08-23T20:08:40&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">比特币网络的工作原理 比特币工作在应用层（application layer) : Bitcoin Blockchain 底层的网络层（……</summary>
+            
+                <content type="html">&lt;h2 id=&#34;比特币网络的工作原理&#34;&gt;比特币网络的工作原理&lt;/h2&gt;
+&lt;p&gt;比特币工作在应用层（application layer)	: Bitcoin Blockchain&lt;/p&gt;
+&lt;p&gt;底层的网络层（network layer）: P2P Overlay Network&lt;/p&gt;
+&lt;p&gt;比特币网络的原则是：简单(Simple)，鲁棒性&lt;/p&gt;
+&lt;p&gt;网络节点之间采用的是flooding的方式&lt;/p&gt;
+&lt;p&gt;比特币网路中的节点维护一个等待上链的集合，并且把这个交易转发给邻居节点，以后再收到这个交易的时候就不用再转发了，这样就避免交易在网络上无限传播&lt;/p&gt;
+&lt;p&gt;比特币中的区块不能超过1MB。&lt;/p&gt;
+&lt;p&gt;比特币网络的安全性保证是通过：&lt;/p&gt;
+&lt;p&gt;（1）密码学（无私钥，无签名，所以就无法恶意转走别人的钱）（不可伪造）&lt;/p&gt;
+&lt;p&gt;（2）共识机制（防止女巫攻击）&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">BTC—实现(4)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E5%AE%9E%E7%8E%B04/" />
+            <id>https://VegeBun-csj.github.io/posts/btc%E5%AE%9E%E7%8E%B04/</id>
+            <updated>2020-08-23T20:08:27&#43;08:00</updated>
+            <published>2020-08-23T20:07:43&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">Transaction-based ledger(基于交易) 注：这种账本中每个账户上的余额是不直接显示的，要想知道一个……</summary>
+            
+                <content type="html">&lt;h1 id=&#34;transaction-based-ledger基于交易&#34;&gt;Transaction-based ledger(基于交易)&lt;/h1&gt;
+&lt;p&gt;注：这种账本中每个账户上的余额是不直接显示的，要想知道一个账户上的余额，必须追溯交易的输入输出来推算出账户的余额&lt;/p&gt;
+&lt;h3 id=&#34;utxo模型&#34;&gt;UTXO模型&lt;/h3&gt;
+&lt;p&gt;比特币的全节点需要维护一个叫做&lt;strong&gt;UTXO&lt;/strong&gt;的数据结构（&lt;strong&gt;未花费的交易输出——Unspent Transaction Output&lt;/strong&gt;）&lt;/p&gt;
+&lt;p&gt;例如：&lt;strong&gt;一个交易可以有多个输出&lt;/strong&gt;，当A账户发起了一笔交易，这笔交易的输出是向B转账了5BTC，向C转账了3BTC，然后B将5BTC花出去了，C没有花费，所以此时向B的输出就不再UTXO中，而向C的输出在UTXO中，所以同一个交易，有的输出在UTXO中，有的交易不在UTXO中。如果有的账户，存在账户余额（比特币），但是始终不花出去，那么这个余额比特币会永远存在于UTXO集合中。&lt;/p&gt;
+&lt;p&gt;所以&lt;strong&gt;UTXO集合当中的每个元素&lt;/strong&gt;，要给出&lt;strong&gt;产生这个输出的交易的hash值&lt;/strong&gt;以及它&lt;strong&gt;在这个交易中是第几个输出&lt;/strong&gt;，这两个信息可以定位到UTXO集合中某个特定的输出&lt;/p&gt;
+&lt;h3 id=&#34;为什么要utxo这个模型呢&#34;&gt;为什么要UTXO这个模型呢？&lt;/h3&gt;
+&lt;p&gt;为了检测Double Spending，也就是说，新产生的交易是否合法，需要查一下UTXO集合，也就是说，某个账户想要花费的币，必须要在UTXO集合当中才是合法的（如果不在UTXO集合中就说明，这个币要么是不存在的，要么是已经花费的）&lt;/p&gt;
+&lt;p&gt;注：全节点要在内存中维护UTXO集合，以便快速检测Double Spending&lt;/p&gt;
+&lt;h3 id=&#34;total-inputs--total-outputs&#34;&gt;Total inputs = Total outputs&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;注：一个交易可以有多个输出，而且也可以有多个输入，这也就是为什么一笔交易有时候需要多笔签名（每个输入地址都要提供对应的签名）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;有些交易的total inputs略微大于total outputs，这里的差额就是&lt;strong&gt;交易费&lt;/strong&gt;（用于给获得记账权，发布区块的那个节点），之前还说过矿工打包区块还有&lt;strong&gt;出块奖励&lt;/strong&gt;（出块奖励是每21万个块减半，比特币中是每10分钟出一个区块，也就是说每4年，出块奖励减半）。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-为什么要有交易费？&#34; data-lang=&#34;为什么要有交易费？&#34;&gt;矿工打包区块，网络中有很多交易，为什么要给你的交易打包区块呢，如果没有交易费用，矿工完全可以打包自己的交易获得出块奖励，所以为了避免这种情况，让矿工打包交易，奖励包括：出块奖励和交易费
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;account-based-ledger基于账户&#34;&gt;Account-based ledger(基于账户)&lt;/h1&gt;
+&lt;p&gt;注：这种账本模式下，账户的余额会直接显示（以太坊就是基于这种账本模型），这种类似于平常的银行账户&lt;/p&gt;
+&lt;p&gt;这两种账本模式，比特币的隐私保护比较好，但是，需要说明币的来源，以太坊就不需要说明币的来源&lt;/p&gt;
+&lt;h1 id=&#34;关于比特币的数量&#34;&gt;关于比特币的数量&lt;/h1&gt;
+&lt;p&gt;比特币系统中的所有币的总量是：&lt;/p&gt;
+&lt;p&gt;21万 * 50 + 25万 * 25 + 21万 *12.5 + ...... = 21万 * 50 * （1+1/2+1/4+.....） = 21万 * 100 = 2100万&lt;/p&gt;
+&lt;p&gt;（其中的50，25，12.5等等是出块奖励）&lt;/p&gt;
+&lt;h1 id=&#34;比特币如何保证安全&#34;&gt;比特币如何保证安全&lt;/h1&gt;
+&lt;p&gt;关于分叉攻击，最长合法链，攻击者让自己花出去的钱回滚。防止这种攻击只需要登带6个区块确认即可，也就是一个小时（因为网络中大部分还是诚实的节点，恶意节点即使分叉了一个区块，但是还要保证接下来的几个区块的记账权还是恶意节点的，所以这个花费的算力还是很大的）&lt;/p&gt;
+&lt;p&gt;所以通常我们说的区块链是不可篡改的，是一种概率的说法，对于刚刚写入区块链的区块，是比较容易被改的，但是时间越久越不容易改，被篡改的概率会指数级别地下降·&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">BTC—共识协议(3)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE3/" />
+            <id>https://VegeBun-csj.github.io/posts/btc%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE3/</id>
+            <updated>2020-08-23T20:07:27&#43;08:00</updated>
+            <published>2020-08-23T20:07:04&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">相对于传统的纸质货币，数字货币需要解决两个问题： 1.谁来发行货币，什么时候发行，发行……</summary>
+            
+                <content type="html">&lt;h3 id=&#34;相对于传统的纸质货币数字货币需要解决两个问题&#34;&gt;相对于传统的纸质货币，数字货币需要解决两个问题：&lt;/h3&gt;
+&lt;p&gt;1.&lt;strong&gt;谁来发行货币，什么时候发行，发行多少&lt;/strong&gt;（这是&lt;strong&gt;挖矿&lt;/strong&gt;决定的）&lt;/p&gt;
+&lt;p&gt;2.&lt;strong&gt;如何验证交易的有效性&lt;/strong&gt;，传统的纸质货币，花出去就是花出去了，但是BTC这类电子货币相对于传统的纸质货币，首先面临的最大的问题就是双重支付，也就是**“双花攻击”——double spending** **attack**，因为这种电子货币是文件，是可复制的，如何验证货币已经花出去了，**防止双重支付**，是需要解决的问题&lt;/p&gt;
+&lt;h2 id=&#34;一如何验证交易的有效性&#34;&gt;一.如何验证交易的有效性&lt;/h2&gt;
+&lt;p&gt;如何防止双花攻击，传统的纸质货币可以由央行来维护，是一个中心化的机构，但是在数字货币中，需要集体来维护一个数据结构，是一个去中心化的，所以就诞生了区块链这种数据结构&lt;/p&gt;
+&lt;h3 id=&#34;比特币系统中每个交易都包含输入和输出&#34;&gt;比特币系统中每个交易都包含输入和输出：&lt;/h3&gt;
+&lt;p&gt;（1）输入：说明&lt;strong&gt;币的来源，以及转账者的公钥&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;（2）输出：给出&lt;strong&gt;收款人的公钥的hash&lt;/strong&gt;（用于找到收款人的比特币地址，可以做成类似于二维码）&lt;/p&gt;
+&lt;p&gt;注意：此时由两种hash指针，&lt;strong&gt;一种指针就是连接各个区块构成一个链的；另一种指针就是指向前面某个交易的，也就是为了说明币的来源的&lt;/strong&gt;，为什么要说明币的来源，就是为了说明币不是凭空捏造的，更重要的是&lt;strong&gt;为了防止double spending&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;注：在比特币系统中，每个交易的输入是一段&lt;strong&gt;脚本（bitcoin Script）&lt;/strong&gt;，每个交易的输出也是一段脚本，当验证交易是不是合法时（是否双重支付），就是要把&lt;strong&gt;当前交易的输入脚本&lt;/strong&gt;跟&lt;strong&gt;前面那个交易的输出脚本&lt;/strong&gt;拼在一起，看能否顺利执行，如果能执行，就是合法的。&lt;/p&gt;
+&lt;h3 id=&#34;比特币区块的结构&#34;&gt;&lt;strong&gt;比特币区块的结构：&lt;/strong&gt;&lt;/h3&gt;
+&lt;p&gt;一个区块分为&lt;strong&gt;Block header和Block body&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.Block header&lt;/strong&gt;：其中包含了比特币协议的版本（version），指向前一个区块的hash（hash of previous Block header），整个Merkle tree的根hash值（Merkle root hash）,挖矿的难度目标预值（target）,随机数（nounce）&lt;/p&gt;
+&lt;p&gt;注：&lt;strong&gt;H(Block header)&amp;lt;=Target&lt;/strong&gt;，即整个块头的hash要小于等于目标预值，block header中存的就是这个目标预值的编码（&lt;strong&gt;nBits&lt;/strong&gt;）；指向前一个区块的hash（hash of previous Block header）是只算的区块头的hash，并没有区块体！！！！这个要特别注意&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.Block body&lt;/strong&gt;：其中包含交易列表（transaction list）&lt;/p&gt;
+&lt;h3 id=&#34;比特币中的节点&#34;&gt;比特币中的节点：&lt;/h3&gt;
+&lt;p&gt;比特币中的节点分为：&lt;strong&gt;全节点（full node）和轻节点（light node）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;全节点&lt;/strong&gt;：保存区块链所有的信息，验证每一个交易，所以全节点也叫做&lt;strong&gt;fully validation node&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;轻节点&lt;/strong&gt;：并不保存所有信息&lt;/p&gt;
+&lt;p&gt;比特币中所有的节点都可以进行交易，那这些&lt;strong&gt;交易应该由谁来记账，如何记账&lt;/strong&gt;呢，这就是需要解决的问题，因为区块链是一个分布式的账本，这个账本必须要所有人都认同，不能各记各的帐，所以账本需要取得&lt;strong&gt;分布式共识（distributed consensus）&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;分布式共识一个简单的例子就是&lt;strong&gt;分布式hash表（dstributed hash table——DHT）&lt;/strong&gt;,一个全局的hash表&lt;/p&gt;
+&lt;p&gt;在分布式系统中，有很多&lt;strong&gt;不可能理论（impossiblity result）&lt;/strong&gt;,其中比较著名的有&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1.FLP不可能理论&lt;/strong&gt;，即在一个异步（asynchronous）的系统中,网络时延没有上限，即使只有一个成员有问题，也不可能取得共识。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2.CAP不可能理论&lt;/strong&gt;，C代表Consistency一致性，A代表Availibility可用性，P代表Partition tolerance容错性，这个理论说明了这三种性质最多只能满足两个，也就是必须要牺牲其中的一个&lt;/p&gt;
+&lt;h3 id=&#34;比特币中的共识协议&#34;&gt;比特币中的共识协议&lt;/h3&gt;
+&lt;p&gt;比特币系统中有的节点是恶意的，那么这种情况下怎么设计共识协议。&lt;/p&gt;
+&lt;p&gt;只有找到符合&lt;strong&gt;H(Block header)&amp;lt;=Target&lt;/strong&gt; 的nounce的节点才有记账权利，其他的节点则是验证&lt;/p&gt;
+&lt;p&gt;比特币中会出现分叉，只有&lt;strong&gt;最长链才是合法&lt;/strong&gt;的，是为了防止&lt;strong&gt;分叉攻击（forking attack）&lt;/strong&gt;，即通过分叉某个区块，来回滚已经发生的交易。当然分叉并非一定是恶意攻击，当出现多个节点在同一时刻同时计算出随机数nounce获得记账权，同时将区块写入账本中时就会出现分叉，这种分叉的情况会维持一段时间（看分叉的链中哪个先找到下一个区块），直到分叉链中的一条链胜出成为合法链（最长链）为止，这就是节点竞争获得记账权的过程，也就是共识的过程，大家都公认最长的链（账本）是正确的。&lt;/p&gt;
+&lt;p&gt;那为什么会出现这种竞争记账的现象呢？&lt;/p&gt;
+&lt;p&gt;因为有出块奖励（Block reward）！！！！也就是接下来要说的谁来发行货币&lt;/p&gt;
+&lt;h2 id=&#34;二谁来发行货币&#34;&gt;二.谁来发行货币&lt;/h2&gt;
+&lt;p&gt;coinbase transaction（铸币交易） 是比特币系统当中发行新的比特币货币的唯一方法，其他所有的交易都只是把已有的账户的货币转到其他账户&lt;/p&gt;
+&lt;p&gt;一开始的时候，比特币系统中每写入一个区块，都有50BTC的奖励，但是规定每21万个区块之后，这个出块奖励就要减半&lt;/p&gt;
+&lt;p&gt;所以比特币中要取得的共识是去这个中心化账本中的内容，而谁能决定账本中的内容呢，只有获得记账权的节点才能往账本中写入，那如何获得记账权呢，就是解&lt;strong&gt;H(Block header)&amp;lt;=Target&lt;/strong&gt; 这样一个难题(puzzle)这个puzzle没有捷径，只能一个一个去试，算出nounce，所以说，比特币的共识是靠算力的。所以如何一个节点的算力越大，那它获得记账权的概率就越大（hash rate决定了投票的权重），也就是靠算力来投票的，算力越大，获得记账的概率越大。所以基于算力的投票的共识可以防范女巫攻击（sybil attack，通过创建多个恶意节点进行投票获得共识），即使在一台机器上创建多个账户，并不会使hash rate 增加，并不会让节点每秒尝试的nounce的数目增加，并不会影响最终的共识结果&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">BTC—数据结构(2)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%842/" />
+            <id>https://VegeBun-csj.github.io/posts/btc%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%842/</id>
+            <updated>2020-08-23T20:39:12&#43;08:00</updated>
+            <published>2020-08-23T20:06:04&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">1.hash指针 普通的指针存储的是某个结构体在内存中的起始地址，但是hash地址除了……</summary>
+            
+                <content type="html">&lt;h2 id=&#34;1hash指针&#34;&gt;1.hash指针&lt;/h2&gt;
+&lt;p&gt;普通的指针存储的是某个结构体在内存中的起始地址，但是hash地址除了存储这个地址，还存储结构体内容的hash，所以hash指针不仅可以找到地址还能检测出结构体内容是否被篡改&lt;/p&gt;
+&lt;h4 id=&#34;区块链与普通的链表的区别&#34;&gt;区块链与普通的链表的区别：&lt;/h4&gt;
+&lt;p&gt;区块链使用的是hash指针而不是普通的指针，注意hash指针的hash内容是整个区块的hash（也就是上一个区块中所有的内容，包括其中的hash指针），通过这种方式可以实现tamper-evident log，普通链表是可以改变其中一个区块的元素，对后面的区块没有影响，但是区块链不一样，只要其中一个区块发生变化，后面的区块后会发生变化，牵一发动全身，引发多米诺骨牌效应（因为后一个区块记录了上一个区块的hash）&lt;/p&gt;
+&lt;h2 id=&#34;2merkel-tree&#34;&gt;2.Merkel tree&lt;/h2&gt;
+&lt;p&gt;默克尔树与二叉排序树的区别就是用hash指针代替了普通的指针。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://VegeBun-csj.github.io/image/BTC/Merkle.png&#34; alt=&#34;Merkle树结构&#34;&gt;&lt;/p&gt;
+&lt;p&gt;最底层是区块数据（上面的都是hash指针），然后将这些区块做hash，成为Merkel树的叶子节点，所以Merkle树也称为Hash Tree。最上面的被称为根hash（root hash）。&lt;/p&gt;
+&lt;p&gt;Merkle树的这种结构被用来用做Merkle proof。&lt;/p&gt;
+&lt;h2 id=&#34;3区块结构&#34;&gt;3.区块结构&lt;/h2&gt;
+&lt;p&gt;区块分为区块头，区块体&lt;/p&gt;
+&lt;p&gt;（1）区块头(Block Header)：存放了区块体中所有交易组成的Merkel Tree的根hash值&lt;/p&gt;
+&lt;p&gt;（2）区块体(Block body)：其中存放了交易Tx列表&lt;/p&gt;
+&lt;p&gt;比特币中的节点分为全节点和轻节点，全节点是拥有区块头和区块体的节点，而轻节点只含有区块头，也就是没有交易列表（无法立即验证交易的有效性/存在），所以对于轻节点想要验证交易时，需要向全节点获取一些信息来进行验证，此时就会用到Merkle Tree提供的Merkle proof&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://VegeBun-csj.github.io/image/BTC/Merkle_proof.png&#34; alt=&#34;Merkle proof&#34;&gt;&lt;/p&gt;
+&lt;p&gt;当要验证图中的待证明的Tx时，需要从全节点获取其到根节点路径上的hash值（红色hash），从而计算出根hash，然后将这个计算出来的根hash与轻节点自己的区块头中保存的hash进行对照，如果相同认定交易时有效的，这就是Merkle proof的过程。复杂度是O(logn)&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">BTC 密码学原理(1)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E7%90%861/" />
+            <id>https://VegeBun-csj.github.io/posts/btc-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E7%90%861/</id>
+            <updated>2020-08-23T20:05:42&#43;08:00</updated>
+            <published>2020-08-23T20:04:54&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">比特币是一种加密货币——crypto-currency，但是其实加密的货币是不加密的……</summary>
+            
+                <content type="html">&lt;h6 id=&#34;比特币是一种加密货币crypto-currency但是其实加密的货币是不加密的区块链上的数据都是公开的包括账户的地址转账的金额等&#34;&gt;比特币是一种加密货币——crypto-currency，但是其实加密的货币是不加密的，区块链上的数据都是公开的，包括账户的地址，转账的金额等。&lt;/h6&gt;
+&lt;h2 id=&#34;比特币中主要用到了密码学中的两个重要技术1hash---2签名&#34;&gt;比特币中主要用到了密码学中的两个重要技术：1.hash   2.签名&lt;/h2&gt;
+&lt;h4 id=&#34;1密码学中的hash函数cryptographic-hash-function&#34;&gt;1.密码学中的hash函数（cryptographic hash function）&lt;/h4&gt;
+&lt;h5 id=&#34;hash函数具有两个重要的性质&#34;&gt;hash函数具有两个重要的性质：&lt;/h5&gt;
+&lt;p&gt;（1）&lt;strong&gt;collision resisitant(hash碰撞)&lt;/strong&gt; ：如果两个不同的输入能得到同一个输出，那这就是hash碰撞，即如果x不等于y，但是H(x)=H(y)。原则上，hash函数的碰撞是不可避免的，因为输入空间是远远大于输出空间的，比如有一个256位的hash值，那么最多可以表示2的256次方个hash，但是输入空间确实无限大的，即有任意多种输入的可能性，所以必然会出现两个输入映射到同一个输出的情况。但是没有什么有效的方法可以去找到有相同输出的两个输入，如果硬是要求解，就只能一个一个去试所有的输入（蛮力求解——brute-force），看哪两个符合。但是工作量很大。&lt;/p&gt;
+&lt;p&gt;​       &lt;strong&gt;作用&lt;/strong&gt;：可以用来对一个message求hash,可以用来检测message是否被篡改。如果message有一点变化，那么hash值就会变化。所以可以保证攻击者无法篡改内容的同时又不被检测出来。MD5已经被破解&lt;/p&gt;
+&lt;p&gt;（2）&lt;strong&gt;hiding(hash函数的计算过程是单向不可逆的)&lt;/strong&gt;：X-&amp;gt;H(X)，也就是说无法通过hash值反过来推导出原来的X，当然从理论上讲，只有通过蛮力的方式，通过不断尝试X，看看哪个H(x)与预期的hash值相同，就能得出原来的X，当然实际中是无法这样的，因为输入是无穷的。这个性质成立的前提是输入X的取值范围足够大，而且输入的分布比较均匀（数字，字母，字符等），使得这种蛮力求解的方式变得不可行。&lt;/p&gt;
+&lt;p&gt;当然如果分布得不均匀，可以在X后面加一个随机数nounce拼接起来然后取hash,从而保证拼接之后输入是足够随机和均匀的。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h5 id=&#34;注意hash函数的这两个性质可以实现数字信封digital-commitmentdigital-equivalent-of-a-sealed-envelop&#34;&gt;注意：hash函数的这两个性质可以实现数字信封（digital commitment/digital equivalent of a sealed envelop）&lt;/h5&gt;
+&lt;p&gt;（3）&lt;strong&gt;puzzle friendly(不可预测的)&lt;/strong&gt;：这是比特币中要求的hash函数的性质，也就是说通过输入，你是无法预测这个hash值落在哪个范围之内。唯一的办法就是蛮力，一个一个去试，看哪个输入算出来恰好落在要求的范围之内。比如说：你想得到一个hash值，前面k位都是0，后面是任意的，000......0000xxxxxxxx，所以要想得到这个输入值，只能一个一个去试。在比特币中挖矿也有这个概念——挖矿，挖矿的过程就是寻找这个随机数nounce的过程，这个nounce跟区块的块头中的其他信息合在一起，作为输入，取出一个hash值，这个hash值要小于等于指定的目标预值，即 &lt;strong&gt;H(Block header)&amp;lt;=Target&lt;/strong&gt;.挖矿就是不断地取nounce。&lt;strong&gt;这个性质使得挖矿的过程没有捷径，只能靠不停地去试来获得这个nounce，所以这个过程就可以用来作为工作量证明&lt;/strong&gt;。挖矿很难，但是验证很容易（difficult to solve but easy to verify）。&lt;/p&gt;
+&lt;h3 id=&#34;2签名&#34;&gt;2.签名&lt;/h3&gt;
+&lt;p&gt;比特币中的账户模型是一对公私钥，公钥代表账户的账号，私钥代表账户的密码。&lt;/p&gt;
+&lt;p&gt;签名是用私钥进行签名，别人用公钥来验证签名的真实性。所以在比特币网络中进行交易时，通常将自己发起的交易用自己的私钥进行签名，然后发布到网络，然后其他人通过签名来验证确实是我做的交易，而不是其他人冒充。&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E6%AF%94%E7%89%B9%E5%B8%81/" term="比特币" label="比特币" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
                     
                 
             
