@@ -2,17 +2,17 @@
 
 
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
-    <title type="text">Hugo 主题 MemE</title>
+    <title type="text">VegeBun-csj’s blog</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-08-23T15:09:28&#43;08:00</updated>
+    <updated>2020-08-23T15:41:01&#43;08:00</updated>
     <id>https://VegeBun-csj.github.io/</id>
     <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://VegeBun-csj.github.io/atom.xml" />
     <author>
-            <name>reuixiy</name>
+            <name>Bun</name>
             <uri>https://VegeBun-csj.github.io/</uri>
             
-                <email>reuixiy@gmail.com</email>
+                <email>1071285741@qq.com</email>
             </author>
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.74.3">Hugo</generator>
@@ -23,9 +23,9 @@
             <updated>2020-08-23T10:25:13&#43;08:00</updated>
             <published>2020-08-23T09:58:25&#43;08:00</published>
             <author>
-                    <name>reuixiy</name>
-                    <uri>https://io-oi.me/</uri>
-                    <email>reuixiy@gmail.com</email>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
                     </author>
             <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">1 fmt.println(&amp;#34;这是我的都一篇hugo的博客&amp;#34;)</summary>
             
