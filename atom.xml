@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">VegeBun-csj’s blog</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-08-24T17:55:11&#43;08:00</updated>
+    <updated>2020-08-24T21:59:01&#43;08:00</updated>
     <id>https://VegeBun-csj.github.io/</id>
     <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://VegeBun-csj.github.io/atom.xml" />
@@ -17,9 +17,386 @@
     <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights>
     <generator uri="https://gohugo.io/" version="0.74.3">Hugo</generator>
         <entry>
+            <title type="text">以太坊Ghost协议(5)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8Aghost%E5%8D%8F%E8%AE%AE5/" />
+            <id>https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8Aghost%E5%8D%8F%E8%AE%AE5/</id>
+            <updated>2020-08-24T21:56:46&#43;08:00</updated>
+            <published>2020-08-24T21:52:57&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">在以太坊中，出块的时间相对于BTC来说是非常短暂的，只有十几秒，但是出块时间越短，出……</summary>
+            
+                <content type="html">&lt;p&gt;在以太坊中，出块的时间相对于BTC来说是非常短暂的，只有十几秒，但是出块时间越短，出现的短暂性分叉也就越多，这就会对部分节点，尤其是个体挖矿节点来说很不公平（因为一般个体节点竞争不过矿池，无法成为最终合法链，矿池会得到很多收益）&lt;/p&gt;
+&lt;p&gt;所以在以太坊中为了解决这个问题，以太坊采用GHOST协议，给产生分叉得区块引入了一个新的称呼——&lt;strong&gt;叔父区块(uncle block)&lt;/strong&gt;,叔区块也可以获得奖励(&lt;strong&gt;uncle reward&lt;/strong&gt;)，这样有利于鼓励出现分叉之后及时合并。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://VegeBun-csj.github.io/image/ETH/uncleblock.png&#34; alt=&#34;叔区块&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;但是以上的这种方案还存在一点问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个区块只能包含两个叔父区块，其他没被包含的叔父区块就不会获得奖励，它们就不会乐意了&lt;/li&gt;
+&lt;li&gt;也可能出现有的区块故意不包含一个叔父区块的情况(即两者之间存在恶意竞争关系的时候)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;为了解决这两个问题，ETH对GHOST协议进行了改造&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://VegeBun-csj.github.io/image/ETH/changedghost.png&#34; alt=&#34;改造的Ghost&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;当前区块认可的叔父区块最多只能和自己隔7代，也就是最多6个叔父区块有效，以太坊中不管和当前区块隔多少代都叫叔父区块，7代以前的叔父就不会再认可了，这就解决了第一个问题&lt;/li&gt;
+&lt;li&gt;第二个问题解决方法是：即使当前区块不接受某个叔父区块，他后面的区块还是有可能接受这个叔父区块，所以恶意地不包含叔父区块变得不可行(通俗讲就是：对于后面的区块而言，这个钱你不赚，我来赚！！！)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于当前区块来说，不管包含的是哪一代的叔父区块，所获得的奖励都是1/32个出块奖励&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;在BTC中，矿工的奖励分为两个部分：block reward(静态奖励)和Tx fee(动态奖励)&lt;/li&gt;
+&lt;li&gt;在ETH中，矿工的奖励分为两个部分：block reward(静态奖励)和gas fee(动态奖励)，叔父区块奖励是包含在block reward中的。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ETH中并不像BTC中那样，通过减少出块奖励来实现BTC的稀缺性，并且只有分叉后的第一个叔父区块可以得到奖励，叔父区块后面的区块都不能得到奖励，这是为了防止forking attack,所以这也是鼓励分叉及时进行合并！！！&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" term="以太坊" label="以太坊" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">以太坊交易树和收据树(4)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%BA%A4%E6%98%93%E6%A0%91%E5%92%8C%E6%94%B6%E6%8D%AE%E6%A0%914/" />
+            <id>https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%BA%A4%E6%98%93%E6%A0%91%E5%92%8C%E6%94%B6%E6%8D%AE%E6%A0%914/</id>
+            <updated>2020-08-24T21:53:07&#43;08:00</updated>
+            <published>2020-08-24T21:51:47&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">交易树与状态树 状态树 交易树 收据树 (把系统中的所有状态都记录进去，不管账户是否与当前区……</summary>
+            
+                <content type="html">&lt;h3 id=&#34;交易树与状态树&#34;&gt;交易树与状态树&lt;/h3&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;状态树&lt;/th&gt;
+&lt;th&gt;交易树&lt;/th&gt;
+&lt;th&gt;收据树&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;(把系统中的所有状态都记录进去，不管账户是否与当前区块中的相关交易关联的账户是什么关系)&lt;/td&gt;
+&lt;td&gt;区块产生时会生成(类似于BTC中的Merkle交易树，都是把区块中发布的交易组织起俩的)&lt;/td&gt;
+&lt;td&gt;交易结束之后会形成一个收据，记录交易的相关信息&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MPT树&lt;/td&gt;
+&lt;td&gt;MPT树(BTC中的交易树就是普通的Merkle树)&lt;/td&gt;
+&lt;td&gt;MPT树&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;便于查找(key：账户地址)&lt;/td&gt;
+&lt;td&gt;便于查找(key：交易在区块中的编号)&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;多个区块的状态树是共享节点的&lt;/td&gt;
+&lt;td&gt;不共享节点&lt;/td&gt;
+&lt;td&gt;不共享节点&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;注意：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;交易树与收据树上的节点都是一一对应的。&lt;/li&gt;
+&lt;li&gt;增加了收据树，是因为智能合约较为复杂，使用收据树可以继续一些更快速的查询交易的操作，以及一些查看交易结果信息。
+&lt;ol&gt;
+&lt;li&gt;首先收据树也可以提供&lt;strong&gt;Merkle证明&lt;/strong&gt;，证明某笔交易被打包至区块中了&lt;/li&gt;
+&lt;li&gt;Ethereum引入了&lt;strong&gt;bloom filter&lt;/strong&gt;的数据结构，支持更加复杂的查询，支持确定某个元素是否在一个较大的集合中（但是有可能出现的问题是有可能本来并不在里面，但是会判断为在里面,也就是false positive），但是Bloom filter不支持删除元素，&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;状态树是共享节点的，只有发布在区块中的交易改变了账户的状态的那些节点需要更新一个分支，其他的节点都是沿用原来的状态树上的节点就行。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;每个交易执行完成之后都会有一个收据，每个收据都会有一个bloom filter来记录交易的类型，地址等其他信息，发布的区块的块头中也有一个总的Bloom filter（是这个区块中交易列表的所有交易的bloom filter的并集），所以当需要查找过去十天，与某个智能合约相关的交易的时候，就去查看区块的块头的bloom filter，看是否包含相关交易的bloom filter，如果没有，就说明该区块不是我们想要查询的；如果有，那么就查找这个区块里面包含的交易所对应的收据树里面的bloom filter,&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" term="以太坊" label="以太坊" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">以太坊状态树(3)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%8A%B6%E6%80%81%E6%A0%913/" />
+            <id>https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%8A%B6%E6%80%81%E6%A0%913/</id>
+            <updated>2020-08-24T21:51:20&#43;08:00</updated>
+            <published>2020-08-24T21:50:16&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">在Ethereum中，账户的状态是以键值对&amp;lt;key,value&amp;gt;的形式保……</summary>
+            
+                <content type="html">&lt;p&gt;在Ethereum中，账户的状态是以键值对&amp;lt;key,value&amp;gt;的形式保存的，账户地址为key，账户的状态就是value，即&amp;lt;addr,state&amp;gt;，所以对于这种存储结构，很容易想到的就是hash_table来进行存储。&lt;/p&gt;
+&lt;h4 id=&#34;如何用hash_table来进行merkle-proof呢&#34;&gt;如何用hash_table来进行Merkle proof呢&lt;/h4&gt;
+&lt;p&gt;（1）一种方法就是将hash_table中的value组织成一个Merkle tree,然后将root hash 保存在block header中，但是这种方法的问题在于，每次发布一个交易产生状态变化时，又需要重新组建一个新的Merkle tree，这样带来的代价太大，所以用这种方式提供Merkle proof不可行
+注；BTC中构建Merkle tree只有一次，就是在区块生成的时候构建的，一旦构建就无法篡改，它是不会变化的，只构建一次，代表交易顺序的共识&lt;/p&gt;
+&lt;h5 id=&#34;merkle-tree的作用&#34;&gt;Merkle Tree的作用：&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;提供Merkle proof（全节点提供部分分支给轻节点）&lt;/li&gt;
+&lt;li&gt;维护账本的一致性（保证区块中的交易顺序和交易的共识）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;（2）另一种提供方法是，不使用hash_table，直接使用Merkle tree，把账户的状态存储在叶节点中，但是这种方式查找和更新的效率并不高，另外一个问题就是这个状态的Merkle tree是否需要进行排序？&lt;/p&gt;
+&lt;p&gt;账户的状态是保存在叶节点中的，如果不规定账户在叶节点中出现的顺序，那么构造出的Merkle tree就是不唯一的，但是状态是网络上每个节点都需要保存，各个节点按照自己保存的账户顺序构建Merkle tree ，导致Merkle root hash不同，他们就无法对账户状态达成共识，所以，如果采用直接构建Merkle tree来组织账户和状态的存储，那么对于树中的账户必须排序！！！&lt;/p&gt;
+&lt;p&gt;（BTC中，要证明一笔交易包含在区块中是不用排序的，但是要证明一笔交易不在一个区块中是需要对交易进行排序的，也就是sorted Merkle tree）&lt;/p&gt;
+&lt;p&gt;BTC中的Merkle树是不需要排序的，因为，最终的Merkle树的构造方式是由获得记账权（打包交易出块）的节点决定的，也就是说，在没出块之前，所有的节点都可以有自己根据交易构造Merkle tree的顺序，每个节点可能都不一样，过程中都是“百家争鸣”，但是最终的交易构造Merkle tree的顺序是由最终出块，并被追加到区块链上的哪个节点决定的，它出了块代表了最终的Merkle tree中的交易构造顺序。那么能否也用同样的方式，不对状态树中的账户进行排序，也采用由出块的节点进行选择呢？不行，因为这就导致在每次发布交易的时候都需要发布更新一次Merkle tree，ETH中是13秒一个块，这样大量造成重复的发布，代价很大（因为状态树是存储的网络中的所有账户状态的，相比于一个块中的交易而言，相差好几个数量级！！！，多次重复发布，代价太大），所以从这一点也验证了不排序不行！！！&lt;/p&gt;
+&lt;p&gt;好的，那么如果用排序的Merkle tree行不行呢？同样的也有一种问题就是，如果由新账户怎么办？如果新增的账户在中间的叶子节点部分，就会导致树的变化太大，造成代价太大的问题。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-注释&#34; data-lang=&#34;注释&#34;&gt;关于区块中交易顺序（交易顺序实际上就是一种共识）：
+BTC和ETH中都是以获得记账权的节点为标准的，他们发布的区块中的交易顺序是什么，最后大家共识的交易顺序就是什么？
+fabric中是order节点进行排序的。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;ETH采用的是MPT树。&lt;/p&gt;
+&lt;p&gt;未完待续----------------------------&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" term="以太坊" label="以太坊" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">以太坊账户(2)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%B4%A6%E6%88%B72/" />
+            <id>https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%B4%A6%E6%88%B72/</id>
+            <updated>2020-08-24T21:48:07&#43;08:00</updated>
+            <published>2020-08-24T21:46:36&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">背景 比特币中采用的是基于交易的账本，这种模式下，系统中并没有显式地记录账户中有多少钱……</summary>
+            
+                <content type="html">&lt;h3 id=&#34;背景&#34;&gt;背景&lt;/h3&gt;
+&lt;p&gt;比特币中采用的是&lt;strong&gt;基于交易的账本&lt;/strong&gt;，这种模式下，系统中并&lt;strong&gt;没有显式地记录账户中有多少钱&lt;/strong&gt; ，只能根据UTXO中的信息来推算。这种方式的隐私性较好，但是使用比较别扭，使用体验不是特别好，花钱的时候需要说明币的来源；还有就是每次花费比特币（一笔交易的输入必须将该输入来源的BTC全部花出去），然后多余的币转到另一个自己的地址。这就很麻烦！！！&lt;/p&gt;
+&lt;h3 id=&#34;以太坊账户&#34;&gt;以太坊账户&lt;/h3&gt;
+&lt;p&gt;以太坊采用的是&lt;strong&gt;基于账户的账本（account-based ledger）&lt;/strong&gt; ，它&lt;strong&gt;有显式的余额的概念&lt;/strong&gt;，所以当进行交易转账的时候，只需要检查转出账户中是否有足够多的币，而无需说明转出的币具体来源于哪里。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-这种基于账户的账本模型有什么好处？&#34; data-lang=&#34;这种基于账户的账本模型有什么好处？&#34;&gt;回想一下，为什么比特币要说明币的来源，因为要防范double spending，而以太坊这种基于账户的账本模式，有天然的防范double spending的作用。（花几次钱，扣几次钱，看账户有多少钱就行）
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;这种账户的模式会不会有人发布交易修改自己的余额？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;答案是否定的，因为你发布交易的时候不需要说明你的账户余额，它是由系统中全节点维护的状态保存的。这是以太坊中一个重要的数据结构：状态树（即所有的账户的状态组成的一棵树，账户状态里包含的一个重要的域就是balance，也就是你的余额，这也余额没有办法篡改，如果你要改这个余额，必须是所有的全节点都认为你的余额发生了变化，否则其他节点是不认可的）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这种账户的模式防范了双花攻击，是不是就没什么缺点了？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;账户模式的账本，虽然能够天然防范double spending attack，但是会受到 replay attack（重放攻击）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;什么是重放攻击？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;比如A转给B，10个以太币，A发布一个交易给网络，过段时间之后，A发布的交易被写入区块中，A会觉得这个转账交易已经完成了；如果B是恶意的节点，它此时又把A转给B，10个以太币者交易又在网上重新广播了一遍，其他节点一看又觉得A向B转账，所以又扣了一次A的钱，这样就扣了两次A的钱。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;重放攻击和双花攻击其实是对称类似的&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;双花攻击其实是转账的人不诚实，他想花两次钱；重放攻击是收钱的人不老实，他想收两次钱。&lt;/p&gt;
+&lt;p&gt;比特币中没有出现重放攻击是因为，如果一旦出现重返攻击，就会出现双花攻击，所以显然是不行的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;以太坊中如何防范重放攻击？&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;加一个&lt;strong&gt;计数器（nonce），即交易次数&lt;/strong&gt;，记录这个账户有史以来进行过多少次交易，然后转账的时候，这个交易次数要成为这个交易转账的一部分，一起包含进去，都是收到发布交易者签名保护的，其他人如果要伪造交易次数是没有签名的。所以系统中全节点维护的&lt;strong&gt;状态树，不光要维护账户的状态，还要维护nonce的值&lt;/strong&gt;（账户创建的时候nonce的值是0，每次进行一次交易，nonce+1，全节点同时更新状态树中的nonce，以后如果有人重放交易，全节点检查状态树的nonce，如果已经执行过了，即nonce相同，就不会执行重放的交易）&lt;/p&gt;
+&lt;h1 id=&#34;账户的分类&#34;&gt;账户的分类&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;外部账户external-owned-account公私钥控制&#34;&gt;外部账户(external owned account)：公私钥控制&lt;/h4&gt;
+&lt;p&gt;一个外部账户的状态包括：balance(余额)，nonce(计数)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h4 id=&#34;合约账户smart-contract-account&#34;&gt;合约账户(smart contract account)：&lt;/h4&gt;
+&lt;p&gt;一个合约可以调用另外一个合约，所以&lt;strong&gt;合约要也有nonce值记录一下合约调用的次数&lt;/strong&gt;，但是**合约账户不能主动发起一个交易，所有的交易只能由外部账户发起。**外部账户发起一个交易，如果调用了一个合约账户，这个合约账户可以发送一个message，调用另外一个合约。&lt;/p&gt;
+&lt;p&gt;一个合约账户包含：code（代码），storage（相关存储状态，包括每个变量的取值）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;BTC是基于UTXO的数据模型&lt;/p&gt;
+&lt;p&gt;ETH是基于账户的数据模型&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" term="以太坊" label="以太坊" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
+            <title type="text">以太坊概述(1)</title>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%A6%82%E8%BF%B01/" />
+            <id>https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%A6%82%E8%BF%B01/</id>
+            <updated>2020-08-24T21:58:46&#43;08:00</updated>
+            <published>2020-08-24T21:40:38&#43;08:00</published>
+            <author>
+                    <name>Bun</name>
+                    <uri>https://VegeBun-csj.github.io</uri>
+                    <email>1071285741@qq.com</email>
+                    </author>
+            <rights>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</rights><summary type="html">以太坊被称为区块链2.0 创世人是V神，属于公有链的代表，和BTC的不同是，以太坊引入……</summary>
+            
+                <content type="html">&lt;h3 id=&#34;以太坊被称为区块链20&#34;&gt;以太坊被称为区块链2.0&lt;/h3&gt;
+&lt;p&gt;创世人是V神，属于公有链的代表，和BTC的不同是，以太坊引入了智能合约，可以进行复杂的业务设计，不仅仅局限于解决payment&lt;/p&gt;
+&lt;h3 id=&#34;关于mining-puzzle&#34;&gt;关于mining puzzle&lt;/h3&gt;
+&lt;p&gt;1.BTC中采用的是计算密集型的，只靠算力，有点违背了去中心化原则，&lt;/p&gt;
+&lt;p&gt;以太坊中不仅要求计算，&lt;strong&gt;还规定了内存&lt;/strong&gt;，是用来反对ASCI芯片挖矿的(&lt;strong&gt;ASCI resistence&lt;/strong&gt;)。&lt;/p&gt;
+&lt;p&gt;BTC中的挖矿有专门的ASIC芯片来进行，这违背了BTC的设计初衷，所以在ETH中，就抵制ASIC芯片（ASIC resistance），因为ASIC芯片只能进行大量的并行计算，在存储方面远远不行，所以ETH中就增加挖矿时的内存要求，早期进行比较好的mining puzzle是lite coin(莱特币)，它使用的是Scrypt这种对内存有要求hash函数，他要求使用的内存要128k,但是因为这个内存的要求并不是特别大，所以现在还是有ASCI矿机。&lt;/p&gt;
+&lt;p&gt;EHT中要求有两个数据集：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;16M的Cache（轻节点只需要保存这个Cache）&lt;/li&gt;
+&lt;li&gt;1G的dataset，DAG（挖矿的矿工需要保存这个dataset）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;2.以太坊以后会要将&lt;strong&gt;Proof of work(pow) 改成 proof of stake(pos)&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;3.增加了Smart Contract（智能合约）&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;BTC（比特币）&lt;/th&gt;
+&lt;th&gt;ETH（以太坊）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;货币&lt;/td&gt;
+&lt;td&gt;BTC&lt;/td&gt;
+&lt;td&gt;Ether&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;计量单位&lt;/td&gt;
+&lt;td&gt;Sotashi（聪）&lt;/td&gt;
+&lt;td&gt;Wei&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;decentralized currency（去中心化货币）&lt;/td&gt;
+&lt;td&gt;decentralized contract（去中心化合约）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;去中心化货币与法币相比：更容易进行跨国转账&lt;/p&gt;
+&lt;p&gt;去中心化合同：保证合同的参与方从一开始就不能违约，一旦合约发布，这个代码将不能改变&lt;/p&gt;
+</content>
+            
+            
+            
+            
+            
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/categories/%E4%BB%A5%E5%A4%AA%E5%9D%8A/" term="以太坊" label="以太坊" />
+                            
+                        
+                    
+                
+                    
+                        
+                            
+                            
+                            
+                                <category scheme="https://VegeBun-csj.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/" term="区块链" label="区块链" />
+                            
+                        
+                    
+                
+            
+        </entry>
+    
+        <entry>
             <title type="text">Git的基本使用</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" />
-            <id>https://VegeBun-csj.github.io/posts/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/git/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" />
+            <id>https://VegeBun-csj.github.io/posts/git/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</id>
             <updated>2020-08-23T21:12:12&#43;08:00</updated>
             <published>2020-08-23T20:57:28&#43;08:00</published>
             <author>
@@ -127,8 +504,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC—思考(11)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E6%80%9D%E8%80%8311/" />
-            <id>https://VegeBun-csj.github.io/posts/btc%E6%80%9D%E8%80%8311/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc%E6%80%9D%E8%80%8311/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc%E6%80%9D%E8%80%8311/</id>
             <updated>2020-08-23T20:23:07&#43;08:00</updated>
             <published>2020-08-23T20:20:45&#43;08:00</published>
             <author>
@@ -194,8 +571,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC—匿名性(10)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E5%8C%BF%E5%90%8D%E6%80%A710/" />
-            <id>https://VegeBun-csj.github.io/posts/btc%E5%8C%BF%E5%90%8D%E6%80%A710/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc%E5%8C%BF%E5%90%8D%E6%80%A710/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc%E5%8C%BF%E5%90%8D%E6%80%A710/</id>
             <updated>2020-08-23T20:20:18&#43;08:00</updated>
             <published>2020-08-23T20:19:54&#43;08:00</published>
             <author>
@@ -273,8 +650,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC—问答(9)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E9%97%AE%E7%AD%949/" />
-            <id>https://VegeBun-csj.github.io/posts/btc%E9%97%AE%E7%AD%949/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc%E9%97%AE%E7%AD%949/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc%E9%97%AE%E7%AD%949/</id>
             <updated>2020-08-23T20:19:43&#43;08:00</updated>
             <published>2020-08-23T20:19:32&#43;08:00</published>
             <author>
@@ -326,8 +703,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC—分叉(8)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E5%88%86%E5%8F%898/" />
-            <id>https://VegeBun-csj.github.io/posts/btc%E5%88%86%E5%8F%898/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc%E5%88%86%E5%8F%898/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc%E5%88%86%E5%8F%898/</id>
             <updated>2020-08-23T20:50:44&#43;08:00</updated>
             <published>2020-08-23T20:10:23&#43;08:00</published>
             <author>
@@ -395,8 +772,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC—脚本(7)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E8%84%9A%E6%9C%AC7/" />
-            <id>https://VegeBun-csj.github.io/posts/btc%E8%84%9A%E6%9C%AC7/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc%E8%84%9A%E6%9C%AC7/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc%E8%84%9A%E6%9C%AC7/</id>
             <updated>2020-08-23T20:10:09&#43;08:00</updated>
             <published>2020-08-23T20:09:50&#43;08:00</published>
             <author>
@@ -498,8 +875,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC—挖矿(6)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E6%8C%96%E7%9F%BF6/" />
-            <id>https://VegeBun-csj.github.io/posts/btc%E6%8C%96%E7%9F%BF6/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc%E6%8C%96%E7%9F%BF6/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc%E6%8C%96%E7%9F%BF6/</id>
             <updated>2020-08-23T20:09:29&#43;08:00</updated>
             <published>2020-08-23T20:09:06&#43;08:00</published>
             <author>
@@ -592,8 +969,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC—网络(5)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E7%BD%91%E7%BB%9C5/" />
-            <id>https://VegeBun-csj.github.io/posts/btc%E7%BD%91%E7%BB%9C5/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc%E7%BD%91%E7%BB%9C5/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc%E7%BD%91%E7%BB%9C5/</id>
             <updated>2020-08-23T20:08:52&#43;08:00</updated>
             <published>2020-08-23T20:08:40&#43;08:00</published>
             <author>
@@ -645,8 +1022,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC—实现(4)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E5%AE%9E%E7%8E%B04/" />
-            <id>https://VegeBun-csj.github.io/posts/btc%E5%AE%9E%E7%8E%B04/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc%E5%AE%9E%E7%8E%B04/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc%E5%AE%9E%E7%8E%B04/</id>
             <updated>2020-08-23T20:08:27&#43;08:00</updated>
             <published>2020-08-23T20:07:43&#43;08:00</published>
             <author>
@@ -711,8 +1088,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC—共识协议(3)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE3/" />
-            <id>https://VegeBun-csj.github.io/posts/btc%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE3/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE3/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE3/</id>
             <updated>2020-08-23T20:07:27&#43;08:00</updated>
             <published>2020-08-23T20:07:04&#43;08:00</published>
             <author>
@@ -788,8 +1165,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC—数据结构(2)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%842/" />
-            <id>https://VegeBun-csj.github.io/posts/btc%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%842/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%842/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%842/</id>
             <updated>2020-08-23T20:39:12&#43;08:00</updated>
             <published>2020-08-23T20:06:04&#43;08:00</published>
             <author>
@@ -847,8 +1224,8 @@ git push -u origin master
     
         <entry>
             <title type="text">BTC 密码学原理(1)</title>
-            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E7%90%861/" />
-            <id>https://VegeBun-csj.github.io/posts/btc-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E7%90%861/</id>
+            <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/btc/btc-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E7%90%861/" />
+            <id>https://VegeBun-csj.github.io/posts/btc/btc-%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E7%90%861/</id>
             <updated>2020-08-23T20:05:42&#43;08:00</updated>
             <published>2020-08-23T20:04:54&#43;08:00</published>
             <author>
