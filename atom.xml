@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">VegeBun-csj’s blog</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-08-30T16:13:34&#43;08:00</updated>
+    <updated>2020-09-02T10:51:29&#43;08:00</updated>
     <id>https://VegeBun-csj.github.io/</id>
     <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://VegeBun-csj.github.io/atom.xml" />
@@ -2594,7 +2594,7 @@ fabric中是order节点进行排序的。
             <title type="text">Git的基本使用</title>
             <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/git/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" />
             <id>https://VegeBun-csj.github.io/posts/git/git%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</id>
-            <updated>2020-08-23T21:12:12&#43;08:00</updated>
+            <updated>2020-09-02T10:51:18&#43;08:00</updated>
             <published>2020-08-23T20:57:28&#43;08:00</published>
             <author>
                     <name>Bun</name>
@@ -2631,7 +2631,18 @@ git pull origin master
 git push -u origin master
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h4 id=&#34;项目改动之后再次提交&#34;&gt;项目改动之后再次提交&lt;/h4&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;上面git pull的时候可能出现 &lt;strong&gt;refusing to merge unrelated histories&lt;/strong&gt;的情况，&lt;strong&gt;这是因为远程仓库已经存在代码记录了，并且那部分代码没有和本地仓库进行关联，我们可以使用如下操作允许pull未关联的远程仓库旧代码：&lt;/strong&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git pull origin master --allow-unrelated-histories
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;/blockquote&gt;
+&lt;h4 id=&#34;项目改动之后再次提交&#34;&gt;项目改动之后再次提交&lt;/h4&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -2669,7 +2680,40 @@ git push -u origin master
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;git remote -v
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content>
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;如果源添加错了，可以先删除，然后再追加新的源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git remote rm origin
+git remote add origin &lt;span class=&#34;s2&#34;&gt;&amp;#34;新的仓库源的地址&amp;#34;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;常见的git-提交的问题&#34;&gt;常见的git 提交的问题&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;出现提交之后的文件夹在github上面打不开&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这是因为该文件夹中存在 .git 文件，被认为是一个子模块，需要做的是在本地删除 .git文件&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;git rm 文件夹
+git add 文件夹/
+&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后再commit ，push 就可以了&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
             
             
             
