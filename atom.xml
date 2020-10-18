@@ -4,7 +4,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-CN">
     <title type="text">VegeBun-csj’s blog</title>
     <subtitle type="html">MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</subtitle>
-    <updated>2020-10-16T19:26:27&#43;08:00</updated>
+    <updated>2020-10-18T16:01:34&#43;08:00</updated>
     <id>https://VegeBun-csj.github.io/</id>
     <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/" />
     <link rel="self" type="application/atom&#43;xml" href="https://VegeBun-csj.github.io/atom.xml" />
@@ -2311,7 +2311,7 @@ peer channel fetch &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; mychannel.block 
             <title type="text">链码的访问控制(cid库)</title>
             <link rel="alternate" type="text/html" href="https://VegeBun-csj.github.io/posts/chaincode%E5%BC%80%E5%8F%91/cid%E9%93%BE%E7%A0%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%BA%93/" />
             <id>https://VegeBun-csj.github.io/posts/chaincode%E5%BC%80%E5%8F%91/cid%E9%93%BE%E7%A0%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%BA%93/</id>
-            <updated>2020-10-16T19:25:12&#43;08:00</updated>
+            <updated>2020-10-16T19:30:45&#43;08:00</updated>
             <published>2020-08-29T13:27:15&#43;08:00</published>
             <author>
                     <name>Bun</name>
@@ -2546,6 +2546,9 @@ containing the attribute names and values for the identity.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;上面就是设置了attrs的name是usertype,value是storeshop&lt;/p&gt;
 &lt;p&gt;链码我们是以官方的fabcar链码进行了小小的修改，地址如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/VegeBun-csj/learning-chaincode/blob/master/access-control/go/fabcar.go&#34;&gt;https://github.com/VegeBun-csj/learning-chaincode/blob/master/access-control/go/fabcar.go&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1

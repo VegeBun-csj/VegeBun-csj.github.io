@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Fri, 16 Oct 2020 19:26:27 &#43;0800</lastBuildDate>
+        <lastBuildDate>Sun, 18 Oct 2020 16:01:34 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://VegeBun-csj.github.io/rss.xml" />
         
@@ -2531,6 +2531,9 @@ containing the attribute names and values for the identity.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;上面就是设置了attrs的name是usertype,value是storeshop&lt;/p&gt;
 &lt;p&gt;链码我们是以官方的fabcar链码进行了小小的修改，地址如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/VegeBun-csj/learning-chaincode/blob/master/access-control/go/fabcar.go&#34;&gt;https://github.com/VegeBun-csj/learning-chaincode/blob/master/access-control/go/fabcar.go&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
