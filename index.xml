@@ -26,7 +26,7 @@
       <pubDate>Tue, 10 Nov 2020 21:44:13 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/leetcode232-%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</guid>
-      <description>题目链接 https://leetcode-cn.com/problems/shortest-distance-to-a-character/ 解题思路 左右两边进行遍历，分别找字符串中每个字符距离左边C最近的距离和距离右边C最近的距离，然后取两者中的较小者 代码 1 2 3 4 5 6 7</description>
+      <description>题目链接 题目链https://leetcode-cn.com/problems/shortest-distance-to-a-charact</description>
     </item>
     
     <item>
