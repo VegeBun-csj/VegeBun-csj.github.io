@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>动态添加组织 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="动态添加组织——CLI端 官方推荐将Cli容器与Org3cli容器的日志等级设置为DEBUG级别(但是我实际搭建也没有换，也没啥问题，可能是为" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/fabric%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2/%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%E7%BB%84%E7%BB%87/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="动态添加组织" />
+<meta property="og:description" content="动态添加组织——CLI端 官方推荐将Cli容器与Org3cli容器的日志等级设置为DEBUG级别(但是我实际搭建也没有换，也没啥问题，可能是为" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/fabric%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2/%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%E7%BB%84%E7%BB%87/" />
+<meta property="article:published_time" content="2020-10-05T09:03:17+08:00" />
+<meta property="article:modified_time" content="2020-10-05T09:03:17+08:00" />
+<meta itemprop="name" content="动态添加组织">
+<meta itemprop="description" content="动态添加组织——CLI端 官方推荐将Cli容器与Org3cli容器的日志等级设置为DEBUG级别(但是我实际搭建也没有换，也没啥问题，可能是为">
+<meta itemprop="datePublished" content="2020-10-05T09:03:17+08:00" />
+<meta itemprop="dateModified" content="2020-10-05T09:03:17+08:00" />
+<meta itemprop="wordCount" content="5203">
+
+
+
+<meta itemprop="keywords" content="区块链," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="动态添加组织"/>
+<meta name="twitter:description" content="动态添加组织——CLI端 官方推荐将Cli容器与Org3cli容器的日志等级设置为DEBUG级别(但是我实际搭建也没有换，也没啥问题，可能是为"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">VegeBun-csj</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">VegeBun-csj</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">动态添加组织</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-10-05 </span>
+        <div class="post-category">
+            <a href="/categories/hyperledger-fabric-%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2/"> Hyperledger Fabric--网络部署 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#动态添加组织cli端">动态添加组织——CLI端</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#生成org3身份证书材料">生成Org3身份证书材料</a></li>
+            <li><a href="#准备cll环境">准备CLl环境</a></li>
+            <li><a href="#获取配置信息">获取配置信息</a></li>
+            <li><a href="#将通道的配置proto格式转换为json格式并进行修改">将通道的配置(proto格式)转换为Json格式，并进行修改</a></li>
+            <li><a href="#增加org3的身份证书材料">增加Org3的身份证书材料</a></li>
+            <li><a href="#签名并提交配置更新">签名并提交配置更新</a></li>
+            <li><a href="#配置主节点选举">配置主节点选举</a></li>
+            <li><a href="#将org3加入通道">将org3加入通道</a></li>
+            <li><a href="#升级和调用链码">升级和调用链码</a></li>
+            <li><a href="#总结">总结</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="动态添加组织cli端">动态添加组织——CLI端</h1>
+<p>官方推荐将Cli容器与Org3cli容器的日志等级设置为DEBUG级别(但是我实际搭建也没有换，也没啥问题，可能是为了防止出现错误好观察日志吧)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">cli</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>cli<span class="w">
+</span><span class="w">  </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>hyperledger/fabric-tools<span class="p">:</span>$IMAGE_TAG<span class="w">
+</span><span class="w">  </span><span class="k">tty</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">stdin_open</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- GOPATH=/opt/gopath<span class="w">
+</span><span class="w">    </span>- CORE_VM_ENDPOINT=unix<span class="p">:</span>///host/var/run/docker.sock<span class="w">
+</span><span class="w">    </span><span class="c">#- FABRIC_LOGGING_SPEC=INFO</span><span class="w">
+</span><span class="w">    </span>- FABRIC_LOGGING_SPEC=DEBUG<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">Org3cli</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">container_name</span><span class="p">:</span><span class="w"> </span>Org3cli<span class="w">
+</span><span class="w">  </span><span class="k">image</span><span class="p">:</span><span class="w"> </span>hyperledger/fabric-tools<span class="p">:</span>$IMAGE_TAG<span class="w">
+</span><span class="w">  </span><span class="k">tty</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">stdin_open</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="w">  </span><span class="k">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- GOPATH=/opt/gopath<span class="w">
+</span><span class="w">    </span>- CORE_VM_ENDPOINT=unix<span class="p">:</span>///host/var/run/docker.sock<span class="w">
+</span><span class="w">    </span><span class="c">#- FABRIC_LOGGING_SPEC=INFO</span><span class="w">
+</span><span class="w">    </span>- FABRIC_LOGGING_SPEC=DEBUG<span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<h3 id="生成org3身份证书材料">生成Org3身份证书材料</h3>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> org3-artifacts
+
+<span class="c1">#生成org3的组织的节点证书公私钥文件</span>
+cryptogen generate --config<span class="o">=</span>./org3-crypto.yaml
+
+<span class="c1">#这个命令是使用configtxgen工具读取configtx.yaml然后输出它的相关配置信息到上一级目录的channel-artifacts中的org3.json中（这个json文件中包含了org3策略的定义，还有三个以base64编码格式的重要的证书：管理员用户的证书，后面会充当org3的管理员，CA根证书，TLS根证书），在后面还会将这个json文件配置附加到通道配置中</span>
+<span class="nb">export</span> <span class="nv">FABRIC_CFG_PATH</span><span class="o">=</span><span class="nv">$PWD</span> <span class="o">&amp;&amp;</span> configtxgen -printOrg Org3MSP &gt; ../channel-artifacts/org3.json
+
+<span class="c1">#将orderer的证书拷贝到crypto-config目录下，这一步主要是为了拿到orderer的TLS证书，来保证orderer与org3组织节点之间的安全通信</span>
+<span class="nb">cd</span> ../ <span class="o">&amp;&amp;</span> cp -r crypto-config/ordererOrganizations org3-artifacts/crypto-config/
+
+
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<h3 id="准备cll环境">准备CLl环境</h3>
+</li>
+</ul>
+<blockquote>
+<p>在这个过程中会利用配置文件的翻译工具——configtxlator,这个工具提供了一个独立于SDK的REST API，除此之外，它还提供了一个CLI环境来简化Fabric网络的配置，它还可以将protobuf与Json格式的数据进行转换，除此之外，它还能通过两个通道配置文件来计算出配置块的更新(增量)，可以看出来是非常强大了！！！</p>
+</blockquote>
+<p>cli容器在我们启动BYFN脚本的时候就已经启动了(默认是以Org1peer0进入的，可以切换不同的组织节点的环境变量来进行操作)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#进入cli容器</span>
+docker <span class="nb">exec</span> -it cli bash
+
+<span class="c1">#设置Orderer_CA和channel_Name的环境变量</span>
+<span class="nb">export</span> <span class="nv">ORDERER_CA</span><span class="o">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem  <span class="o">&amp;&amp;</span> <span class="nb">export</span> <span class="nv">CHANNEL_NAME</span><span class="o">=</span>mychannel
+
+<span class="c1">#核查是否正确设置了环境变量</span>
+<span class="nb">echo</span> <span class="nv">$ORDERER_CA</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nv">$CHANNEL_NAME</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<h3 id="获取配置信息">获取配置信息</h3>
+</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1">#获取通道mychannel的最新配置块（之所以获取最新的配置信息，是因为通道的配置元素是版本化的）</span>
+<span class="c1">#版本化有几个重要原因：</span>
+<span class="c1">#1.防止配置由于重复repeated或者replay重放遭到更改(例如使用旧的CRLs来还原通道配置会面临安全问题)</span>
+<span class="c1">#2.它还有助于确保并发性（例如，如果要从通道中删除组织，例如，在添加新组织之后，版本控制将有助于防止同时删除两个组织，而不仅仅是希望删除的组织）。</span>
+peer channel fetch config config_block.pb -o orderer.example.com:7050 -c <span class="nv">$CHANNEL_NAME</span> --tls --cafile <span class="nv">$ORDERER_CA</span>
+<span class="c1">#该命令会保存二进制protobuf通道配置块到config_block.pb，名称和文件的扩展名是任意的，但是尽量遵循的原则是同时表明要表示的对象的类型以及它的编码格式(protobuf/json)</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>2020-10-03 08:22:48.123 UTC [cli.common] readBlock -&gt; INFO 002 Received block: 4
+2020-10-03 08:22:48.124 UTC [cli.common] readBlock -&gt; INFO 003 Received block: 2
+2020-10-03 08:22:48.124 UTC [channelCmd] fetch -&gt; INFO 004 Retrieving last config block: 2</p>
+<p>可以看到最新的通道配置块为block 2(这里的2其实是第三个区块，因为区块默认是从0开始计算的)，并不是创世区块genesisi.block，通常情况下，使用</p>
+<p>peer channel fetch config 命令会获得目标通道的最新的配置区块，通常情况下，是第3个区块，因为在BYFN脚本中为org1和org2组织分别进行了通道配置更新事务来更新锚节点（一次通道更新就产生一次通道配置更新交易，也就产生一个区块）</p>
+<p>所以也就有以下的配置顺序：</p>
+<ul>
+<li>block 0: genesis block</li>
+<li>block 1: Org1 anchor peer update</li>
+<li>block 2: Org2 anchor peer update</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<h3 id="将通道的配置proto格式转换为json格式并进行修改">将通道的配置(proto格式)转换为Json格式，并进行修改</h3>
+</li>
+</ul>
+<blockquote>
+<p>使用configtxlator工具对通道配置区块进行解码为Json格式（因为Json格式有利于进行修改），同时还要剔除掉所有与我们要进行的更改无关的headers, metadata, creator signatures等。可以通过jq工具来做</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">configtxlator proto_decode --input config_block.pb --type common.Block <span class="p">|</span> jq .data.data<span class="o">[</span>0<span class="o">]</span>.payload.data.config &gt; config.json
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>将config_block.pb转换为config.json,而config.json就是进行配置更新的关键，config.json中的内容揭示了通道配置的结构，以及可以做的通道更新类型，这个过程的细节，可以参考官方的 <a href="https://hyperledger-fabric.readthedocs.io/en/release-1.4/config_update.html">Updating a Channel Configuration</a>.</p>
+</blockquote>
+<ul>
+<li>
+<h3 id="增加org3的身份证书材料">增加Org3的身份证书材料</h3>
+</li>
+</ul>
+<blockquote>
+<p>无论要进行哪种配置更新，到目前为止，执行的步骤几乎都是相同的，添加组织是最复杂的通道配置更新之一</p>
+<p>再次使用jq工具将Org3组织的配置定义org3.json附加到通道的应用程序组字段(channel-&gt;application-&gt;groups字段)中，并将输出命名为modified_config.json。</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">jq -s <span class="s1">&#39;.[0] * {&#34;channel_group&#34;:{&#34;groups&#34;:{&#34;Application&#34;:{&#34;groups&#34;: {&#34;Org3MSP&#34;:.[1]}}}}}&#39;</span> config.json ./channel-artifacts/org3.json &gt; modified_config.json
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>现在在cli容器的当前目录下面，已经有两个文件: <strong>config.json和 modified_config.json</strong>，第一个文件是包含了最初的两个组织，但是第二个文件是包含了两个组织的，此时要做的工作就是重新编码这两个json文件，然后使用configtxlator工具计算编码后的配置增量即可</p>
+</blockquote>
+<p>首先将config.json转换为config.pb格式</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">configtxlator proto_encode --input config.json --type common.Config --output config.pb
+</code></pre></td></tr></table>
+</div>
+</div><p>然后将modified_config.json编码为modified_config.pb</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">configtxlator proto_encode --input modified_config.json --type common.Config --output modified_config.pb
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>现在就可以通过config.pb和modified_config.pb来计算两个通道配置块之间的增量更新，同时以protobuf类型的二进制文件org3_update.pb输出,它其中包含了Org3的定义</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">configtxlator compute_update --channel_id <span class="nv">$CHANNEL_NAME</span> --original config.pb --updated modified_config.pb --output org3_update.pb
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>在提交更新之前， 需要将org3_update.pb解码为Json文件格式，命名为org3_update.json</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">configtxlator proto_decode --input org3_update.pb --type common.ConfigUpdate <span class="p">|</span> jq . &gt; org3_update.json
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>然后将解码之后的org3_update.json更新文件包装为一个Envelope message，这一步将返回一个我们之前剔除过的header字段，将其命名为org3_update_in_envelope.json</p>
+</blockquote>
+<blockquote>
+<p>再次使用configtxlator工具，将org3_update_in_envelope.json转换为最终Fabric所需要的protobuf格式的文件，将其命名为org3_update_in_envelope.pb</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">configtxlator proto_encode --input org3_update_in_envelope.json --type common.Envelope --output org3_update_in_envelope.pb
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<h3 id="签名并提交配置更新">签名并提交配置更新</h3>
+</li>
+</ul>
+<blockquote>
+<p>到这里已经进行了一大半了，现在cli容器中有我们最终需要的配置更新org3_update_in_envelope.pb，但是在将配置写入账本之前，还需要有相关的管理员进行签名，在 channel-&gt;Application-&gt;group中的modification policy(修改策略/mod_policy)中设置的是MAJORITY，也就是需要现存组织管理员中的大多数进行签名，因为这里只有两个组织，org1和org2，而两个组织中的大多数，也就是两个组织的管理员都需要进行签名才行，如果配置更新交易不能同时拥有两个组织的签名，那么orderer节点就会因为它不满足策略(policy)而拒绝这笔交易。</p>
+</blockquote>
+<p>所以首先，我们用org1的admin来对配置更新进行签名，因为cli默认是以org1的证书材料进行启动的，所以不需要切换环境变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">peer channel signconfigtx -f org3_update_in_envelope.pb
+</code></pre></td></tr></table>
+</div>
+</div><p>然后切换为org2的环境变量，使用org2的管理员进行签名</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">CORE_PEER_LOCALMSPID</span><span class="o">=</span><span class="s2">&#34;Org2MSP&#34;</span>
+
+<span class="nb">export</span> <span class="nv">CORE_PEER_TLS_ROOTCERT_FILE</span><span class="o">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+
+<span class="nb">export</span> <span class="nv">CORE_PEER_MSPCONFIGPATH</span><span class="o">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+
+<span class="nb">export</span> <span class="nv">CORE_PEER_ADDRESS</span><span class="o">=</span>peer0.org2.example.com:9051
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>最后使用peer channel update 命令，org2的管理员签名会被附加到这个调用中，因此第二次无需向org1那样手动签署协议，接下来即将发送给orderer的更新请求会经理一系列系统性的签名和策略检查，可以通过orderer的日志来进行观察，eg:docker logs -f  orderer.example.com</p>
+</blockquote>
+<p>发送更新请求</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">peer channel update -f org3_update_in_envelope.pb -c <span class="nv">$CHANNEL_NAME</span> -o orderer.example.com:7050 --tls --cafile <span class="nv">$ORDERER_CA</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>2020-10-03 13:35:34.978 UTC [channelCmd] update -&gt; INFO 002 Successfully submitted channel update</p>
+<p>可以看到更新请求成功了</p>
+</blockquote>
+<hr>
+<p>至此，我们新的组织Org3就已经完成通道的配置更新了，加入了我们的联盟</p>
+<blockquote>
+<p>接下来就是启动org3组织相关的节点，并加入通道，以及节点安装链码，参与链上交易的调用</p>
+</blockquote>
+<ul>
+<li>
+<h3 id="配置主节点选举">配置主节点选举</h3>
+</li>
+</ul>
+<blockquote>
+<p>在初始化通道配置之后，向网络中添加组织时进行主节点的选举设置，在first-network网络中，在base/peer-base.yaml文件中设置的是动态主节点选举</p>
+<p>新加入的节点是以genesis block进行引导，然后它并不包含在通道更新中添加的组织的信息，新的节点无法使用gossip协议，因为他们不能验证来自它组织的其他节点转发的块，直到它们获得将组织加入通道的通道配置事务，因此，新添加的peer节点必须具有以下配置之一，以便它们从orderer接收区块(包含交易区块以及配置区块)</p>
+</blockquote>
+<p>1.使用静态的leader节点选举模式，将Peer节点手动设置为leader peer</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">CORE_PEER_GOSSIP_USELEADERELECTION=<span class="kc">false</span><span class="w">
+</span><span class="w"></span>CORE_PEER_GOSSIP_ORGLEADER=<span class="kc">true</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>tip: 这种情况下，对于添加到通道的所有新的peer节点，此配置必须相同。</p>
+</blockquote>
+<p>2.使用动态选举</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">CORE_PEER_GOSSIP_USELEADERELECTION=<span class="kc">true</span><span class="w">
+</span><span class="w"></span>CORE_PEER_GOSSIP_ORGLEADER=<span class="kc">false</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>tip: 由于新加入的组织的对等方将无法形成成员视图，因此此选项将类似于静态配置，因为每个对等方都将开始宣称自己是领导者进行选举，但是，一旦他们更新了将组织添加到通道的配置事务，组织将只有一位活跃的领导者，</p>
+</blockquote>
+<ul>
+<li>
+<h3 id="将org3加入通道">将org3加入通道</h3>
+</li>
+</ul>
+<blockquote>
+<p>此时，通道配置已更新为包括我们的新组织Org3，这意味着与org3关联的peer节点现在可以加入mychannel。</p>
+</blockquote>
+<p>首先启动org3的peers和cli容器 (first-network中有docker-compose-org3.yaml)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">docker-compose -f docker-compose-org3.yaml up -d
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>这个compose文件已经配置到我们的初始网络byfn，所以这两个peer节点以及cli容器可以与现存的节点以及orderer进行通信，这个compose文件启动三个容器，下面进入org3的cli容器</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">docker <span class="nb">exec</span> -it Org3cli bash
+</code></pre></td></tr></table>
+</div>
+</div><p>首先引入两个环境变量（和之前的cli一样）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">ORDERER_CA</span><span class="o">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem <span class="o">&amp;&amp;</span> <span class="nb">export</span> <span class="nv">CHANNEL_NAME</span><span class="o">=</span>mychannel
+
+<span class="c1">#核查是否正确设置了环境变量</span>
+<span class="nb">echo</span> <span class="nv">$ORDERER_CA</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="nv">$CHANNEL_NAME</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>现在我们通过org3cli来向Orderer进行申请获得mychannel的创世区块，因为我们之前已经进行了通道更新，所以orderer可以验证此次申请请求中的Org3的签名；如果org3没有成功附加到通道配置，Orderer会拒绝这次请求</p>
+<blockquote>
+<p>而且会发现orderer节点的日志流来显示签名/验证逻辑和策略检查很有用。</p>
+</blockquote>
+<p>使用 peer channel fetch 来获取mychannel的创世区块 mychannel.block</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">peer channel fetch <span class="m">0</span> mychannel.block -o orderer.example.com:7050 -c <span class="nv">$CHANNEL_NAME</span> --tls --cafile <span class="nv">$ORDERER_CA</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>2020-10-03 15:06:08.379 UTC [cli.common] readBlock -&gt; INFO 002 Received block: 0</p>
+<p>并且在当前org3cli的目录下看到获取的mychannel.block，注意这个0代表的是应用通道的第一个区块</p>
+<p>如果我们简单地使用 peer channel fetch config 命令，那只会获取到第6个区块，即block 5，但是我们不能从下面地区块开始，必须从第一个区块block 0</p>
+</blockquote>
+<p>根据mychannel.block 使用peer channel join 来加入通道</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">peer channel join -b mychannel.block
+</code></pre></td></tr></table>
+</div>
+</div><p>如果向org3的第二个节点加入通道，需要引入它的TLS以及节点地址作为环境变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">CORE_PEER_TLS_ROOTCERT_FILE</span><span class="o">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org3.example.com/peers/peer1.org3.example.com/tls/ca.crt <span class="o">&amp;&amp;</span> <span class="nb">export</span> <span class="nv">CORE_PEER_ADDRESS</span><span class="o">=</span>peer1.org3.example.com:12051
+
+peer channel join -b mychannel.block
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<h3 id="升级和调用链码">升级和调用链码</h3>
+</li>
+</ul>
+<blockquote>
+<p>最后一步就是升级链码版本，并且将org3包含进背书策略，因为即将升级链码，所以不需要在org3的节点上再装一次1.0版本，可以直接装2.0版本的链码</p>
+</blockquote>
+<p>进入Org3cli容器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">peer chaincode install -n mycc -v 2.0 -p github.com/chaincode/chaincode_example02/go/
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>接下来可以切换环境变量，将org3的peer1也安装链码，当然这也不是必须的，因为只需要将背书节点安装链码(与账本进行交互)，如果不装，那么Peer节点是充当committer节点来验证背书，并提交至账本的</p>
+</blockquote>
+<p>现在切换回一开始的cli容器，为org1和org2的节点安装新的版本的链码(注意以下这里是org1的peer还是org2的peer，这里我是org1)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">peer chaincode install -n mycc -v 2.0 -p github.com/chaincode/chaincode_example02/go/
+</code></pre></td></tr></table>
+</div>
+</div><p>切换到org2</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">export</span> <span class="nv">CORE_PEER_LOCALMSPID</span><span class="o">=</span><span class="s2">&#34;Org2MSP&#34;</span>
+
+<span class="nb">export</span> <span class="nv">CORE_PEER_TLS_ROOTCERT_FILE</span><span class="o">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+
+<span class="nb">export</span> <span class="nv">CORE_PEER_MSPCONFIGPATH</span><span class="o">=</span>/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
+
+<span class="nb">export</span> <span class="nv">CORE_PEER_ADDRESS</span><span class="o">=</span>peer0.org2.example.com:9051
+</code></pre></td></tr></table>
+</div>
+</div><p>给org2的peer安装链码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">peer chaincode install -n mycc -v 2.0 -p github.com/chaincode/chaincode_example02/go/
+</code></pre></td></tr></table>
+</div>
+</div><p>现在可以升级链码，这里并没有对chaincode做修改，只是将通道mychannel中的mycc链码升级了包含org3的背书策略，这一步可以理解为原来的链码实例化升级</p>
+<blockquote>
+<p>任何符合链码实例化策略的身份都可以发出升级的请求，默认情况下是通道的管理员</p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">peer chaincode upgrade -o orderer.example.com:7050 --tls <span class="nv">$CORE_PEER_TLS_ENABLED</span> --cafile <span class="nv">$ORDERER_CA</span> -C <span class="nv">$CHANNEL_NAME</span> -n mycc -v 2.0 -c <span class="s1">&#39;{&#34;Args&#34;:[&#34;init&#34;,&#34;a&#34;,&#34;90&#34;,&#34;b&#34;,&#34;210&#34;]}&#39;</span> -P <span class="s2">&#34;OR (&#39;Org1MSP.peer&#39;,&#39;Org2MSP.peer&#39;,&#39;Org3MSP.peer&#39;)&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>两个注意点：</p>
+<p>1.链码的版本为2.0</p>
+<p>2.背书策略增加了org3MSP.peer</p>
+<p>3.和实例化请求一样，都需要进行初始化</p>
+<p>升级链码的请求会产生出新的区块block 6，并且允许org3的节点在背书期间模拟执行交易</p>
+</blockquote>
+<p>返回Org3cli容器，发起一个查询请求（这个过程需要等待一会，因为在构造链码容器）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">peer chaincode query -C <span class="nv">$CHANNEL_NAME</span> -n mycc -c <span class="s1">&#39;{&#34;Args&#34;:[&#34;query&#34;,&#34;a&#34;]}&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>可以看到查询结果为90</p>
+</blockquote>
+<p>现在再调用一次交易，再将a转给b  10</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">peer chaincode invoke -o orderer.example.com:7050  --tls <span class="nv">$CORE_PEER_TLS_ENABLED</span> --cafile <span class="nv">$ORDERER_CA</span> -C <span class="nv">$CHANNEL_NAME</span> -n mycc -c <span class="s1">&#39;{&#34;Args&#34;:[&#34;invoke&#34;,&#34;a&#34;,&#34;b&#34;,&#34;10&#34;]}&#39;</span>
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>可以看到查询结果为80，说明操作成功了</p>
+</blockquote>
+<ul>
+<li>
+<h3 id="总结">总结</h3>
+</li>
+</ul>
+<p>通道的配置更新确实比较繁琐，但是每一个步骤都是比较有逻辑的，还是比较好理解的，我们最终的目的就是得到一个通道配置的增量更新(反复利用configtxlator工具将protobuf类型与json类型进行转换，利用jq工具对json数据进行操作)，然后获得现有组织的签名，使得通道的更新符合通道修改的策略，最后还要升级链码（org1,org2,org3都要安装新的版本链码）</p>
+<blockquote>
+<p>使用SDK动态增加组织 <a href="https://zhayujie.com/add-org.html">https://zhayujie.com/add-org.html</a></p>
+<p>github自动化脚本https://github.com/zhayujie/fabric-tools</p>
+<p>详解 eyfn脚本  <a href="https://www.jianshu.com/p/0babc628a09e">https://www.jianshu.com/p/0babc628a09e</a></p>
+<p>最好的就是参考官方文档，写的很详细 <a href="https://hyperledger-fabric.readthedocs.io/en/release-1.4/channel_update_tutorial.html">https://hyperledger-fabric.readthedocs.io/en/release-1.4/channel_update_tutorial.html</a></p>
+</blockquote>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-10-05
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E8%83%8C%E4%B9%A6%E8%8A%82%E7%82%B9%E5%92%8C%E6%8F%90%E4%BA%A4%E8%8A%82%E7%82%B9/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">背书节点和提交节点</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/fabric%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2/%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0peer%E8%8A%82%E7%82%B9/">
+            <span class="next-text nav-default">动态添加peer节点</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>olOwOlo</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

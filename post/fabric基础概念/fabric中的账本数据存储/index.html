@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Fabric中的账本数据存储 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="Fabric账本数据的存储 Fabric账本数据存储模块提供了文件系统与键值型数据库用于存储账本数据，并被统一封装为Peer节点的账本对象（ k" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%B8%AD%E7%9A%84%E8%B4%A6%E6%9C%AC%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Fabric中的账本数据存储" />
+<meta property="og:description" content="Fabric账本数据的存储 Fabric账本数据存储模块提供了文件系统与键值型数据库用于存储账本数据，并被统一封装为Peer节点的账本对象（ k" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%B8%AD%E7%9A%84%E8%B4%A6%E6%9C%AC%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" />
+<meta property="article:published_time" content="2020-10-18T21:26:31+08:00" />
+<meta property="article:modified_time" content="2020-10-18T21:26:31+08:00" />
+<meta itemprop="name" content="Fabric中的账本数据存储">
+<meta itemprop="description" content="Fabric账本数据的存储 Fabric账本数据存储模块提供了文件系统与键值型数据库用于存储账本数据，并被统一封装为Peer节点的账本对象（ k">
+<meta itemprop="datePublished" content="2020-10-18T21:26:31+08:00" />
+<meta itemprop="dateModified" content="2020-10-18T21:26:31+08:00" />
+<meta itemprop="wordCount" content="2517">
+
+
+
+<meta itemprop="keywords" content="区块链," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Fabric中的账本数据存储"/>
+<meta name="twitter:description" content="Fabric账本数据的存储 Fabric账本数据存储模块提供了文件系统与键值型数据库用于存储账本数据，并被统一封装为Peer节点的账本对象（ k"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">VegeBun-csj</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">VegeBun-csj</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Fabric中的账本数据存储</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-10-18 </span>
+        <div class="post-category">
+            <a href="/categories/hyperledger-fabric-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"> Hyperledger Fabric--基本概念 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#fabric账本数据的存储">Fabric账本数据的存储</a>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#下面来详细说明fabric中的几种数据库的存储">下面来详细说明Fabric中的几种数据库的存储：</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h1 id="fabric账本数据的存储">Fabric账本数据的存储</h1>
+<blockquote>
+<p>Fabric账本数据存储模块提供了<strong>文件系统</strong>与<strong>键值型数据库</strong>用于存储账本数据，并被统一封装为Peer节点的账本对象（ kedger类型）进行管理，包括<strong>账本数据存储对象</strong>（管理区块数据文件、隐私数据库与区块索引数据库）、<strong>状态数据库</strong>、<strong>历史数据库</strong>、<strong>transient隐私数据库</strong>等。</p>
+<p>Fabric中经常采用提供者模式（ ProviderPattern）来分离接口的定义与具体实现，Peer节点的**账本提供者（ kedger. Provider类型）**包含的多种数据库提供者负责创建上述数据库，采用 Leveldb类型或 COUCHDB类型数据库作为底层的键值型数据库，同时采用文件系统保存区块数据。其中， idstore账本数据库由Peer节点的账本提供者负责管理。</p>
+<p>注意：对于账本<strong>区块文件</strong>上的区块数据， Fabric<strong>只支持查询与添加记录</strong>，不支持删除与修改已有记录。</p>
+</blockquote>
+<h3 id="下面来详细说明fabric中的几种数据库的存储">下面来详细说明Fabric中的几种数据库的存储：</h3>
+<p>账本目录结构：</p>
+<p>![peer账本目录结构](D:\研究生学习\研究学习\2020-10-14 fabric账本结构\peer节点账本结构.png)</p>
+<blockquote>
+<p>（版本不同这个目录有点差异，但是大体的目录是一致的，包括状态数据库如果启用CouchDB的话是没有StateLevelDB的）</p>
+</blockquote>
+<ul>
+<li>账本数据: 实际的区块数据存储</li>
+<li>区块索引: 快速查询区块/交易</li>
+<li>历史数据: 跟踪键的历史</li>
+<li>账本编号:快速查询存在哪些账本</li>
+<li>状态数据: 最新的世界状态数据</li>
+</ul>
+<p>每个Peer节点会维护四个DB和多个不同的账本区块(chains)，分别为:</p>
+<p>![](D:\postgradutae\研究学习\2020-10-14 fabric账本结构\各个账本的关系.png)</p>
+<ul>
+<li>
+<p>区块文件系统(chains):存储区块文件</p>
+<p>区块数据以<strong>文件块</strong>的形式进行存储的，文件命名方式&quot;blockfile_&ldquo;加上六位数编号 。
+现阶段的实现中，每个文件块大小为<code>64M</code>，这是**硬编码**到代码中的，并不是以可配置的形式暴露给使用者的。如果想要更改这个数值就要修改源代码并重新编译peer节点。所以一个账本的最大容量就是64M * 区块编号的最大值。区块编号的最大值可设置的范围是(0~999999)。</p>
+<blockquote>
+<p>在上面的账本目录结构中，chains/chains下面就是区块文件系统，是以不同通道名区分命名的，上图中只有一个mychannel</p>
+</blockquote>
+</li>
+<li>
+<p>区块索引库(BlockIndex):存储Block索引（默认为levelDB）</p>
+<p>区块索引的设计目的：<strong>快速定位区块</strong>。
+具体实现流程：将<strong>查询条件</strong>与<strong>区块位置</strong>建立映射关系。
+查询条件可以为：区块编号、区块hash、交易id。
+对应的索引值为：区块文件编号(blockfile_xxxxxxx)+偏移量+区块数据长度。即，从哪个区块文件开始读-&gt;从该文件的哪里开始读-&gt;读多长的数据。</p>
+<blockquote>
+<p>在账本的目录结构中，chains/index就是区块的索引数据库</p>
+</blockquote>
+</li>
+<li>
+<p>历史数据库(HistoryDB): 存储的是智能合约中写入的key的历史记录的索引地址（默认为levelDB）</p>
+<blockquote>
+<p>可选的数据库</p>
+</blockquote>
+<p>历史状态索引是一个<strong>可选</strong>模块。是否启用，完全是看智能合约中是否有一个<strong>查询历史</strong>的需求。</p>
+<p>历史状态索引模块中只是记录了某个键值对在某个区块中的某笔交易中被改变了。而且<strong>只是单纯地记录了发生了改变，并不记录是如何被改变的</strong>。</p>
+<blockquote>
+<p>因为存储的是key的历史索引，所以查询历史数据的时候，就是从这个数据库中获取key的历史索引地址，然后根据这个历史索引地址去对应的区块文件中读取对应的交易的value</p>
+<p>这里要强调一点：历史数据库中并不存储历史的数据交易，而是存储的相关键的历史索引</p>
+<p>在上面的账本目录结构中就是<code>historyleveldb</code></p>
+</blockquote>
+</li>
+<li>
+<p>账本索引库(IdStore)：存储ChainID(即当前节点所包含的channel的信息)</p>
+<blockquote>
+<p>在上面的目录结构中就是<code>ledgerProvider</code></p>
+</blockquote>
+</li>
+<li>
+<p>状态数据库(StateDB): 存储world state</p>
+<ul>
+<li>
+<p>世界状态可以<strong>提升</strong>智能合约的<strong>执行效率</strong>，快速获取<strong>账本最新值</strong>而不必根据交易日志从头开始计算。
+如果每次都要回到存储区块链数据的文件块中读取数据，效率是极低的。这时，世界状态就像一个<strong>缓存</strong>。每次只需要去这里读取最新的数据，并且随着区块链进行<strong>实时更新</strong>。</p>
+</li>
+<li>
+<p>世界状态是所有交易日志的快照，可以随时重构的。每次peer节点启动的时候，都会自动去检查自己的世界状态是否跟当前区块链保持一致。如果不一致，就会自动根据区块链为基准调整自己的世界状态。<strong>协调一致</strong>后，才代表peer节点启动成功。
+现阶段的Fabric提供<code>levelDB</code>和<code>CouchDB</code>作为世界状态的<strong>存储引擎</strong>。除了levelDB和CouchDB在功能性上表现出的不同之外，levelDB跟peer节点处于同一个进程中，而CouchDB作为一个第三方数据库自起进程。既然是第三方数据库，那么就需要通过网络通信来进行数据的交互，也增加了运维的负担。</p>
+</li>
+</ul>
+<blockquote>
+<p>装填数据库的存储引擎是可以<strong>动态修改</strong>的。如果第一次peer节点使用的是levelDB，那么完全可以在第二次启动的时候改为CouchDB。</p>
+</blockquote>
+</li>
+</ul>
+<p>此处没有用到隐私数据库，所以暂未讨论，后面用到再说。。。。。。。</p>
+<blockquote>
+<p>在最后的区块被提交到peer节点账本之后，会提交所有的区块数据（公共数据）到<strong>区块数据文件</strong>中，保存所有的私有数据(隐私数据)到<strong>隐私数据库(leveldb)<strong>中，建立区块索引信息到</strong>区块索引数据库</strong>，同步<strong>有效交易数据</strong>(公共数据，隐私数据读写集，隐私数据读写集的hash值)到<strong>状态数据库</strong>，提交经过Endorser背书签名的<strong>有效交易数据到历史数据库</strong>。</p>
+</blockquote>
+<p>参考自：</p>
+<p><a href="https://www.pianshen.com/article/4847298290/">https://www.pianshen.com/article/4847298290/</a></p>
+<p><a href="https://www.cnblogs.com/cnblogs-wangzhipeng/p/9044622.html">https://www.cnblogs.com/cnblogs-wangzhipeng/p/9044622.html</a></p>
+<p><a href="https://blog.csdn.net/u010986776/article/details/84839487">https://blog.csdn.net/u010986776/article/details/84839487</a></p>
+<p>kedger. Provider类型对象作为Per节点的账本提供者，实现了 Peerledgerprovider接口，封装了账本底层的各类数据库提供者，用于创建对应的数据库实例。Peer节点启动时调用 ledgermgm. Initialize(0→ kvledger. Newprovider(0函数，创建Peer节点的账本提供者（ kedger. Provider类型）</p>
+<p>NewProvider()函数依次创建 idstore数据库、账本数据存储对象提供者、状态数据库提供者、历史数据库提供者等，并在最后调用 recoverunderconstruction Ledger方法，检查并恢复未完成构造的Peer节点账本对象(崩溃故障等原因）</p>
+<p><img src="C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201010111536046.png" alt="image-20201010111536046"></p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-10-18
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%B8%AD%E7%9A%84%E8%AF%BB%E5%86%99%E9%9B%86/">
+            <span class="next-text nav-default">Fabric中的读写集</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>olOwOlo</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

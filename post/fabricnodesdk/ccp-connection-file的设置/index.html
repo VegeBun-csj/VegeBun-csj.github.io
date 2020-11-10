@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>ccp文件的设置 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="1.实验环境时，我们使用cli容器来进行链码的部署，实例化，以及进行简单的交易操作，但是在Fabric进行开发时，为了避免命令行的繁琐行，采" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/fabricnodesdk/ccp-connection-file%E7%9A%84%E8%AE%BE%E7%BD%AE/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="ccp文件的设置" />
+<meta property="og:description" content="1.实验环境时，我们使用cli容器来进行链码的部署，实例化，以及进行简单的交易操作，但是在Fabric进行开发时，为了避免命令行的繁琐行，采" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/fabricnodesdk/ccp-connection-file%E7%9A%84%E8%AE%BE%E7%BD%AE/" />
+<meta property="article:published_time" content="2020-08-29T13:03:02+08:00" />
+<meta property="article:modified_time" content="2020-08-29T13:03:02+08:00" />
+<meta itemprop="name" content="ccp文件的设置">
+<meta itemprop="description" content="1.实验环境时，我们使用cli容器来进行链码的部署，实例化，以及进行简单的交易操作，但是在Fabric进行开发时，为了避免命令行的繁琐行，采">
+<meta itemprop="datePublished" content="2020-08-29T13:03:02+08:00" />
+<meta itemprop="dateModified" content="2020-08-29T13:03:02+08:00" />
+<meta itemprop="wordCount" content="1933">
+
+
+
+<meta itemprop="keywords" content="区块链," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ccp文件的设置"/>
+<meta name="twitter:description" content="1.实验环境时，我们使用cli容器来进行链码的部署，实例化，以及进行简单的交易操作，但是在Fabric进行开发时，为了避免命令行的繁琐行，采"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">VegeBun-csj</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">VegeBun-csj</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">ccp文件的设置</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-29 </span>
+        <div class="post-category">
+            <a href="/categories/hyperledger-fabric-nodesdk%E5%BC%80%E5%8F%91/"> Hyperledger Fabric--NodeSDK开发 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <blockquote>
+<p>1.实验环境时，我们使用cli容器来进行链码的部署，实例化，以及进行简单的交易操作，但是在Fabric进行开发时，为了避免命令行的繁琐行，采用fabric官方的SDK来进行开发， 尤其是进行链码的调用(我在自己的使用中都是使用cli进行链码的部署，实例化的，然后在cli中测试一下基本的链码功能是否正常，最后在SDK这头进行调用交易即可，不太喜欢SDK进行链码的部署这些，因为感觉是运维的做的事情哈哈哈，放在shell中一套命令安装完不香嘛，哈哈哈😄)</p>
+<p>2.在使用SDK之前需要一个配置文件，设置一些节点的证书，以及访问点，因为SDK毕竟最后是充当一个客户端来和网络进行交互的，就涉及到通过哪个peer节点与网络进行交互的问题，CCP文件就是做的这个事情(类似于一个user的登入点)</p>
+</blockquote>
+<p>在使用node-sdk的high-level(fabric1.4.x版本开始升级的新的API，它的写法更加简洁，相比于1.4.x之前的版本的NodeSDK，进行了更进一步的封装，使得链码的调用更加方便)的API时，碰到了sdk中query时好时坏的问题</p>
+<blockquote>
+<h4 id="1问题描述sdk中使用的ccp文件中定义了所有的peer导致sdk端在扫描该文件时出现一会链接peer0org1一会链接peer1org1的问题">1.问题描述：sdk中使用的CCP文件中定义了所有的peer，导致sdk端在扫描该文件时，出现一会链接peer0org1一会链接peer1org1的问题</h4>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;first-network-org1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;1.0.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;client&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;organization&#34;</span><span class="p">:</span> <span class="s2">&#34;Org1&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;connection&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;timeout&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;peer&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;endorser&#34;</span><span class="p">:</span> <span class="s2">&#34;300&#34;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;organizations&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;Org1&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;mspid&#34;</span><span class="p">:</span> <span class="s2">&#34;Org1MSP&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;peers&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;peer0.org1.example.com&#34;</span><span class="p">,</span>
+                <span class="s2">&#34;peer1.org1.example.com&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;certificateAuthorities&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;ca.org1.example.com&#34;</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;peers&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;peer0.org1.example.com&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;grpcs://localhost:7051&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;tlsCACerts&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;pem&#34;</span><span class="p">:</span> <span class="s2">&#34;-----BEGIN CERTIFICATE-----\nMIICVzCCAf6gAwIBAgIRAOeRcny12K3xMMPY0BrYJEIwCgYIKoZIzj0EAwIwdjEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHzAdBgNVBAMTFnRs\nc2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjAwMzE1MDkxNDAwWhcNMzAwMzEzMDkx\nNDAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE\nBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEfMB0G\nA1UEAxMWdGxzY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABMDyCkDy7DP80rm7L0w+OLFyCoN2irvBOU4jww2XLBpsU4+0o+nAgJqC\nCOL/rt/GHwmmX3ka2ioTWwtumtei4/ejbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgRkvXAREOeeZzEzyAnb99rqWIzAW2RqFVriuhZoZSBpUwCgYIKoZIzj0E\nAwIDRwAwRAIgCcY4vir60ukkLNNHcQ9G22q1i2EsnFdOxH7VfdRASq8CIG2BL/7k\n98ewzous+ZiTv10pAQDdV4yvHY1w4OrTfDgP\n-----END CERTIFICATE-----\n&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;grpcOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;ssl-target-name-override&#34;</span><span class="p">:</span> <span class="s2">&#34;peer0.org1.example.com&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;hostnameOverride&#34;</span><span class="p">:</span> <span class="s2">&#34;peer0.org1.example.com&#34;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&#34;peer1.org1.example.com&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;grpcs://localhost:8051&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;tlsCACerts&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;pem&#34;</span><span class="p">:</span> <span class="s2">&#34;-----BEGIN CERTIFICATE-----\nMIICVzCCAf6gAwIBAgIRAOeRcny12K3xMMPY0BrYJEIwCgYIKoZIzj0EAwIwdjEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHzAdBgNVBAMTFnRs\nc2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjAwMzE1MDkxNDAwWhcNMzAwMzEzMDkx\nNDAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE\nBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEfMB0G\nA1UEAxMWdGxzY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABMDyCkDy7DP80rm7L0w+OLFyCoN2irvBOU4jww2XLBpsU4+0o+nAgJqC\nCOL/rt/GHwmmX3ka2ioTWwtumtei4/ejbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgRkvXAREOeeZzEzyAnb99rqWIzAW2RqFVriuhZoZSBpUwCgYIKoZIzj0E\nAwIDRwAwRAIgCcY4vir60ukkLNNHcQ9G22q1i2EsnFdOxH7VfdRASq8CIG2BL/7k\n98ewzous+ZiTv10pAQDdV4yvHY1w4OrTfDgP\n-----END CERTIFICATE-----\n&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;grpcOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;ssl-target-name-override&#34;</span><span class="p">:</span> <span class="s2">&#34;peer1.org1.example.com&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;hostnameOverride&#34;</span><span class="p">:</span> <span class="s2">&#34;peer1.org1.example.com&#34;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;certificateAuthorities&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;ca.org1.example.com&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://127.0.0.1:7054&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;caName&#34;</span><span class="p">:</span> <span class="s2">&#34;ca-org1&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;tlsCACerts&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;pem&#34;</span><span class="p">:</span> <span class="s2">&#34;-----BEGIN CERTIFICATE-----\nMIICUTCCAfegAwIBAgIQQCigCctKgodE1Q7gcR5LXDAKBggqhkjOPQQDAjBzMQsw\nCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy\nYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEcMBoGA1UEAxMTY2Eu\nb3JnMS5leGFtcGxlLmNvbTAeFw0yMDAzMTUwOTE0MDBaFw0zMDAzMTMwOTE0MDBa\nMHMxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1T\nYW4gRnJhbmNpc2NvMRkwFwYDVQQKExBvcmcxLmV4YW1wbGUuY29tMRwwGgYDVQQD\nExNjYS5vcmcxLmV4YW1wbGUuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE\nkhODBxDZsbsm+4roHRwjPhOavnvmGRNnktsKB1X9IncaDDu4jSduwjOu9zdZm/B4\nixe1pE/NhpjMhpXmYQBDk6NtMGswDgYDVR0PAQH/BAQDAgGmMB0GA1UdJQQWMBQG\nCCsGAQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1UdDgQiBCAS\nCZsC0MsmOf9PukUYg+mCYx0qZC3bIBiB4O2Y+ORVTzAKBggqhkjOPQQDAgNIADBF\nAiEAigmuFPeCY59LcV0KNU27y/v6Tgl3p8NlCBQv7vgXIigCID5vB6P+v9eQnQPj\nyn4alwVpNaO1qnAXZH+nekhnoTEs\n-----END CERTIFICATE-----\n&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;httpOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;verify&#34;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>peer0org1安装了chaincode,但是peer1org1没有安装chaincode，所以当client端将peer1org1作为endpoint时就会报下面找不到链码的错误，原因就是没有指定好client端连接哪个peer</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">2020-03-15T10:22:30.253Z - warn: <span class="o">[</span>Query<span class="o">]</span>: evaluate: Query ID <span class="s2">&#34;[object Object]&#34;</span> of peer <span class="s2">&#34;peer1.org1.example.com:8051&#34;</span> failed: <span class="nv">message</span><span class="o">=</span>cannot retrieve package <span class="k">for</span> chaincode emrscc/1.0, error open /var/hyperledger/production/chaincodes/emrscc.1.0: no such file or directory, <span class="nv">stack</span><span class="o">=</span>Error: cannot retrieve package <span class="k">for</span> chaincode emrscc/1.0, error open /var/hyperledger/production/chaincodes/emrscc.1.0: no such file or directory
+    at self._endorserClient.processProposal <span class="o">(</span>/home/songjian/go/src/github.com/hyperledger/fabric-samples/fabcar/javascript/node_modules/_fabric-client@1.4.7@fabric-client/lib/Peer.js:144:36<span class="o">)</span>
+    at Object.onReceiveStatus <span class="o">(</span>/home/songjian/go/src/github.com/hyperledger/fabric-samples/fabcar/javascript/node_modules/_grpc@1.23.3@grpc/src/client_interceptors.js:1207:9<span class="o">)</span>
+    at InterceptingListener._callNext <span class="o">(</span>/home/songjian/go/src/github.com/hyperledger/fabric-samples/fabcar/javascript/node_modules/_grpc@1.23.3@grpc/src/client_interceptors.js:568:42<span class="o">)</span>
+    at InterceptingListener.onReceiveStatus <span class="o">(</span>/home/songjian/go/src/github.com/hyperledger/fabric-samples/fabcar/javascript/node_modules/_grpc@1.23.3@grpc/src/client_interceptors.js:618:8<span class="o">)</span>
+    at callback <span class="o">(</span>/home/songjian/go/src/github.com/hyperledger/fabric-samples/fabcar/javascript/node_modules/_grpc@1.23.3@grpc/src/client_interceptors.js:845:24<span class="o">)</span>, <span class="nv">status</span><span class="o">=</span>500, , <span class="nv">url</span><span class="o">=</span>grpcs://localhost:8051, <span class="nv">name</span><span class="o">=</span>peer1.org1.example.com:8051, grpc.max_receive_message_length<span class="o">=</span>-1, grpc.max_send_message_length<span class="o">=</span>-1, grpc.keepalive_time_ms<span class="o">=</span>120000, grpc.http2.min_time_between_pings_ms<span class="o">=</span>120000, grpc.keepalive_timeout_ms<span class="o">=</span>20000, grpc.http2.max_pings_without_data<span class="o">=</span>0, grpc.keepalive_permit_without_calls<span class="o">=</span>1, <span class="nv">name</span><span class="o">=</span>peer1.org1.example.com:8051, grpc.ssl_target_name_override<span class="o">=</span>peer1.org1.example.com, grpc.default_authority<span class="o">=</span>peer1.org1.example.com, <span class="nv">isProposalResponse</span><span class="o">=</span><span class="nb">true</span>
+Failed to evaluate transaction: Error: cannot retrieve package <span class="k">for</span> chaincode emrscc/1.0, error open /var/hyperledger/production/chaincodes/emrscc.1.0: no such file or directory
+</code></pre></td></tr></table>
+</div>
+</div><p>所以需要修改CCP文件（一开始是将原来的包含所有peer的CCP文件剔除掉一些peer，变成下面这样，但是还是报上面的错）原因就是没有关掉gateway.connect()时的discoveryOption参数中的enable,应该设置为false,不让其扫描本地。由于discovery service的原因，导致连接peer不确定，所以将discovery service关掉指定某个peer为访问点即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;first-network-org1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;1.0.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;client&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;organization&#34;</span><span class="p">:</span> <span class="s2">&#34;Org1&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;connection&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;timeout&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;peer&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;endorser&#34;</span><span class="p">:</span> <span class="s2">&#34;300&#34;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;organizations&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;Org1&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;mspid&#34;</span><span class="p">:</span> <span class="s2">&#34;Org1MSP&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;peers&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;peer0.org1.example.com&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;certificateAuthorities&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;ca.org1.example.com&#34;</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;peers&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;peer0.org1.example.com&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;grpcs://localhost:7051&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;tlsCACerts&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;pem&#34;</span><span class="p">:</span> <span class="s2">&#34;-----BEGIN CERTIFICATE-----\nMIICVzCCAf6gAwIBAgIRAOeRcny12K3xMMPY0BrYJEIwCgYIKoZIzj0EAwIwdjEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHzAdBgNVBAMTFnRs\nc2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjAwMzE1MDkxNDAwWhcNMzAwMzEzMDkx\nNDAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE\nBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEfMB0G\nA1UEAxMWdGxzY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABMDyCkDy7DP80rm7L0w+OLFyCoN2irvBOU4jww2XLBpsU4+0o+nAgJqC\nCOL/rt/GHwmmX3ka2ioTWwtumtei4/ejbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgRkvXAREOeeZzEzyAnb99rqWIzAW2RqFVriuhZoZSBpUwCgYIKoZIzj0E\nAwIDRwAwRAIgCcY4vir60ukkLNNHcQ9G22q1i2EsnFdOxH7VfdRASq8CIG2BL/7k\n98ewzous+ZiTv10pAQDdV4yvHY1w4OrTfDgP\n-----END CERTIFICATE-----\n&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;grpcOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;ssl-target-name-override&#34;</span><span class="p">:</span> <span class="s2">&#34;peer0.org1.example.com&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;hostnameOverride&#34;</span><span class="p">:</span> <span class="s2">&#34;peer0.org1.example.com&#34;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;certificateAuthorities&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;ca.org1.example.com&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://127.0.0.1:7054&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;caName&#34;</span><span class="p">:</span> <span class="s2">&#34;ca-org1&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;tlsCACerts&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;pem&#34;</span><span class="p">:</span> <span class="s2">&#34;-----BEGIN CERTIFICATE-----\nMIICUTCCAfegAwIBAgIQQCigCctKgodE1Q7gcR5LXDAKBggqhkjOPQQDAjBzMQsw\nCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy\nYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEcMBoGA1UEAxMTY2Eu\nb3JnMS5leGFtcGxlLmNvbTAeFw0yMDAzMTUwOTE0MDBaFw0zMDAzMTMwOTE0MDBa\nMHMxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1T\nYW4gRnJhbmNpc2NvMRkwFwYDVQQKExBvcmcxLmV4YW1wbGUuY29tMRwwGgYDVQQD\nExNjYS5vcmcxLmV4YW1wbGUuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE\nkhODBxDZsbsm+4roHRwjPhOavnvmGRNnktsKB1X9IncaDDu4jSduwjOu9zdZm/B4\nixe1pE/NhpjMhpXmYQBDk6NtMGswDgYDVR0PAQH/BAQDAgGmMB0GA1UdJQQWMBQG\nCCsGAQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1UdDgQiBCAS\nCZsC0MsmOf9PukUYg+mCYx0qZC3bIBiB4O2Y+ORVTzAKBggqhkjOPQQDAgNIADBF\nAiEAigmuFPeCY59LcV0KNU27y/v6Tgl3p8NlCBQv7vgXIigCID5vB6P+v9eQnQPj\nyn4alwVpNaO1qnAXZH+nekhnoTEs\n-----END CERTIFICATE-----\n&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;httpOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;verify&#34;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>但是又出现了新的错误，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">2020-03-15T10:52:10.058Z - error: <span class="o">[</span>Network<span class="o">]</span>: _initializeInternalChannel: No peers defined in channel that have the ledger query role
+Failed to evaluate transaction: Error: No peers defined in channel that have the ledger query role
+</code></pre></td></tr></table>
+</div>
+</div><p>这是因为CCP中没有设置channels的配置,并将discovery的enable置为false,这才大功告成！！</p>
+<p><strong>我在实验过程中做过测试，只有query的操作采用false,但对于invoke操作是需要true的，这一点需要注意</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;first-network-org1&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;version&#34;</span><span class="p">:</span> <span class="s2">&#34;1.0.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;client&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;organization&#34;</span><span class="p">:</span> <span class="s2">&#34;Org1&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;connection&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;timeout&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;peer&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;endorser&#34;</span><span class="p">:</span> <span class="s2">&#34;300&#34;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;channels&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;mychannel&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;orderers&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;orderer.example.com&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;peers&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;peer0.org1.example.com&#34;</span><span class="p">:</span> <span class="p">{}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;organizations&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;Org1&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;mspid&#34;</span><span class="p">:</span> <span class="s2">&#34;Org1MSP&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;peers&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;peer0.org1.example.com&#34;</span>
+            <span class="p">],</span>
+            <span class="nt">&#34;certificateAuthorities&#34;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&#34;ca.org1.example.com&#34;</span>
+            <span class="p">]</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;peers&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;peer0.org1.example.com&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;grpcs://localhost:7051&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;tlsCACerts&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;pem&#34;</span><span class="p">:</span> <span class="s2">&#34;-----BEGIN CERTIFICATE-----\nMIICVzCCAf6gAwIBAgIRAOeRcny12K3xMMPY0BrYJEIwCgYIKoZIzj0EAwIwdjEL\nMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNhbiBG\ncmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHzAdBgNVBAMTFnRs\nc2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjAwMzE1MDkxNDAwWhcNMzAwMzEzMDkx\nNDAwWjB2MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UE\nBxMNU2FuIEZyYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEfMB0G\nA1UEAxMWdGxzY2Eub3JnMS5leGFtcGxlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49\nAwEHA0IABMDyCkDy7DP80rm7L0w+OLFyCoN2irvBOU4jww2XLBpsU4+0o+nAgJqC\nCOL/rt/GHwmmX3ka2ioTWwtumtei4/ejbTBrMA4GA1UdDwEB/wQEAwIBpjAdBgNV\nHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwEwDwYDVR0TAQH/BAUwAwEB/zApBgNV\nHQ4EIgQgRkvXAREOeeZzEzyAnb99rqWIzAW2RqFVriuhZoZSBpUwCgYIKoZIzj0E\nAwIDRwAwRAIgCcY4vir60ukkLNNHcQ9G22q1i2EsnFdOxH7VfdRASq8CIG2BL/7k\n98ewzous+ZiTv10pAQDdV4yvHY1w4OrTfDgP\n-----END CERTIFICATE-----\n&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;grpcOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;ssl-target-name-override&#34;</span><span class="p">:</span> <span class="s2">&#34;peer0.org1.example.com&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;hostnameOverride&#34;</span><span class="p">:</span> <span class="s2">&#34;peer0.org1.example.com&#34;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;certificateAuthorities&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;ca.org1.example.com&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;url&#34;</span><span class="p">:</span> <span class="s2">&#34;https://127.0.0.1:7054&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;caName&#34;</span><span class="p">:</span> <span class="s2">&#34;ca-org1&#34;</span><span class="p">,</span>
+            <span class="nt">&#34;tlsCACerts&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;pem&#34;</span><span class="p">:</span> <span class="s2">&#34;-----BEGIN CERTIFICATE-----\nMIICUTCCAfegAwIBAgIQQCigCctKgodE1Q7gcR5LXDAKBggqhkjOPQQDAjBzMQsw\nCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNU2FuIEZy\nYW5jaXNjbzEZMBcGA1UEChMQb3JnMS5leGFtcGxlLmNvbTEcMBoGA1UEAxMTY2Eu\nb3JnMS5leGFtcGxlLmNvbTAeFw0yMDAzMTUwOTE0MDBaFw0zMDAzMTMwOTE0MDBa\nMHMxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1T\nYW4gRnJhbmNpc2NvMRkwFwYDVQQKExBvcmcxLmV4YW1wbGUuY29tMRwwGgYDVQQD\nExNjYS5vcmcxLmV4YW1wbGUuY29tMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE\nkhODBxDZsbsm+4roHRwjPhOavnvmGRNnktsKB1X9IncaDDu4jSduwjOu9zdZm/B4\nixe1pE/NhpjMhpXmYQBDk6NtMGswDgYDVR0PAQH/BAQDAgGmMB0GA1UdJQQWMBQG\nCCsGAQUFBwMCBggrBgEFBQcDATAPBgNVHRMBAf8EBTADAQH/MCkGA1UdDgQiBCAS\nCZsC0MsmOf9PukUYg+mCYx0qZC3bIBiB4O2Y+ORVTzAKBggqhkjOPQQDAgNIADBF\nAiEAigmuFPeCY59LcV0KNU27y/v6Tgl3p8NlCBQv7vgXIigCID5vB6P+v9eQnQPj\nyn4alwVpNaO1qnAXZH+nekhnoTEs\n-----END CERTIFICATE-----\n&#34;</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;httpOptions&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;verify&#34;</span><span class="p">:</span> <span class="kc">false</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<h4 id="2问题描述当我需要在org2的节点peer0上进行操作时由于我没有注册org2的admin和对应的user然后又在ccp文件中错误的赋值的org1peer1的配置所才出现了以下的错误">2.问题描述：当我需要在org2的节点peer0上进行操作时，由于我没有注册org2的admin和对应的user，然后又在CCP文件中错误的赋值的org1peer1的配置,所才出现了以下的错误</h4>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-bash" data-lang="bash">2020-03-15T13:42:06.069Z - error: <span class="o">[</span>Network<span class="o">]</span>: _initializeInternalChannel: No peers defined <span class="k">for</span> MSP <span class="s1">&#39;Org1MSP&#39;</span> to discover from
+Failed to submit transaction: Error: No peers defined <span class="k">for</span> MSP <span class="s1">&#39;Org1MSP&#39;</span> to discover from
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>注意：在切换了相应的endpoint（组织节点）时，一定要检查当前使用的client的user是哪个组织的用户，这对于和相应的peer节点的交互尤为重要</strong></p>
+<p>&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-我是更新部分    &mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-2020年3月31日</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-08-29
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/chaincode%E5%BC%80%E5%8F%91/cid%E9%93%BE%E7%A0%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%BA%93/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">链码的访问控制(cid库)</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/fabric%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2/fabric1.4.x%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/">
+            <span class="next-text nav-default">fabric1.4.x 网络部署的一些坑</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>olOwOlo</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>区块链 - VegeBun-csj’s blog</title>
+    
+    <meta name="description" content="">
+    <meta name="author" content="Bun">
+    
+    <link href="https://VegeBun-csj.github.io/an-old-hope.min.css" rel="stylesheet">
+    <link href="https://VegeBun-csj.github.io/style.css" rel="stylesheet">
+    <link href="https://VegeBun-csj.github.io/custom.css" rel="stylesheet">
+    
+    <link rel="apple-touch-icon" href="https://VegeBun-csj.github.io/apple-touch-icon.png">
+    <link rel="icon" href="https://VegeBun-csj.github.io/favicon.ico">
+    <meta name="generator" content="Hugo 0.74.3" />
+    
+    
+    
+    <script>
+      function setTheme() {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.body.classList.add('dark');
+          return;
+        }
+
+        const time = new Date();
+        const prev = localStorage.getItem('date');
+        const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
+
+        const now = time.getTime();
+        let sunrise;
+        let sunset;
+
+        function setBodyClass() {
+          if (now > sunrise && now < sunset) return;
+          document.body.classList.add('dark');
+        }
+
+        if (date !== prev) {
+          fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
+            .then((res) => res.json())
+            .then((data) => {
+              sunrise = data.sunrise.split(':').map(Number);
+              sunset = data.sunset.split(':').map(Number);
+            })
+            .catch(() => {
+              sunrise = [7, 0];
+              sunset = [19, 0];
+            })
+            .finally(() => {
+              sunrise = time.setHours(sunrise[0], sunrise[1], 0);
+              sunset = time.setHours(sunset[0], sunset[1], 0);
+              setBodyClass();
+              localStorage.setItem('sunrise', sunrise);
+              localStorage.setItem('sunset', sunset);
+            });
+          localStorage.setItem('date', date);
+        } else {
+          sunrise = Number(localStorage.getItem('sunrise'));
+          sunset = Number(localStorage.getItem('sunset'));
+          setBodyClass();
+        }
+      }
+    </script>
+  </head>
+  <body class="list">
+    <script>
+      setTheme();
+    </script>
+    <header class="header">
+      <nav class="nav">
+        <p class="logo"><a href="https://VegeBun-csj.github.io">VegeBun-csj’s blog</a></p>
+        <ul class="menu">
+          <li>
+            <a href="/posts/">文章</a>
+          </li>
+          <li>
+            <a href="/categories/">分类</a>
+          </li>
+          <li>
+            <a href="/tags/">标签</a>
+          </li>
+          <li>
+            <a href="/about/">关于</a>
+          </li>
+          <li>
+            <a href=""></a>
+          </li>
+          <li>
+            <a href=""></a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main">
+
+<header class="page-header"><h1>区块链</h1></header>
+
+<article class="post-entry">
+  <header class="entry-header">
+    <h2>以太坊交易树和收据树(4)</h2>
+  </header>
+  <section class="entry-content">
+   <p>交易树与状态树 状态树 交易树 收据树 (把系统中的所有状态都记录进去，不管账户是否与当前区...</p>
+  </section>
+  <footer class="entry-footer">
+    <time>August 24, 2020</time>
+  </footer>
+  <a class="entry-link" href="https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E4%BA%A4%E6%98%93%E6%A0%91%E5%92%8C%E6%94%B6%E6%8D%AE%E6%A0%914/"></a>
+</article>
+<article class="post-entry">
+  <header class="entry-header">
+    <h2>以太坊状态树(3)</h2>
+  </header>
+  <section class="entry-content">
+   <p>在Ethereum中，账户的状态是以键值对&lt;key,value&gt;的形式保...</p>
+  </section>
+  <footer class="entry-footer">
+    <time>August 24, 2020</time>
+  </footer>
+  <a class="entry-link" href="https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E7%8A%B6%E6%80%81%E6%A0%913/"></a>
+</article>
+<article class="post-entry">
+  <header class="entry-header">
+    <h2>以太坊账户(2)</h2>
+  </header>
+  <section class="entry-content">
+   <p>背景 比特币中采用的是基于交易的账本，这种模式下，系统中并没有显式地记录账户中有多少钱...</p>
+  </section>
+  <footer class="entry-footer">
+    <time>August 24, 2020</time>
+  </footer>
+  <a class="entry-link" href="https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E8%B4%A6%E6%88%B72/"></a>
+</article>
+<article class="post-entry">
+  <header class="entry-header">
+    <h2>以太坊概述(1)</h2>
+  </header>
+  <section class="entry-content">
+   <p>以太坊被称为区块链2.0 创世人是V神，属于公有链的代表，和BTC的不同是，以太坊引入...</p>
+  </section>
+  <footer class="entry-footer">
+    <time>August 24, 2020</time>
+  </footer>
+  <a class="entry-link" href="https://VegeBun-csj.github.io/posts/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8A%E6%A6%82%E8%BF%B01/"></a>
+</article>
+<article class="post-entry">
+  <header class="entry-header">
+    <h2>BTC—思考(11)</h2>
+  </header>
+  <section class="entry-content">
+   <p>Hash 指针 比特币中的hash指针有两个作用：（1）区块之间的链接（2）交易时说明币的来源...</p>
+  </section>
+  <footer class="entry-footer">
+    <time>August 23, 2020</time>
+  </footer>
+  <a class="entry-link" href="https://VegeBun-csj.github.io/posts/btc/btc%E6%80%9D%E8%80%8311/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/page/3/">← 上一页</a>
+    <a class="next" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/page/5/">下一页 →</a>
+  </nav>
+</footer></main>
+<footer class="footer">
+  <span>&copy; 2020 <a href="https://VegeBun-csj.github.io">VegeBun-csj’s blog</a></span>
+  <span>&middot;</span>
+  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
+  <span>&middot;</span>
+  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+</footer>
+<script src="https://VegeBun-csj.github.io/highlight.min.js"></script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+</body>
+</html>
+

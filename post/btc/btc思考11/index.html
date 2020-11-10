@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>BTC—思考(11) - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="Hash 指针 比特币中的hash指针有两个作用：（1）区块之间的链接（2）交易时说明币的来源 1.指针保存的是本地内存的地址，只在本地这台计算机才有意" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/btc/btc%E6%80%9D%E8%80%8311/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="BTC—思考(11)" />
+<meta property="og:description" content="Hash 指针 比特币中的hash指针有两个作用：（1）区块之间的链接（2）交易时说明币的来源 1.指针保存的是本地内存的地址，只在本地这台计算机才有意" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/btc/btc%E6%80%9D%E8%80%8311/" />
+<meta property="article:published_time" content="2020-08-23T20:20:45+08:00" />
+<meta property="article:modified_time" content="2020-08-23T20:20:45+08:00" />
+<meta itemprop="name" content="BTC—思考(11)">
+<meta itemprop="description" content="Hash 指针 比特币中的hash指针有两个作用：（1）区块之间的链接（2）交易时说明币的来源 1.指针保存的是本地内存的地址，只在本地这台计算机才有意">
+<meta itemprop="datePublished" content="2020-08-23T20:20:45+08:00" />
+<meta itemprop="dateModified" content="2020-08-23T20:20:45+08:00" />
+<meta itemprop="wordCount" content="716">
+
+
+
+<meta itemprop="keywords" content="区块链," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BTC—思考(11)"/>
+<meta name="twitter:description" content="Hash 指针 比特币中的hash指针有两个作用：（1）区块之间的链接（2）交易时说明币的来源 1.指针保存的是本地内存的地址，只在本地这台计算机才有意"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">VegeBun-csj</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">VegeBun-csj</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">BTC—思考(11)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-23 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%AF%94%E7%89%B9%E5%B8%81/"> 比特币 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#hash-指针">Hash 指针</a></li>
+            <li><a href="#区块恋">区块恋</a></li>
+            <li><a href="#比特币稀疏性">比特币稀疏性</a></li>
+            <li><a href="#量子计算">量子计算</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <ul>
+<li>
+<h3 id="hash-指针">Hash 指针</h3>
+<p>比特币中的hash指针有两个作用：（1）区块之间的链接（2）交易时说明币的来源</p>
+<p>1.指针保存的是本地内存的地址，只在本地这台计算机才有意义，发送到其他的计算机上就没有意义，那么再发布区块时，hash指针是如何通过网络进行传输的呢？</p>
+<p><strong>所谓的hash指针只是一种形象的说法，实际系统在使用的时候，只有hash，没有指针，或者可以理解为hash值本身就是一个指针！！</strong></p>
+<p>2.如何找到前一个区块的内容呢？</p>
+<p>全节点一般是把这些区块存储在一个&lt;key,value&gt;数据库中，key是区块的hash，value是区块的内容，一个常用的kv数据库是levelDB，所以，如过拿到了最后一个区块的区块hash（key），那么就可以通过kv数据库查找到对应的区块内容（value），而该value中有上一个区块的hash，这样又能查找到上一个区块的内容，以此类推，一步一步往前找，可以把整个区块链找到。</p>
+</li>
+<li>
+<h3 id="区块恋">区块恋</h3>
+<p>多余多个人的共享账户，一定不要用共享私钥的方法，因为BTC的密钥安全性是与密钥的长度挂钩的，BTC的私钥长度为256位，如果截断，那么，破解的难度会降低，会有很大的安全风险。</p>
+<p>如何解决呢？？？？</p>
+<p>可以使用<strong>多重签名</strong>（多重签名中每个私钥都是独立产生的）</p>
+</li>
+<li>
+<h3 id="比特币稀疏性">比特币稀疏性</h3>
+<p>BTC的总量一定，流通性有障碍</p>
+</li>
+<li>
+<h3 id="量子计算">量子计算</h3>
+<p>BTC的地址是公钥取hash，所以对安全性来说有很大提升。hash函数是不可逆的，量子计算机也没办法做到。BTC中使用SHA-256算法。如果只是收款，只需要提供公钥的hash就行，只有将来需要取钱的时候得有公钥还有私钥产生的签名。所以取钱的时候尽量一次性取出来，这样有利于安全性（即使是公钥也不要随便暴露，如果你担心量子计算机的话！！！！）</p>
+</li>
+</ul>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-08-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/btc/btc%E5%8C%BF%E5%90%8D%E6%80%A710/">
+            <span class="next-text nav-default">BTC—匿名性(10)</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>olOwOlo</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

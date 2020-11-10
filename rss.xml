@@ -23,7 +23,7 @@
         
             <copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright>
         
-        <lastBuildDate>Mon, 19 Oct 2020 15:25:51 &#43;0800</lastBuildDate>
+        <lastBuildDate>Mon, 09 Nov 2020 17:31:24 &#43;0800</lastBuildDate>
         
             <atom:link rel="self" type="application/rss&#43;xml" href="https://VegeBun-csj.github.io/rss.xml" />
         
@@ -2045,7 +2045,9 @@ peer chaincode query -C &lt;span class=&#34;nv&#34;&gt;$CHANNEL_NAME&lt;/span&gt
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description>
+&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;到这就告一段落了。&lt;/p&gt;
+</description>
                 
                 
                 
@@ -6486,7 +6488,7 @@ DjZ1y7kctNRyWJ3uXPJlZWISnwD3fpzp8QccIKE5bUY=
                                 
                                 
                                 
-                                    <category domain="https://VegeBun-csj.github.io/categories/hyperledger-fabric-chincode%E5%BC%80%E5%8F%91/">Hyperledger Fabric--chincode开发</category>
+                                    <category domain="https://VegeBun-csj.github.io/categories/hyperledger-fabric-chaincode%E5%BC%80%E5%8F%91/">Hyperledger Fabric--chaincode开发</category>
                                 
                             
                         

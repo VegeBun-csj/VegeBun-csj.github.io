@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hyperledger Fabric--基本概念 on Even - A super concise theme for Hugo</title>
+    <link>http://localhost:1313/categories/hyperledger-fabric-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</link>
+    <description>Recent content in Hyperledger Fabric--基本概念 on Even - A super concise theme for Hugo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 18 Oct 2020 21:26:31 +0800</lastBuildDate>
+    
+	<atom:link href="http://localhost:1313/categories/hyperledger-fabric-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fabric中的账本数据存储</title>
+      <link>http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%B8%AD%E7%9A%84%E8%B4%A6%E6%9C%AC%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/</link>
+      <pubDate>Sun, 18 Oct 2020 21:26:31 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%B8%AD%E7%9A%84%E8%B4%A6%E6%9C%AC%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/</guid>
+      <description>Fabric账本数据的存储 Fabric账本数据存储模块提供了文件系统与键值型数据库用于存储账本数据，并被统一封装为Peer节点的账本对象（ k</description>
+    </item>
+    
+    <item>
+      <title>Fabric中的读写集</title>
+      <link>http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%B8%AD%E7%9A%84%E8%AF%BB%E5%86%99%E9%9B%86/</link>
+      <pubDate>Sun, 18 Oct 2020 21:25:21 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%B8%AD%E7%9A%84%E8%AF%BB%E5%86%99%E9%9B%86/</guid>
+      <description>Fabric中的读写集 在背书节点模拟执行交易期间，都会为每笔交易生成一个读写集。 读集(readset)包含了在模拟执行期间读取到的键的列表和</description>
+    </item>
+    
+    <item>
+      <title>Fabric交易流程的详细分析</title>
+      <link>http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%BA%A4%E6%98%93%E6%B5%81%E7%A8%8B%E7%9A%84%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90/</link>
+      <pubDate>Sun, 11 Oct 2020 21:14:08 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%BA%A4%E6%98%93%E6%B5%81%E7%A8%8B%E7%9A%84%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90/</guid>
+      <description>Fabric交易流程的详细分析 总体来讲，一个交易流程分为3个阶段：交易的模拟执行、交易打包生成区块、账本的更新 交易流程图： 第一阶段： 客户端创</description>
+    </item>
+    
+    <item>
+      <title>背书节点和提交节点</title>
+      <link>http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E8%83%8C%E4%B9%A6%E8%8A%82%E7%82%B9%E5%92%8C%E6%8F%90%E4%BA%A4%E8%8A%82%E7%82%B9/</link>
+      <pubDate>Sat, 10 Oct 2020 21:11:44 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E8%83%8C%E4%B9%A6%E8%8A%82%E7%82%B9%E5%92%8C%E6%8F%90%E4%BA%A4%E8%8A%82%E7%82%B9/</guid>
+      <description>背书节点（Endorser peer） 主要是对请求服务的签名提案消息 启动链码容器 模拟执行链码 签名背书 客户端提交到账本的普通交易都需要经过背书节</description>
+    </item>
+    
+  </channel>
+</rss>

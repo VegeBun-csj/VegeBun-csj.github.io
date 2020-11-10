@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>BTC—共识协议(3) - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="olOwOlo" /><meta name="description" content="相对于传统的纸质货币，数字货币需要解决两个问题： 1.谁来发行货币，什么时候发行，发行多少（这是挖矿决定的） 2.如何验证交易的有效性，传统的纸" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.74.3 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/btc/btc%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE3/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.c7bc1becf36bcf6a9ebd25d2947e43a2eb745ddb0c9a32b43126fd7fa460c351.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="BTC—共识协议(3)" />
+<meta property="og:description" content="相对于传统的纸质货币，数字货币需要解决两个问题： 1.谁来发行货币，什么时候发行，发行多少（这是挖矿决定的） 2.如何验证交易的有效性，传统的纸" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/btc/btc%E5%85%B1%E8%AF%86%E5%8D%8F%E8%AE%AE3/" />
+<meta property="article:published_time" content="2020-08-23T20:07:04+08:00" />
+<meta property="article:modified_time" content="2020-08-23T20:07:04+08:00" />
+<meta itemprop="name" content="BTC—共识协议(3)">
+<meta itemprop="description" content="相对于传统的纸质货币，数字货币需要解决两个问题： 1.谁来发行货币，什么时候发行，发行多少（这是挖矿决定的） 2.如何验证交易的有效性，传统的纸">
+<meta itemprop="datePublished" content="2020-08-23T20:07:04+08:00" />
+<meta itemprop="dateModified" content="2020-08-23T20:07:04+08:00" />
+<meta itemprop="wordCount" content="2249">
+
+
+
+<meta itemprop="keywords" content="区块链," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="BTC—共识协议(3)"/>
+<meta name="twitter:description" content="相对于传统的纸质货币，数字货币需要解决两个问题： 1.谁来发行货币，什么时候发行，发行多少（这是挖矿决定的） 2.如何验证交易的有效性，传统的纸"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">VegeBun-csj</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">VegeBun-csj</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">BTC—共识协议(3)</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-08-23 </span>
+        <div class="post-category">
+            <a href="/categories/%E6%AF%94%E7%89%B9%E5%B8%81/"> 比特币 </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#相对于传统的纸质货币数字货币需要解决两个问题">相对于传统的纸质货币，数字货币需要解决两个问题：</a></li>
+          </ul>
+        </li>
+        <li><a href="#一如何验证交易的有效性">一.如何验证交易的有效性</a>
+          <ul>
+            <li><a href="#比特币系统中每个交易都包含输入和输出">比特币系统中每个交易都包含输入和输出：</a></li>
+            <li><a href="#比特币区块的结构"><strong>比特币区块的结构：</strong></a></li>
+            <li><a href="#比特币中的节点">比特币中的节点：</a></li>
+            <li><a href="#比特币中的共识协议">比特币中的共识协议</a></li>
+          </ul>
+        </li>
+        <li><a href="#二谁来发行货币">二.谁来发行货币</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <h3 id="相对于传统的纸质货币数字货币需要解决两个问题">相对于传统的纸质货币，数字货币需要解决两个问题：</h3>
+<p>1.<strong>谁来发行货币，什么时候发行，发行多少</strong>（这是<strong>挖矿</strong>决定的）</p>
+<p>2.<strong>如何验证交易的有效性</strong>，传统的纸质货币，花出去就是花出去了，但是BTC这类电子货币相对于传统的纸质货币，首先面临的最大的问题就是双重支付，也就是**“双花攻击”——double spending** **attack**，因为这种电子货币是文件，是可复制的，如何验证货币已经花出去了，**防止双重支付**，是需要解决的问题</p>
+<h2 id="一如何验证交易的有效性">一.如何验证交易的有效性</h2>
+<p>如何防止双花攻击，传统的纸质货币可以由央行来维护，是一个中心化的机构，但是在数字货币中，需要集体来维护一个数据结构，是一个去中心化的，所以就诞生了区块链这种数据结构</p>
+<h3 id="比特币系统中每个交易都包含输入和输出">比特币系统中每个交易都包含输入和输出：</h3>
+<p>（1）输入：说明<strong>币的来源，以及转账者的公钥</strong></p>
+<p>（2）输出：给出<strong>收款人的公钥的hash</strong>（用于找到收款人的比特币地址，可以做成类似于二维码）</p>
+<p>注意：此时由两种hash指针，<strong>一种指针就是连接各个区块构成一个链的；另一种指针就是指向前面某个交易的，也就是为了说明币的来源的</strong>，为什么要说明币的来源，就是为了说明币不是凭空捏造的，更重要的是<strong>为了防止double spending</strong></p>
+<p>注：在比特币系统中，每个交易的输入是一段<strong>脚本（bitcoin Script）</strong>，每个交易的输出也是一段脚本，当验证交易是不是合法时（是否双重支付），就是要把<strong>当前交易的输入脚本</strong>跟<strong>前面那个交易的输出脚本</strong>拼在一起，看能否顺利执行，如果能执行，就是合法的。</p>
+<h3 id="比特币区块的结构"><strong>比特币区块的结构：</strong></h3>
+<p>一个区块分为<strong>Block header和Block body</strong></p>
+<p><strong>1.Block header</strong>：其中包含了比特币协议的版本（version），指向前一个区块的hash（hash of previous Block header），整个Merkle tree的根hash值（Merkle root hash）,挖矿的难度目标预值（target）,随机数（nounce）</p>
+<p>注：<strong>H(Block header)&lt;=Target</strong>，即整个块头的hash要小于等于目标预值，block header中存的就是这个目标预值的编码（<strong>nBits</strong>）；指向前一个区块的hash（hash of previous Block header）是只算的区块头的hash，并没有区块体！！！！这个要特别注意</p>
+<p><strong>2.Block body</strong>：其中包含交易列表（transaction list）</p>
+<h3 id="比特币中的节点">比特币中的节点：</h3>
+<p>比特币中的节点分为：<strong>全节点（full node）和轻节点（light node）</strong></p>
+<p><strong>全节点</strong>：保存区块链所有的信息，验证每一个交易，所以全节点也叫做<strong>fully validation node</strong></p>
+<p><strong>轻节点</strong>：并不保存所有信息</p>
+<p>比特币中所有的节点都可以进行交易，那这些<strong>交易应该由谁来记账，如何记账</strong>呢，这就是需要解决的问题，因为区块链是一个分布式的账本，这个账本必须要所有人都认同，不能各记各的帐，所以账本需要取得<strong>分布式共识（distributed consensus）</strong></p>
+<p>分布式共识一个简单的例子就是<strong>分布式hash表（dstributed hash table——DHT）</strong>,一个全局的hash表</p>
+<p>在分布式系统中，有很多<strong>不可能理论（impossiblity result）</strong>,其中比较著名的有</p>
+<p><strong>1.FLP不可能理论</strong>，即在一个异步（asynchronous）的系统中,网络时延没有上限，即使只有一个成员有问题，也不可能取得共识。</p>
+<p><strong>2.CAP不可能理论</strong>，C代表Consistency一致性，A代表Availibility可用性，P代表Partition tolerance容错性，这个理论说明了这三种性质最多只能满足两个，也就是必须要牺牲其中的一个</p>
+<h3 id="比特币中的共识协议">比特币中的共识协议</h3>
+<p>比特币系统中有的节点是恶意的，那么这种情况下怎么设计共识协议。</p>
+<p>只有找到符合<strong>H(Block header)&lt;=Target</strong> 的nounce的节点才有记账权利，其他的节点则是验证</p>
+<p>比特币中会出现分叉，只有<strong>最长链才是合法</strong>的，是为了防止<strong>分叉攻击（forking attack）</strong>，即通过分叉某个区块，来回滚已经发生的交易。当然分叉并非一定是恶意攻击，当出现多个节点在同一时刻同时计算出随机数nounce获得记账权，同时将区块写入账本中时就会出现分叉，这种分叉的情况会维持一段时间（看分叉的链中哪个先找到下一个区块），直到分叉链中的一条链胜出成为合法链（最长链）为止，这就是节点竞争获得记账权的过程，也就是共识的过程，大家都公认最长的链（账本）是正确的。</p>
+<p>那为什么会出现这种竞争记账的现象呢？</p>
+<p>因为有出块奖励（Block reward）！！！！也就是接下来要说的谁来发行货币</p>
+<h2 id="二谁来发行货币">二.谁来发行货币</h2>
+<p>coinbase transaction（铸币交易） 是比特币系统当中发行新的比特币货币的唯一方法，其他所有的交易都只是把已有的账户的货币转到其他账户</p>
+<p>一开始的时候，比特币系统中每写入一个区块，都有50BTC的奖励，但是规定每21万个区块之后，这个出块奖励就要减半</p>
+<p>所以比特币中要取得的共识是去这个中心化账本中的内容，而谁能决定账本中的内容呢，只有获得记账权的节点才能往账本中写入，那如何获得记账权呢，就是解<strong>H(Block header)&lt;=Target</strong> 这样一个难题(puzzle)这个puzzle没有捷径，只能一个一个去试，算出nounce，所以说，比特币的共识是靠算力的。所以如何一个节点的算力越大，那它获得记账权的概率就越大（hash rate决定了投票的权重），也就是靠算力来投票的，算力越大，获得记账的概率越大。所以基于算力的投票的共识可以防范女巫攻击（sybil attack，通过创建多个恶意节点进行投票获得共识），即使在一台机器上创建多个账户，并不会使hash rate 增加，并不会让节点每秒尝试的nounce的数目增加，并不会影响最终的共识结果</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">olOwOlo</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2020-08-23
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/btc/btc%E5%AE%9E%E7%8E%B04/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">BTC—实现(4)</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        <a class="next" href="/post/btc/btc%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%842/">
+            <span class="next-text nav-default">BTC—数据结构(2)</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:your@email.com" class="iconfont icon-email" title="email"></a>
+      <a href="http://localhost:1313" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="http://localhost:1313" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="http://localhost:1313" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://localhost:1313" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="http://localhost:1313" class="iconfont icon-google" title="google"></a>
+      <a href="http://localhost:1313" class="iconfont icon-github" title="github"></a>
+      <a href="http://localhost:1313" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="http://localhost:1313" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="http://localhost:1313" class="iconfont icon-douban" title="douban"></a>
+      <a href="http://localhost:1313" class="iconfont icon-pocket" title="pocket"></a>
+      <a href="http://localhost:1313" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
+      <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
+      <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2020<span class="heart"><i class="iconfont icon-heart"></i></span><span>olOwOlo</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
