@@ -162,6 +162,8 @@
 <blockquote>
 <p>寻找相交的点。本题的解法非常巧妙，采用的双指针，即链表A一个指针ptr1进行遍历，链表B一个指针ptr2进行遍历； 两者一开始都是从各自的链表头部开始遍历（对于大多数情况，可能存在链表长度不一致的情况），当其中一个链表遍历结束，我们假设ptr1先遍历完了链表A，然后下一步将ptr1指向链表B，进行遍历；当ptr2遍历完链表B之后，将ptr2指向链表A，从头开始遍历。这样“轮着遍历”的精妙之处在于：当有相交的节点时，两个指针会同时指向该相交的节点(即它们在相交节点之前走过的路程是一样的)，此时就返回相交节点；当没有相交节点时，两个指针会将两个链表遍历完成，都为nullptr，表明两个链表没有相同的节点，最终返回空（所以这种方法的妙处在于，不管是走到相交的节点处还是遍历完两个链表之后没有相交节点，两个指针走过的路程都是一样的，并且它们最后退出遍历的条件都是相等的情况，即都指向相交节点或者都是nullptr）</p>
 </blockquote>
+<p><img src="https://cdn.jsdelivr.net/gh/VegeBun-csj/Images/%7BD4EED0FC-6ABC-1EB8-BCCE-3C73619AC34D%7D.png" alt="img"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/VegeBun-csj/Images/%7BF46E9F12-1B61-E417-6A12-796F5D52C4A1%7D.png" alt="img"></p>
 <h3 id="代码">代码</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
