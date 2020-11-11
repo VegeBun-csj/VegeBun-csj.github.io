@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CouchDB on This is a blog written by VegeBun-csj</title>
+    <title>CouchDB on Even - A super concise theme for Hugo</title>
     <link>http://localhost:1313/tags/couchdb/</link>
-    <description>Recent content in CouchDB on This is a blog written by VegeBun-csj</description>
+    <description>Recent content in CouchDB on Even - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Sun, 18 Oct 2020 21:22:31 +0800</lastBuildDate>
