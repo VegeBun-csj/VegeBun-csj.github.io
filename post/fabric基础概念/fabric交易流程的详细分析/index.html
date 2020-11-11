@@ -26,23 +26,23 @@
 <meta name="generator" content="Hugo 0.74.3 with theme even" />
 
 
-<link rel="canonical" href="http://VegeBun-csj/github.io/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%BA%A4%E6%98%93%E6%B5%81%E7%A8%8B%E7%9A%84%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90/" />
-<link rel="apple-touch-icon" sizes="180x180" href="/github.io/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/github.io/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/github.io/favicon-16x16.png">
-<link rel="manifest" href="/github.io/manifest.json">
-<link rel="mask-icon" href="/github.io/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="canonical" href="http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%BA%A4%E6%98%93%E6%B5%81%E7%A8%8B%E7%9A%84%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-<link href="/github.io/sass/main.min.edcb4e071bdc2fd679c1aeb628dad304879b36abfc9d07412c751d7fcba15996.css" rel="stylesheet">
+<link href="/sass/main.min.edcb4e071bdc2fd679c1aeb628dad304879b36abfc9d07412c751d7fcba15996.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
 <meta property="og:title" content="Fabric交易流程的详细分析" />
 <meta property="og:description" content="Fabric交易流程的详细分析 总体来讲，一个交易流程分为3个阶段：交易的模拟执行、交易打包生成区块、账本的更新 交易流程图： 第一阶段： 客户端创" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://VegeBun-csj/github.io/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%BA%A4%E6%98%93%E6%B5%81%E7%A8%8B%E7%9A%84%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90/" />
+<meta property="og:url" content="http://localhost:1313/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%BA%A4%E6%98%93%E6%B5%81%E7%A8%8B%E7%9A%84%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90/" />
 <meta property="article:published_time" content="2020-10-11T21:14:08+08:00" />
 <meta property="article:modified_time" content="2020-10-11T21:14:08+08:00" />
 <meta itemprop="name" content="Fabric交易流程的详细分析">
@@ -71,7 +71,7 @@
 <body>
   <div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
-    <a href="/github.io/" class="logo">VegeBun-csj</a>
+    <a href="/" class="logo">VegeBun-csj</a>
   </div>
   <div class="mobile-navbar-icon">
     <span></span>
@@ -81,13 +81,13 @@
 </div>
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
   <ul class="mobile-menu-list">
-    <a href="/github.io/">
+    <a href="/">
         <li class="mobile-menu-item">Home</li>
-      </a><a href="/github.io/post/">
+      </a><a href="/post/">
         <li class="mobile-menu-item">Archives</li>
-      </a><a href="/github.io/tags/">
+      </a><a href="/tags/">
         <li class="mobile-menu-item">Tags</li>
-      </a><a href="/github.io/categories/">
+      </a><a href="/categories/">
         <li class="mobile-menu-item">Categories</li>
       </a>
   </ul>
@@ -95,19 +95,19 @@
   <div class="container" id="mobile-panel">
     <header id="header" class="header">
         <div class="logo-wrapper">
-  <a href="/github.io/" class="logo">VegeBun-csj</a>
+  <a href="/" class="logo">VegeBun-csj</a>
 </div>
 
 <nav class="site-navbar">
   <ul id="menu" class="menu">
     <li class="menu-item">
-        <a class="menu-item-link" href="/github.io/">Home</a>
+        <a class="menu-item-link" href="/">Home</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/github.io/post/">Archives</a>
+        <a class="menu-item-link" href="/post/">Archives</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/github.io/tags/">Tags</a>
+        <a class="menu-item-link" href="/tags/">Tags</a>
       </li><li class="menu-item">
-        <a class="menu-item-link" href="/github.io/categories/">Categories</a>
+        <a class="menu-item-link" href="/categories/">Categories</a>
       </li>
   </ul>
 </nav>
@@ -124,11 +124,11 @@
       <div class="post-meta">
         <span class="post-time"> 2020-10-11 </span>
         <div class="post-category">
-            <a href="/github.io/categories/hyperledger-fabric-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"> Hyperledger Fabric--基本概念 </a>
+            <a href="/categories/hyperledger-fabric-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"> Hyperledger Fabric--基本概念 </a>
             </div>
           <span class="more-meta"> 4086 words </span>
           <span class="more-meta"> 9 mins read </span>
-        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/github.io/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
+        <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
     </header>
 
@@ -786,15 +786,15 @@ Payload<span class="o">(</span>ChaincodeActionPayload<span class="o">)</span> <s
   </div>
 </div><footer class="post-footer">
       <div class="post-tags">
-          <a href="/github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+          <a href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93/couchdb%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
+        <a class="prev" href="/post/%E6%95%B0%E6%8D%AE%E5%BA%93/couchdb%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">CouchDB的基本语法</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/github.io/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E8%83%8C%E4%B9%A6%E8%8A%82%E7%82%B9%E5%92%8C%E6%8F%90%E4%BA%A4%E8%8A%82%E7%82%B9/">
+        <a class="next" href="/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E8%83%8C%E4%B9%A6%E8%8A%82%E7%82%B9%E5%92%8C%E6%8F%90%E4%BA%A4%E8%8A%82%E7%82%B9/">
             <span class="next-text nav-default">背书节点和提交节点</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
@@ -844,7 +844,7 @@ Payload<span class="o">(</span>ChaincodeActionPayload<span class="o">)</span> <s
       <a href="http://localhost:1313" class="iconfont icon-instagram" title="instagram"></a>
       <a href="http://localhost:1313" class="iconfont icon-gitlab" title="gitlab"></a>
       <a href="http://localhost:1313" class="iconfont icon-bilibili" title="bilibili"></a>
-  <a href="http://VegeBun-csj/github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
 </div>
 
 <div class="copyright">
@@ -858,9 +858,9 @@ Payload<span class="o">(</span>ChaincodeActionPayload<span class="o">)</span> <s
   </span>
 
   <div class="busuanzi-footer">
-    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/github.io/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span id="busuanzi_container_site_pv"> site pv: <span id="busuanzi_value_site_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
       <span class="division">|</span>
-    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/github.io/img/spinner.svg" alt="spinner.svg"/></span> </span>
+    <span id="busuanzi_container_site_uv"> site uv: <span id="busuanzi_value_site_uv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> </span>
   </div>
 
   <span class="copyright-year">
@@ -883,7 +883,7 @@ Payload<span class="o">(</span>ChaincodeActionPayload<span class="o">)</span> <s
 
 
 
-<script type="text/javascript" src="/github.io/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
+<script type="text/javascript" src="/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js"></script>
 
 
 
