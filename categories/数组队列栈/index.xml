@@ -13,55 +13,55 @@
     
     <item>
       <title>Leetcode768 最多能完成排序的块II</title>
-      <link>http://localhost:1313/post/leetcode/leetcode768-%E6%9C%80%E5%A4%9A%E8%83%BD%E5%AE%8C%E6%88%90%E6%8E%92%E5%BA%8F%E7%9A%84%E5%9D%97ii/</link>
+      <link>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode768-%E6%9C%80%E5%A4%9A%E8%83%BD%E5%AE%8C%E6%88%90%E6%8E%92%E5%BA%8F%E7%9A%84%E5%9D%97ii/</link>
       <pubDate>Tue, 10 Nov 2020 21:44:32 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/leetcode/leetcode768-%E6%9C%80%E5%A4%9A%E8%83%BD%E5%AE%8C%E6%88%90%E6%8E%92%E5%BA%8F%E7%9A%84%E5%9D%97ii/</guid>
+      <guid>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode768-%E6%9C%80%E5%A4%9A%E8%83%BD%E5%AE%8C%E6%88%90%E6%8E%92%E5%BA%8F%E7%9A%84%E5%9D%97ii/</guid>
       <description>题目链接 https://leetcode-cn.com/problems/max-chunks-to-make-sorted-ii/ 思路 题目要求最大的分块数目，本身题目隐含的意思就是块内是可以是无序的，但是每个块整体上是递增的，也就是说每个块中的最大值是递增的，</description>
     </item>
     
     <item>
       <title>Leetcode232 用栈实现队列</title>
-      <link>http://localhost:1313/post/leetcode/leetcode232-%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</link>
+      <link>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode232-%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</link>
       <pubDate>Tue, 10 Nov 2020 21:44:13 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/leetcode/leetcode232-%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</guid>
-      <description>题目链接 题目链https://leetcode-cn.com/problems/shortest-distance-to-a-charact</description>
+      <guid>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode232-%E7%94%A8%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</guid>
+      <description>题目链接 https://leetcode-cn.com/problems/shortest-distance-to-a-character/ 解题思路 左右两边进行遍历，分别找字符串中每个字符距离左边C最近的距离和距离右边C最近的距离，然后取两者中的较小者 代码 1 2 3 4 5 6 7</description>
     </item>
     
     <item>
       <title>Leetcode394 字符串解码</title>
-      <link>http://localhost:1313/post/leetcode/leetcode394-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/</link>
+      <link>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode394-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/</link>
       <pubDate>Tue, 10 Nov 2020 21:43:48 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/leetcode/leetcode394-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/</guid>
+      <guid>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode394-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/</guid>
       <description>题目链接 https://leetcode-cn.com/problems/decode-string/ 思路 本题是括号匹配的问题，对于数字和字符都分别用一个栈来存放，当遇到[时，就将数字和字符串分别入栈，遇到]时就将数字和字符串出栈，</description>
     </item>
     
     <item>
       <title>Leetcode1381 设计一个支持增量操作的栈</title>
-      <link>http://localhost:1313/post/leetcode/leetcode1381-%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%94%AF%E6%8C%81%E5%A2%9E%E9%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E6%A0%88/</link>
+      <link>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode1381-%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%94%AF%E6%8C%81%E5%A2%9E%E9%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E6%A0%88/</link>
       <pubDate>Tue, 10 Nov 2020 21:43:33 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/leetcode/leetcode1381-%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%94%AF%E6%8C%81%E5%A2%9E%E9%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E6%A0%88/</guid>
+      <guid>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode1381-%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%94%AF%E6%8C%81%E5%A2%9E%E9%87%8F%E6%93%8D%E4%BD%9C%E7%9A%84%E6%A0%88/</guid>
       <description>题目链接 https://leetcode-cn.com/problems/design-a-stack-with-increment-operation/ 思路： 采用数组进行模拟 代码(cpp) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 class CustomStack { public: int top; vector&amp;lt;int&amp;gt; simu_stack; //用数</description>
     </item>
     
     <item>
       <title>Leetcode821 字符最短距离</title>
-      <link>http://localhost:1313/post/leetcode/leetcode821-%E5%AD%97%E7%AC%A6%E6%9C%80%E7%9F%AD%E8%B7%9D%E7%A6%BB/</link>
+      <link>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode821-%E5%AD%97%E7%AC%A6%E6%9C%80%E7%9F%AD%E8%B7%9D%E7%A6%BB/</link>
       <pubDate>Tue, 10 Nov 2020 21:43:08 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/leetcode/leetcode821-%E5%AD%97%E7%AC%A6%E6%9C%80%E7%9F%AD%E8%B7%9D%E7%A6%BB/</guid>
+      <guid>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode821-%E5%AD%97%E7%AC%A6%E6%9C%80%E7%9F%AD%E8%B7%9D%E7%A6%BB/</guid>
       <description>题目链接 https://leetcode-cn.com/problems/shortest-distance-to-a-character/ 思路 左右两边进行遍历，分别找字符串中每个字符距离左边C最近的距离和距离右边C最近的距离，然后取两者中的较小者 代码 1 2 3 4 5 6 7 8 9</description>
     </item>
     
     <item>
       <title>Leetcode66 加一</title>
-      <link>http://localhost:1313/post/leetcode/leetcode66-%E5%8A%A0%E4%B8%80/</link>
+      <link>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode66-%E5%8A%A0%E4%B8%80/</link>
       <pubDate>Tue, 10 Nov 2020 21:42:43 +0800</pubDate>
       
-      <guid>http://localhost:1313/post/leetcode/leetcode66-%E5%8A%A0%E4%B8%80/</guid>
+      <guid>http://localhost:1313/post/leetcode/%E6%95%B0%E7%BB%84%E6%A0%88%E9%98%9F%E5%88%97/leetcode66-%E5%8A%A0%E4%B8%80/</guid>
       <description>题目链接 https://leetcode-cn.com/problems/plus-one/ 题目描述： 给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。 最高位数字存放在数组的首位， 数组中每个元素只存储单个数</description>
     </item>
     
