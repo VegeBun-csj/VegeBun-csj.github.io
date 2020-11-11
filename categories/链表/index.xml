@@ -17,7 +17,7 @@
       <pubDate>Wed, 11 Nov 2020 15:08:34 +0800</pubDate>
       
       <guid>http://localhost:1313/post/leetcode/%E9%93%BE%E8%A1%A8/leetcode142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8ii/</guid>
-      <description>思路 使用双指针，一个快指针，一个慢指针，需要进行数学推导证明，记住这个规律即可：设置一个快指针，一个慢指针，都一开始从链表head开始，快指</description>
+      <description>题目链接 https://leetcode-cn.com/problems/linked-list-cycle-ii/ 思路 使用双指针，一个快指针，一个慢指针，需要进行数学推导证明，记住这个规律即可：设置一个快指针，一个慢指针，都一开始从链表head</description>
     </item>
     
     <item>
