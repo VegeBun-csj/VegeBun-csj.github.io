@@ -6,7 +6,7 @@
     <description>Recent content in Categories on This is a blog written by VegeBun-csj to record the tech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Nov 2020 14:58:27 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2020 21:00:34 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>树</title>
       <link>http://localhost:1313/categories/%E6%A0%91/</link>
-      <pubDate>Fri, 13 Nov 2020 14:58:27 +0800</pubDate>
+      <pubDate>Sat, 14 Nov 2020 21:00:34 +0800</pubDate>
       
       <guid>http://localhost:1313/categories/%E6%A0%91/</guid>
       <description></description>
@@ -23,7 +23,7 @@
     <item>
       <title>递归</title>
       <link>http://localhost:1313/categories/%E9%80%92%E5%BD%92/</link>
-      <pubDate>Fri, 13 Nov 2020 14:58:27 +0800</pubDate>
+      <pubDate>Sat, 14 Nov 2020 21:00:34 +0800</pubDate>
       
       <guid>http://localhost:1313/categories/%E9%80%92%E5%BD%92/</guid>
       <description></description>

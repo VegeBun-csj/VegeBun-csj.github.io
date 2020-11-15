@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Leetcode104 二叉树的最大深度 - This is a blog written by VegeBun-csj to record the tech</title>
+  <title>Leetcode100 相同的树 - This is a blog written by VegeBun-csj to record the tech</title>
   <meta name="renderer" content="webkit" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="VegeBun-csj" /><meta name="description" content="题目描述 给定一个二叉树，找出其最大深度。 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。 说明: 叶子节点是指没有子节点的节点。 示例： 给" /><meta name="keywords" content="Hugo, theme, even" />
+<meta name="author" content="VegeBun-csj" /><meta name="description" content="题目描述 给定两个二叉树，编写一个函数来检验它们是否相同。 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。 题目链接 https://leetcode-cn.com/problems/same-tree/ 思路 题目" /><meta name="keywords" content="Hugo, theme, even" />
 
 
 
@@ -26,7 +26,7 @@
 <meta name="generator" content="Hugo 0.74.3 with theme even" />
 
 
-<link rel="canonical" href="http://localhost:1313/post/leetcode/%E6%A0%91/leetcode104-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/" />
+<link rel="canonical" href="http://localhost:1313/post/leetcode/%E6%A0%91/leetcode100-%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91/" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -39,24 +39,24 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
 
 
-<meta property="og:title" content="Leetcode104 二叉树的最大深度" />
-<meta property="og:description" content="题目描述 给定一个二叉树，找出其最大深度。 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。 说明: 叶子节点是指没有子节点的节点。 示例： 给" />
+<meta property="og:title" content="Leetcode100 相同的树" />
+<meta property="og:description" content="题目描述 给定两个二叉树，编写一个函数来检验它们是否相同。 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。 题目链接 https://leetcode-cn.com/problems/same-tree/ 思路 题目" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/post/leetcode/%E6%A0%91/leetcode104-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/" />
-<meta property="article:published_time" content="2020-11-13T14:58:27+08:00" />
-<meta property="article:modified_time" content="2020-11-13T14:58:27+08:00" />
-<meta itemprop="name" content="Leetcode104 二叉树的最大深度">
-<meta itemprop="description" content="题目描述 给定一个二叉树，找出其最大深度。 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。 说明: 叶子节点是指没有子节点的节点。 示例： 给">
-<meta itemprop="datePublished" content="2020-11-13T14:58:27+08:00" />
-<meta itemprop="dateModified" content="2020-11-13T14:58:27+08:00" />
-<meta itemprop="wordCount" content="270">
+<meta property="og:url" content="http://localhost:1313/post/leetcode/%E6%A0%91/leetcode100-%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91/" />
+<meta property="article:published_time" content="2020-11-14T16:06:45+08:00" />
+<meta property="article:modified_time" content="2020-11-14T16:06:45+08:00" />
+<meta itemprop="name" content="Leetcode100 相同的树">
+<meta itemprop="description" content="题目描述 给定两个二叉树，编写一个函数来检验它们是否相同。 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。 题目链接 https://leetcode-cn.com/problems/same-tree/ 思路 题目">
+<meta itemprop="datePublished" content="2020-11-14T16:06:45+08:00" />
+<meta itemprop="dateModified" content="2020-11-14T16:06:45+08:00" />
+<meta itemprop="wordCount" content="425">
 
 
 
 <meta itemprop="keywords" content="算法,leetcode," />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Leetcode104 二叉树的最大深度"/>
-<meta name="twitter:description" content="题目描述 给定一个二叉树，找出其最大深度。 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。 说明: 叶子节点是指没有子节点的节点。 示例： 给"/>
+<meta name="twitter:title" content="Leetcode100 相同的树"/>
+<meta name="twitter:description" content="题目描述 给定两个二叉树，编写一个函数来检验它们是否相同。 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。 题目链接 https://leetcode-cn.com/problems/same-tree/ 思路 题目"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -119,15 +119,15 @@
           <article class="post">
     
     <header class="post-header">
-      <h1 class="post-title">Leetcode104 二叉树的最大深度</h1>
+      <h1 class="post-title">Leetcode100 相同的树</h1>
 
       <div class="post-meta">
-        <span class="post-time"> 2020-11-13 </span>
+        <span class="post-time"> 2020-11-14 </span>
         <div class="post-category">
-            <a href="/categories/%E6%A0%91/"> 树 </a>
             <a href="/categories/%E9%80%92%E5%BD%92/"> 递归 </a>
+            <a href="/categories/%E6%A0%91/"> 树 </a>
             </div>
-          <span class="more-meta"> 270 words </span>
+          <span class="more-meta"> 425 words </span>
           <span class="more-meta"> 1 min read </span>
         <span id="busuanzi_container_page_pv" class="more-meta"> <span id="busuanzi_value_page_pv"><img src="/img/spinner.svg" alt="spinner.svg"/></span> times read </span>
       </div>
@@ -157,47 +157,70 @@
 </div>
     <div class="post-content">
       <h3 id="题目描述"><strong>题目描述</strong></h3>
-<p>给定一个二叉树，找出其最大深度。</p>
-<p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
-<p>说明: 叶子节点是指没有子节点的节点。</p>
-<p>示例：</p>
-<blockquote>
-<p>给定二叉树 [3,9,20,null,null,15,7]，
-返回它的最大深度 3 。</p>
-</blockquote>
+<p>给定两个二叉树，编写一个函数来检验它们是否相同。</p>
+<p>如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。</p>
 <h3 id="题目链接"><strong>题目链接</strong></h3>
 <blockquote>
-<p><a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/">https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/</a></p>
+<p><a href="https://leetcode-cn.com/problems/same-tree/">https://leetcode-cn.com/problems/same-tree/</a></p>
 </blockquote>
 <h3 id="思路"><strong>思路</strong></h3>
 <blockquote>
-<p>树的最大深度为左右子树的最大深度+1，所以我们只需要计算出左右子树的深度，然后选出最大者+1即可。二叉树的遍历比较适合<code>递归</code></p>
+<p>题目中说 <code>结构</code>和<code>值</code>相同才是相同的树，所以有一下步骤：</p>
+<ul>
+<li>
+<p>所以先对树的<code>结构</code>进行判断；</p>
+<ul>
+<li>当都为空的时候，结构相同，递归出口，返回true</li>
+<li>一个为空，一个不为空，结构不同，则递归出口，返回false</li>
+</ul>
+</li>
+<li>
+<p>结构相同时，再对<code>值</code>进行判断，如果值不同，则递归出口，返回false</p>
+</li>
+<li>
+<p>值相同再<code>递归遍历左右子树</code></p>
+</li>
+</ul>
+<p>所以，递归的写法，可以<strong>先考虑所有的递归出口</strong>，然后再写递归具体的流程和返回值</p>
 </blockquote>
 <h3 id="代码"><strong>代码</strong></h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
 </span></code></pre></td>
 <td class="lntd">
 <pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">maxDepth</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">maxDepth</span><span class="p">(</span><span class="n">root</span> <span class="o">-&gt;</span> <span class="n">left</span><span class="p">),</span><span class="n">maxDepth</span><span class="p">(</span><span class="n">root</span> <span class="o">-&gt;</span> <span class="n">right</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">isSameTree</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">p</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">q</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//首先判断二叉树的结构是否相同，如果结构都不满足，直接递归出口
+</span><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">&amp;&amp;</span> <span class="n">q</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>      <span class="c1">//递归出口   都为空，相等
+</span><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="k">nullptr</span> <span class="o">||</span> <span class="n">q</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>      <span class="c1">//递归出口   其中一个为空，所以不等
+</span><span class="c1"></span>        <span class="c1">//再对值进行判断，值不相同就是递归出口
+</span><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">val</span> <span class="o">!=</span> <span class="n">q</span> <span class="o">-&gt;</span> <span class="n">val</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>    
+                            
+        <span class="c1">//值相同递归
+</span><span class="c1"></span>        <span class="k">return</span> <span class="p">(</span><span class="n">isSameTree</span><span class="p">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">left</span><span class="p">,</span><span class="n">q</span> <span class="o">-&gt;</span> <span class="n">left</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">isSameTree</span><span class="p">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">right</span><span class="p">,</span><span class="n">q</span> <span class="o">-&gt;</span> <span class="n">right</span><span class="p">));</span>
+        
     <span class="p">}</span>
 <span class="p">};</span>
 </code></pre></td></tr></table>
 </div>
 </div><h3 id="复杂度分析"><strong>复杂度分析</strong></h3>
 <blockquote>
-<p>时间复杂度为O(n)</p>
-<p>因为使用的是递归，所以隐式地使用了函数调用栈，栈的深度为树高，所以空间复杂度为O(logN)，</p>
+<p>时间复杂度为O(N)，空间复杂度O(logN)</p>
 </blockquote>
 
     </div>
@@ -210,7 +233,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-        2020-11-13
+        2020-11-14
         
     </span>
   </p>
@@ -223,13 +246,13 @@
           <a href="/tags/leetcode/">leetcode</a>
           </div>
       <nav class="post-nav">
-        <a class="prev" href="/post/leetcode/%E6%A0%91/leetcode100-%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91/">
+        <a class="prev" href="/post/leetcode/%E6%A0%91/leetcode226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91_%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/">
             <i class="iconfont icon-left"></i>
-            <span class="prev-text nav-default">Leetcode100 相同的树</span>
+            <span class="prev-text nav-default">Leetcode226 翻转二叉树_二叉树的镜像</span>
             <span class="prev-text nav-mobile">Prev</span>
           </a>
-        <a class="next" href="/post/leetcode/%E9%93%BE%E8%A1%A8/leetcode01-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
-            <span class="next-text nav-default">Leetcode01 两数之和</span>
+        <a class="next" href="/post/leetcode/%E6%A0%91/leetcode104-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6/">
+            <span class="next-text nav-default">Leetcode104 二叉树的最大深度</span>
             <span class="next-text nav-mobile">Next</span>
             <i class="iconfont icon-right"></i>
           </a>

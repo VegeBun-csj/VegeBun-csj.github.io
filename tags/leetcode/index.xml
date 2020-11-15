@@ -6,10 +6,37 @@
     <description>Recent content in leetcode on This is a blog written by VegeBun-csj to record the tech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Nov 2020 14:58:27 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2020 21:00:34 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/tags/leetcode/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Leetcode226 二叉树的遍历_3种</title>
+      <link>http://localhost:1313/post/leetcode/%E6%A0%91/leetcode226-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86_3%E7%A7%8D/</link>
+      <pubDate>Sat, 14 Nov 2020 21:00:34 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/%E6%A0%91/leetcode226-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86_3%E7%A7%8D/</guid>
+      <description>题目描述 对二叉树进行前中后序遍历 题目链接 https://leetcode-cn.com/problems/binary-tree-preorder-traversal/ https://leetcode-cn.com/problems/binary-tree-inorder-traversal/ https://leetcode-cn.com/problems/binary-tree-postorder-traversal/ 思路 递归遍历，三种遍历的唯一区别就是对根节点的操作和递归操作左右子树的顺序不一样， 代码 前序遍历</description>
+    </item>
+    
+    <item>
+      <title>Leetcode226 翻转二叉树_二叉树的镜像</title>
+      <link>http://localhost:1313/post/leetcode/%E6%A0%91/leetcode226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91_%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/</link>
+      <pubDate>Sat, 14 Nov 2020 20:58:21 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/%E6%A0%91/leetcode226-%E7%BF%BB%E8%BD%AC%E4%BA%8C%E5%8F%89%E6%A0%91_%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/</guid>
+      <description>题目描述 翻转一棵二叉树。 题目链接 https://leetcode-cn.com/problems/invert-binary-tree/ 思路 首先可以看到，翻转后的二叉树就是： 以根节点为基础交换两棵左右子树 交换完成后再对左右子树进行同样的操作（</description>
+    </item>
+    
+    <item>
+      <title>Leetcode100 相同的树</title>
+      <link>http://localhost:1313/post/leetcode/%E6%A0%91/leetcode100-%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91/</link>
+      <pubDate>Sat, 14 Nov 2020 16:06:45 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/leetcode/%E6%A0%91/leetcode100-%E7%9B%B8%E5%90%8C%E7%9A%84%E6%A0%91/</guid>
+      <description>题目描述 给定两个二叉树，编写一个函数来检验它们是否相同。 如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。 题目链接 https://leetcode-cn.com/problems/same-tree/ 思路 题目</description>
+    </item>
     
     <item>
       <title>Leetcode104 二叉树的最大深度</title>

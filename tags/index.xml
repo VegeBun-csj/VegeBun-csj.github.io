@@ -6,7 +6,7 @@
     <description>Recent content in Tags on This is a blog written by VegeBun-csj to record the tech</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 13 Nov 2020 14:58:27 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Nov 2020 21:00:34 +0800</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>leetcode</title>
       <link>http://localhost:1313/tags/leetcode/</link>
-      <pubDate>Fri, 13 Nov 2020 14:58:27 +0800</pubDate>
+      <pubDate>Sat, 14 Nov 2020 21:00:34 +0800</pubDate>
       
       <guid>http://localhost:1313/tags/leetcode/</guid>
       <description></description>
@@ -23,7 +23,7 @@
     <item>
       <title>算法</title>
       <link>http://localhost:1313/tags/%E7%AE%97%E6%B3%95/</link>
-      <pubDate>Fri, 13 Nov 2020 14:58:27 +0800</pubDate>
+      <pubDate>Sat, 14 Nov 2020 21:00:34 +0800</pubDate>
       
       <guid>http://localhost:1313/tags/%E7%AE%97%E6%B3%95/</guid>
       <description></description>
