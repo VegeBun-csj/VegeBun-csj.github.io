@@ -1,0 +1,108 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>fabric1.4.x 网络部署的一些坑 - This is a blog written by VegeBun-csj to record the tech</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="VegeBun-csj"><meta name=description content="下面的搭建主要是基于fabric1.4.x出现错误 1.创建通道出现错误(注意如果出现重复创建通道建议去清理网络) 1 config update for existing channel did not pass initial checks: implicit policy evaluation"><meta name=keywords content="Hugo,theme,even"><meta name=generator content="Hugo 0.74.3 with theme even"><link rel=canonical href=http://localhost:1313/post/fabric%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2/fabric1.4.x%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/sass/main.min.bc0b12ed61ed3ac44989a209a068b1f65d38d472dba8f2ba8d482994ff056cb7.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="fabric1.4.x 网络部署的一些坑"><meta property="og:description" content="下面的搭建主要是基于fabric1.4.x出现错误 1.创建通道出现错误(注意如果出现重复创建通道建议去清理网络) 1 config update for existing channel did not pass initial checks: implicit policy evaluation"><meta property="og:type" content="article"><meta property="og:url" content="http://localhost:1313/post/fabric%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2/fabric1.4.x%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/"><meta property="article:published_time" content="2020-08-28T17:18:13+08:00"><meta property="article:modified_time" content="2020-08-28T17:18:13+08:00"><meta itemprop=name content="fabric1.4.x 网络部署的一些坑"><meta itemprop=description content="下面的搭建主要是基于fabric1.4.x出现错误 1.创建通道出现错误(注意如果出现重复创建通道建议去清理网络) 1 config update for existing channel did not pass initial checks: implicit policy evaluation"><meta itemprop=datePublished content="2020-08-28T17:18:13+08:00"><meta itemprop=dateModified content="2020-08-28T17:18:13+08:00"><meta itemprop=wordCount content="1270"><meta itemprop=keywords content="区块链,"><meta name=twitter:card content="summary"><meta name=twitter:title content="fabric1.4.x 网络部署的一些坑"><meta name=twitter:description content="下面的搭建主要是基于fabric1.4.x出现错误 1.创建通道出现错误(注意如果出现重复创建通道建议去清理网络) 1 config update for existing channel did not pass initial checks: implicit policy evaluation"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>VegeBun-csj</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>VegeBun-csj</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>fabric1.4.x 网络部署的一些坑</h1><div class=post-meta><span class=post-time>2020-08-28</span><div class=post-category><a href=/categories/hyperledger-fabric-%E7%BD%91%E7%BB%9C%E9%83%A8%E7%BD%B2/>Hyperledger Fabric--网络部署</a></div><span class=more-meta>1270 words</span>
+<span class=more-meta>3 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><ul><li><a href=#下面的搭建主要是基于fabric14x出现错误>下面的搭建主要是基于fabric1.4.x出现错误</a></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><h3 id=下面的搭建主要是基于fabric14x出现错误>下面的搭建主要是基于fabric1.4.x出现错误</h3><h4 id=1创建通道出现错误注意如果出现重复创建通道建议去清理网络>1.创建通道出现错误(注意如果出现重复创建通道建议去清理网络)</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>config update <span class=k>for</span> existing channel did not pass initial checks: implicit policy evaluation failed - <span class=m>0</span> sub-policies were satisfied, but this policy requires <span class=m>1</span> of the <span class=s1>&#39;Writers&#39;</span> sub-policies to be satisfied: permission denied
+</code></pre></td></tr></table></div></div><p>这里是将在创建orderer的创世区块的channelID删除 使用默认值 注意这个<strong>创世区块的channelID不能与下面的应用通道的channelID相同</strong>，不然也会出现这个错误</p><h4 id=2创建通道的错误>2.创建通道的错误</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>Error: failed to create deliver client: orderer client failed to connect to orderer.example.com:7050: failed to create new connection: context deadline exceeded
+</code></pre></td></tr></table></div></div><p>查看docker ps 发现order没有启动后挂了</p><p>查看一下orderer的日志</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>2020-03-20 09:31:03.652 UTC <span class=o>[</span>orderer.common.server<span class=o>]</span> extractSysChanLastConfig -&gt; INFO <span class=m>003</span> Not bootstrapping because of <span class=m>3</span> existing channels
+panic: runtime error: invalid memory address or nil pointer dereference
+<span class=o>[</span>signal SIGSEGV: segmentation violation <span class=nv>code</span><span class=o>=</span>0x1 <span class=nv>addr</span><span class=o>=</span>0x10 <span class=nv>pc</span><span class=o>=</span>0xfa2509<span class=o>]</span>
+
+goroutine <span class=m>1</span> <span class=o>[</span>running<span class=o>]</span>:
+github.com/hyperledger/fabric/protos/utils.GetMetadataFromBlock<span class=o>(</span>0x0, 0x1, 0x0, 0x194, 0x2140990<span class=o>)</span>
+        /opt/gopath/src/github.com/hyperledger/fabric/protos/utils/blockutils.go:55 +0x39
+github.com/hyperledger/fabric/protos/utils.GetLastConfigIndexFromBlock<span class=o>(</span>0x0, 0xc0001566c0, 0xffffffffffffffff, 0x0<span class=o>)</span>
+        /opt/gopath/src/github.com/hyperledger/fabric/protos/utils/blockutils.go:75 +0x37
+github.com/hyperledger/fabric/orderer/common/multichannel.ConfigBlock<span class=o>(</span>0x7fe3315d28d0, 0xc0001566c0, 0xc0001566c0<span class=o>)</span>
+        /opt/gopath/src/github.com/hyperledger/fabric/orderer/common/multichannel/registrar.go:112 +0x74
+github.com/hyperledger/fabric/orderer/common/server.extractSysChanLastConfig<span class=o>(</span>0x16c5420, 0xc000156320, 0xc0000c5fc0, 0x16c5420<span class=o>)</span>
+        /opt/gopath/src/github.com/hyperledger/fabric/orderer/common/server/main.go:222 +0x2cf
+github.com/hyperledger/fabric/orderer/common/server.Start<span class=o>(</span>0x15309fe, 0x5, 0xc000418900<span class=o>)</span>
+        /opt/gopath/src/github.com/hyperledger/fabric/orderer/common/server/main.go:110 +0x30a
+github.com/hyperledger/fabric/orderer/common/server.Main<span class=o>()</span>
+        /opt/gopath/src/github.com/hyperledger/fabric/orderer/common/server/main.go:91 +0x208
+main.main<span class=o>()</span>
+        /opt/gopath/src/github.com/hyperledger/fabric/orderer/main.go:15 +0x20
+songjian@fabric-1:~/go/src/github.com/hyperledger/MedRec/MedNet$ docker <span class=nb>exec</span> -it Not bootstrapping because of <span class=m>3</span> existing channels
+Error: No such container: Not
+songjian@fabric-1:~/go/src/github.com/hyperledger/MedRec/MedNet$ panic: runtime error: invalid memory address or nil pointer dereference
+</code></pre></td></tr></table></div></div><p>解决办法：重新配置order的docker的yaml文件中的volums映射 （20行错误显示因为已经存在3个通道，所以是通道残留，所以需要修改路径，或者删除你的本地路径中的文件）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>  orderer.medrec.com:
+    container_name: orderer.medrec.com
+    extends:
+      file: peer-base.yaml
+      service: orderer-base
+    volumes:
+        - ../channel-artifacts/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
+        - ../crypto-config/ordererOrganizations/medrec.com/orderers/orderer.medrec.com/msp:/var/hyperledger/orderer/msp
+        - ../crypto-config/ordererOrganizations/medrec.com/orderers/orderer.medrec.com/tls/:/var/hyperledger/orderer/tls
+        - orderer.medrec.com:/var/hyperledger/production/orderer
+</code></pre></td></tr></table></div></div><p>在最后一行的映射，将本地映射重新换一个,我这里改成下面，重新部署即可</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>  - /var/hyperledger/order_data/orderer/chains/:/var/hyperledger/production/orderer
+</code></pre></td></tr></table></div></div><p>所以出现这种错误，是做了账本的本地持久化，下次启动时会同步，如果不这样做，可以在每次启动的时候将本地的映射删除</p><h4 id=3peer加入通道错误>3.peer加入通道错误</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>Error: proposal failed <span class=o>(</span>err: rpc error: <span class=nv>code</span> <span class=o>=</span> Unknown <span class=nv>desc</span> <span class=o>=</span> chaincode error <span class=o>(</span>status: 500, message: Cannot create ledger from genesis block, due to LedgerID already exists<span class=o>))</span>
+</code></pre></td></tr></table></div></div><p>说明账本在本地已经存在，所以想一下，肯定是docker的yaml文件中做了本地地址的映射，所以每次启动容器时，上一次的账本同步到容器中去了，所以解决办法是，在启动网络是，不做创建通道和加入通道操作，或者，干脆不做本地与容器的映射。也就是将docker的yaml文件中的peer的volum删除</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>        - peer0.org1.medrec.com:/var/hyperledger/production
+</code></pre></td></tr></table></div></div><p>4.LOCALMSPID不匹配的错误</p><p>（注意检查configtx.yaml文件和docker的yaml文件中的localMSPID是否一致，一定要匹配，不然可能出现无法加入通道或者无法更新锚节点的问题，两者只有一个能成功）</p><p>4.创建应用通道时</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>Error: got unexpected status: BAD_REQUEST -- initializing configtx manager failed: bad channel ID: channel ID <span class=s1>&#39;channelPA&#39;</span> contains illegal characters
+</code></pre></td></tr></table></div></div><p>原因：通道名不能大写！！！</p><h4 id=5安装链码的时候出现路径不存在的错误这是一个需要特别注意的地方很容易出错>5.安装链码的时候出现路径不存在的错误（这是一个需要特别注意的地方，很容易出错）</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>Error: error getting chaincode code recordpa: path to chaincode does not exist: /opt/gopath/src/github.com/hyperledger/MedRec/chaincode/recordPA/go
+</code></pre></td></tr></table></div></div><p>注意：这种情况需要关注两个地方</p><p>（1）如果是使用命令行，部署链码需要关注docker-compose的yaml文件中cli容器的volumes的设置，链码的安装，实例化都是走cli的方式安装的，比如，我的cli的配置是这样</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>volumes:
+        - /var/run/:/host/var/run/
+        - ./../chaincode/:/opt/gopath/src/github.com/chaincode
+        - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
+        - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
+        - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+</code></pre></td></tr></table></div></div><p>看一下chancode的路径设置，前面是本地的chaincode路径，后面是容器中的chaincde路径，这里的容器中的路径是后面设置的关键</p><p>（2）关注一下我们安装链码的路径</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-bash data-lang=bash>	<span class=nv>InfoCC_SRC_PATH</span><span class=o>=</span>github.com/chaincode/info
+</code></pre></td></tr></table></div></div><p>注意书写方式，这里的路径是相对于容器中gopath的路径，所以是从github.com开始写链码的路径，同时注意，该路径和本地的chaincode路径中链码位置是否一致！！！！</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>VegeBun-csj</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-08-28</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/>区块链</a></div><nav class=post-nav><a class=prev href=/post/fabricnodesdk/ccp-connection-file%E7%9A%84%E8%AE%BE%E7%BD%AE/><i class="iconfont icon-left"></i><span class="prev-text nav-default">ccp文件的设置</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/eth/%E4%BB%A5%E5%A4%AA%E5%9D%8Aghost%E5%8D%8F%E8%AE%AE5/><span class="next-text nav-default">以太坊Ghost协议(5)</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:your@email.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=http://localhost:1313 class="iconfont icon-linkedin" title=linkedin></a><a href=http://localhost:1313 class="iconfont icon-google" title=google></a><a href=https://github.com/VegeBun-csj class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=http://localhost:1313 class="iconfont icon-zhihu" title=zhihu></a><a href=http://localhost:1313 class="iconfont icon-douban" title=douban></a><a href=http://localhost:1313 class="iconfont icon-pocket" title=pocket></a><a href=http://localhost:1313 class="iconfont icon-tumblr" title=tumblr></a><a href=http://localhost:1313 class="iconfont icon-instagram" title=instagram></a><a href=http://localhost:1313 class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=http://localhost:1313/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2019 -
+2020<span class=heart><i class="iconfont icon-heart"></i></span><span>VegeBun-csj</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js></script><script type=text/javascript>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],tags:'ams',}};</script><script type=text/javascript async src=/lib/mathjax/es5/tex-mml-chtml.js></script></body></html>

@@ -1,0 +1,1349 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>链码的访问控制(cid库) - This is a blog written by VegeBun-csj to record the tech</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="VegeBun-csj"><meta name=description content="Client Identity Chaincode Library（客户端标识链代码库） The client identity chaincode library enables you to write chaincode which makes access control decisions based on the identity of the client (i.e. the invoker of the chaincode). In particular, you may make access control decisions based on either or both of the following associated with the client: 客"><meta name=keywords content="Hugo,theme,even"><meta name=generator content="Hugo 0.74.3 with theme even"><link rel=canonical href=http://localhost:1313/post/chaincode%E5%BC%80%E5%8F%91/cid%E9%93%BE%E7%A0%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%BA%93/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/sass/main.min.bc0b12ed61ed3ac44989a209a068b1f65d38d472dba8f2ba8d482994ff056cb7.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="链码的访问控制(cid库)"><meta property="og:description" content="Client Identity Chaincode Library（客户端标识链代码库） The client identity chaincode library enables you to write chaincode which makes access control decisions based on the identity of the client (i.e. the invoker of the chaincode). In particular, you may make access control decisions based on either or both of the following associated with the client: 客"><meta property="og:type" content="article"><meta property="og:url" content="http://localhost:1313/post/chaincode%E5%BC%80%E5%8F%91/cid%E9%93%BE%E7%A0%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%BA%93/"><meta property="article:published_time" content="2020-08-29T13:27:15+08:00"><meta property="article:modified_time" content="2020-08-29T13:27:15+08:00"><meta itemprop=name content="链码的访问控制(cid库)"><meta itemprop=description content="Client Identity Chaincode Library（客户端标识链代码库） The client identity chaincode library enables you to write chaincode which makes access control decisions based on the identity of the client (i.e. the invoker of the chaincode). In particular, you may make access control decisions based on either or both of the following associated with the client: 客"><meta itemprop=datePublished content="2020-08-29T13:27:15+08:00"><meta itemprop=dateModified content="2020-08-29T13:27:15+08:00"><meta itemprop=wordCount content="7163"><meta itemprop=keywords content="区块链,golang,"><meta name=twitter:card content="summary"><meta name=twitter:title content="链码的访问控制(cid库)"><meta name=twitter:description content="Client Identity Chaincode Library（客户端标识链代码库） The client identity chaincode library enables you to write chaincode which makes access control decisions based on the identity of the client (i.e. the invoker of the chaincode). In particular, you may make access control decisions based on either or both of the following associated with the client: 客"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>VegeBun-csj</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>VegeBun-csj</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>链码的访问控制(cid库)</h1><div class=post-meta><span class=post-time>2020-08-29</span><div class=post-category><a href=/categories/hyperledger-fabric-chaincode%E5%BC%80%E5%8F%91/>Hyperledger Fabric--chaincode开发</a></div><span class=more-meta>7163 words</span>
+<span class=more-meta>15 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#client-identity-chaincode-library客户端标识链代码库>Client Identity Chaincode Library（客户端标识链代码库）</a><ul><li><a href=#using-the-client-identity-chaincode-library使用方法>Using the client identity chaincode library（使用方法）</a><ul><li></li></ul></li><li><a href=#adding-attributes-to-identities向身份添加属性>Adding Attributes to Identities（向身份添加属性）</a><ul><li></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><h1 id=client-identity-chaincode-library客户端标识链代码库>Client Identity Chaincode Library（客户端标识链代码库）</h1><p>The client identity chaincode library enables you to write chaincode which
+makes access control decisions based on the identity of the client
+(i.e. the invoker of the chaincode). In particular, you may make access
+control decisions based on either or both of the following associated with
+the client:</p><p>客户端标识链码库使您能够编写基于客户端标识(即链码的调用者)进行访问控制决策的链码。
+特别是，您可以根据与客户端关联的下列任一项或两项进行访问控制决策</p><ul><li>the client identity&rsquo;s MSP (Membership Service Provider) ID（客户端身份的MSP(会员服务提供者)ID）</li><li>an attribute associated with the client identity（与客户端身份关联的属性）</li></ul><p>Attributes are simply name and value pairs associated with an identity.
+For example, <code>email=me@gmail.com</code> indicates an identity has the <code>email</code>
+attribute with a value of <code>me@gmail.com</code>.</p><p>属性只是与身份关联的键值对。例如，email=me@gmail.com表示一个有着email属性，值为me@gmail.com的身份</p><h2 id=using-the-client-identity-chaincode-library使用方法>Using the client identity chaincode library（使用方法）</h2><p>This section describes how to use the client identity chaincode library.</p><p>All code samples below assume two things:</p><ol><li><p>The type of the <code>stub</code> variable is <code>ChaincodeStubInterface</code> as passed
+to your chaincode. 将stub作为<code>ChaincodeStubInterface</code>接口传入chaincode</p></li><li><p>You have added the following import statement to your chaincode. 导入相关的包</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>import &#34;github.com/hyperledger/fabric/core/chaincode/lib/cid&#34;
+</code></pre></td></tr></table></div></div></li></ol><h4 id=getting-the-clients-id获取客户端id>Getting the client&rsquo;s ID（获取客户端id）</h4><p>The following demonstrates how to get an ID for the client which is guaranteed
+to be unique within the MSP: 下面演示了如何为客户端获取一个ID，它保证在MSP中是唯一的:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>id, err := cid.GetID(stub)
+</code></pre></td></tr></table></div></div><h4 id=getting-the-msp-id获取mspid>Getting the MSP ID（获取mspid）</h4><p>The following demonstrates how to get the MSP ID of the client&rsquo;s identity: 下面演示如何获取客户端身份的MSP ID:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>mspid, err := cid.GetMSPID(stub)
+</code></pre></td></tr></table></div></div><h4 id=getting-an-attribute-value获取属性值>Getting an attribute value（获取属性值）</h4><p>The following demonstrates how to get the value of the <em>attr1</em> attribute:下面演示了如何获取attr1属性的值:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>val, ok, err := cid.GetAttributeValue(stub, &#34;attr1&#34;)
+if err != nil {
+   // There was an error trying to retrieve the attribute
+}
+if !ok {
+   // The client identity does not possess the attribute
+}
+// Do something with the value of &#39;val&#39;
+</code></pre></td></tr></table></div></div><h4 id=asserting-an-attribute-value-断言属性值判断attr的key是否为对应的value>Asserting an attribute value 断言属性值（判断Attr的key是否为对应的value）</h4><p>Often all you want to do is to make an access control decision based on the value
+of an attribute, i.e. to assert the value of an attribute. For example, the following
+will return an error if the client does not have the <code>myapp.admin</code> attribute
+with a value of <code>true</code>:p</p><p>通常，您想做的就是根据属性的值做出访问控制决策，即断言属性的值。例如，如果客户端myapp.admin的属性值不为true，下面的代码将返回一个错误。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>err := cid.AssertAttributeValue(stub, &#34;myapp.admin&#34;, &#34;true&#34;)
+if err != nil {
+   // Return an error
+}
+</code></pre></td></tr></table></div></div><p>This is effectively using attributes to implement role-based access control,
+or RBAC for short.</p><p>这是有效地使用属性来实现基于角色的访问控制，简称RBAC。</p><h4 id=getting-the-clients-x509-certificate------------获取客户端的x509证书>Getting the client&rsquo;s X509 certificate 获取客户端的X509证书</h4><p>The following demonstrates how to get the X509 certificate of the client, or
+nil if the client&rsquo;s identity was not based on an X509 certificate:</p><p>下面演示了如何获得客户端的X509证书，如果客户端的身份不是基于X509证书，则为nil:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>cert, err := cid.GetX509Certificate(stub)
+</code></pre></td></tr></table></div></div><p>Note that both <code>cert</code> and <code>err</code> may be nil as will be the case if the identity
+is not using an X509 certificate.</p><p>请注意，cert和err都可能为nil，如果客户端身份没有使用X509证书，则将出现这种情况。</p><h4 id=performing-multiple-operations-more-efficiently更有效地执行多个操作>Performing multiple operations more efficiently（更有效地执行多个操作）</h4><p>Sometimes you may need to perform multiple operations in order to make an access
+decision. For example, the following demonstrates how to grant access to
+identities with MSP <em>org1MSP</em> and <em>attr1</em> OR with MSP <em>org1MSP</em> and <em>attr2</em>.</p><p>有时您可能需要执行多个操作才能做出访问决策。例如，下面演示了如何使用MSP org1MSP和attr1或MSP org1MSP和attr2授予身份的访问权。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>// Get the client ID object
+id, err := cid.New(stub)
+if err != nil {
+   // Handle error
+}
+mspid, err := id.GetMSPID()
+if err != nil {
+   // Handle error
+}
+switch mspid {
+   case &#34;org1MSP&#34;:
+      err = id.AssertAttributeValue(&#34;attr1&#34;, &#34;true&#34;)
+   case &#34;org2MSP&#34;:
+      err = id.AssertAttributeValue(&#34;attr2&#34;, &#34;true&#34;)
+   default:
+      err = errors.New(&#34;Wrong MSP&#34;)
+}
+</code></pre></td></tr></table></div></div><p>Although it is not required, it is more efficient to make the <code>cid.New</code> call
+to get the ClientIdentity object if you need to perform multiple operations,
+as demonstrated above.</p><p>虽然不是必需的。如果需要执行多个操作，用<code>cid.New</code>调用来获取ClientIdentity对象是非常有效的，如上所示。</p><h2 id=adding-attributes-to-identities向身份添加属性>Adding Attributes to Identities（向身份添加属性）</h2><p>This section describes how to add custom attributes to certificates when
+using Hyperledger Fabric CA as well as when using an external CA.</p><p>本节描述如何在使用Hyperledger Fabric CA时以及在使用外部CA时向证书添加自定义属性。</p><h4 id=managing-attributes-with-fabric-ca使用fabric-ca管理属性>Managing attributes with Fabric CA（使用Fabric CA管理属性）</h4><p>There are two methods of adding attributes to an enrollment certificate
+with fabric-ca:</p><p>（使用fabric-ca向注册证书添加属性有两种方法:）</p><ol><li><p>When you register an identity, you can specify that an enrollment certificate
+issued for the identity should by default contain an attribute. This behavior
+can be overridden at enrollment time, but this is useful for establishing
+default behavior and, assuming registration occurs outside of your application,
+does not require any application change.</p><p>当您注册一个身份时，您可以指定为该身份颁发的登记证书（e-cert）在缺省情况下应该包含一个属性(attribute)。可以在注册时覆盖此行为，但这对于建立默认行为非常有用，并且假设注册发生在应用程序之外，不需要对应用程序进行任何更改。</p><p>The following shows how to register <em>user1</em> with two attributes:
+<em>app1Admin</em> and <em>email</em>.
+The &ldquo;:ecert&rdquo; suffix causes the <em>appAdmin</em> attribute to be inserted into user1&rsquo;s
+enrollment certificate by default. The <em>email</em> attribute is not added
+to the enrollment certificate by default.</p><p>下面展示了如何使用两个属性 app1Admin和email注册user1。“:ecert”后缀在默认情况下会将appAdmin属性插入user1的登记证书（e-cert）中。默认情况下，未将email属性添加到登记证书(e-cert)中</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>fabric-ca-client register --id.name user1 --id.secret user1pw --id.type user --id.affiliation org1 --id.attrs &#39;app1Admin=true:ecert,email=user1@gmail.com&#39;
+</code></pre></td></tr></table></div></div></li><li><p>When you enroll an identity, you may request that one or more attributes
+be added to the certificate.
+For each attribute requested, you may specify whether the attribute is
+optional or not. If it is not optional but does not exist for the identity,
+enrollment fails.</p><p>当您登记一个身份时，您可以请求将一个或多个属性添加到证书中。对于请求的每个属性，您可以指定该属性是否是可选的。如果该身份的属性是必选的，但不存在，则登记失败。</p><p>The following shows how to enroll <em>user1</em> with the <em>email</em> attribute,
+without the <em>app1Admin</em> attribute and optionally with the <em>phone</em> attribute
+(if the user possesses <em>phone</em> attribute).</p><p>下面展示了如何使用email属性注册user1，不使用app1Admin属性，也可以使用phone属性(如果用户拥有phone属性)。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>fabric-ca-client enroll -u http://user1:user1pw@localhost:7054 --enrollment.attrs &#34;email,phone:opt&#34;
+</code></pre></td></tr></table></div></div></li></ol><h4 id=attribute-format-in-a-certificate-证书中的属性格式>Attribute format in a certificate （证书中的属性格式）</h4><p>Attributes are stored inside an X509 certificate as an extension with an
+ASN.1 OID (Abstract Syntax Notation Object IDentifier)
+of <code>1.2.3.4.5.6.7.8.1</code>. The value of the extension is a JSON string of the
+form <code>{"attrs":{&lt;attrName>:&lt;attrValue}}</code>. The following is a sample of a
+certificate which contains the <code>attr1</code> attribute with a value of <code>val1</code>.
+See the final entry in the <em>X509v3 extensions</em> section. Note also that the JSON
+entry could contain multiple attributes, though this sample shows only one.</p><p>属性作为扩展名存储在X509证书中，其ASN.1 OID(抽象语法符号对象标识符)为1.2.3.4.5.6.7.8.1。该扩展的值是以{&ldquo;attrs&rdquo;:{<attrname>:&lt;attrValue}}（属性名，属性值这种键值对）为形式的JSON字符串。下面是一个证书示例，其中包含值为val1的attr1属性。请参阅X509v3扩展部分中的最后一项。还要注意，JSON条目可以包含多个属性，但本示例只显示了一个属性。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            1e:49:98:e9:f4:4f:d0:03:53:bf:36:81:c0:a0:a4:31:96:4f:52:75
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: CN=fabric-ca-server
+        Validity
+            Not Before: Sep  8 03:42:00 2017 GMT
+            Not After : Sep  8 03:42:00 2018 GMT
+        Subject: CN=MyTestUserWithAttrs
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+            EC Public Key:
+                pub:
+                    04:e6:07:5a:f7:09:d5:af:38:e3:f7:a2:90:77:0e:
+                    32:67:5b:70:a7:37:ca:b5:c9:d8:91:77:39:ae:03:
+                    a0:36:ad:72:b3:3c:89:6d:1e:f6:1b:6d:2a:88:49:
+                    92:6e:6e:cc:bc:81:52:fa:19:88:18:5c:d7:6e:eb:
+                    d4:73:cc:51:79
+                ASN1 OID: prime256v1
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Certificate Sign
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                D8:28:B4:C0:BC:92:4A:D3:C3:8C:54:6C:08:86:33:10:A6:8D:83:AE
+            X509v3 Authority Key Identifier:
+                keyid:C4:B3:FE:76:0D:E2:DE:3C:FC:75:FB:AE:55:86:04:F0:BB:7F:F6:01
+
+            X509v3 Subject Alternative Name:
+                DNS:Anils-MacBook-Pro.local
+            1.2.3.4.5.6.7.8.1:
+                {&#34;attrs&#34;:{&#34;attr1&#34;:&#34;val1&#34;}}
+    Signature Algorithm: ecdsa-with-SHA256
+        30:45:02:21:00:fb:84:a9:65:29:b2:f4:d3:bc:1a:8b:47:92:
+        5e:41:27:2d:26:ec:f7💿aa:86:46:a4:ac:da:25:be:40:1d:
+        c5:02:20:08:3f:49:86:58:a7:20:48:64:4c:30:1b:da:a9:a2:
+        f2:b4:16:28:f6:fd:e1:46:dd:6b:f2:3f:2f:37:4a:4c:72
+</code></pre></td></tr></table></div></div><p>If you want to use the client identity library to extract or assert attribute
+values as described previously but you are not using Hyperledger Fabric CA,
+then you must ensure that the certificates which are issued by your external CA
+contain attributes of the form shown above. In particular, the certificates
+must contain the <code>1.2.3.4.5.6.7.8.1</code> X509v3 extension with a JSON value
+containing the attribute names and values for the identity.</p><p>如果您想使用前面描述的客户端身份库来提取或断言属性值，但是您没有使用Hyperledger Fabric CA，那么您必须确保由您的外部CA颁发的证书包含上面所示表单的属性。特别是，证书必须包含1.2.3.4.5.6.7.8.1 X509v3扩展，其JSON值包含标识的属性名和值。</p><hr><p>下面列举一个实际使用的例子：<strong>(注意在合约中引入相关的依赖，即cid库文件，这里可以借鉴fabric-samples/chaincode/abac中的库的引用)</strong></p><p>此链码库cid是用来进行链码操作权限的控制的，那么，这个attrs的name-value该如何获取呢，从上面的解释中可以看到跟CA有关，所以是在我们注册用户身份的时候进行设置的，下面列举使用Node sdk进行初始化设置attrs的例子</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-javascript data-lang=javascript> <span class=kr>const</span> <span class=nx>secret</span> <span class=o>=</span> <span class=nx>await</span> <span class=nx>ca</span><span class=p>.</span><span class=nx>register</span><span class=p>(</span>
+     <span class=p>{</span>
+       <span class=nx>affiliation</span><span class=o>:</span> <span class=s1>&#39;org1.department1&#39;</span><span class=p>,</span>
+       <span class=nx>enrollmentID</span><span class=o>:</span> <span class=s1>&#39;cai&#39;</span><span class=p>,</span>
+       <span class=nx>role</span><span class=o>:</span> <span class=s1>&#39;client&#39;</span><span class=p>,</span>
+       <span class=nx>attrs</span><span class=o>:</span> <span class=p>[</span>					<span class=c1>//在register的传入属性中有attrs这个参数，这是一个Array数组
+</span><span class=c1></span>       <span class=p>{</span>						<span class=c1>//其中传入三个
+</span><span class=c1></span>         <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;usertype&#39;</span><span class=p>,</span>		<span class=c1>//attrs的name，也就是key
+</span><span class=c1></span>         <span class=nx>value</span><span class=o>:</span> <span class=s1>&#39;storeshop&#39;</span><span class=p>,</span>	<span class=c1>//attrs的value，也就是key对应的值
+</span><span class=c1></span>         <span class=nx>ecert</span><span class=o>:</span> <span class=kc>true</span>			<span class=c1>//ecert为true表示默认情况下应将此属性包括在注册证书中(默认)
+</span><span class=c1></span>      <span class=p>}]</span>
+     <span class=p>},</span>
+    <span class=nx>adminIdentity</span>
+   <span class=p>);</span>
+</code></pre></td></tr></table></div></div><p>上面就是设置了attrs的name是usertype,value是storeshop</p><p>链码我们是以官方的fabcar链码进行了小小的修改，地址如下：</p><blockquote><p><a href=https://github.com/VegeBun-csj/learning-chaincode/blob/master/access-control/go/fabcar.go>https://github.com/VegeBun-csj/learning-chaincode/blob/master/access-control/go/fabcar.go</a></p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=c1>//根据name获取用户的attr的值
+</span><span class=c1>//这里就是根据name--usertype来获取我们注册时设置的value，如果使用上面注册时的身份user进行调用就会获取到usertype对应的value是storeshop
+</span><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=o>*</span><span class=nx>SmartContract</span><span class=p>)</span><span class=nf>getAttr</span><span class=p>(</span><span class=nx>APIstub</span> <span class=nx>shim</span><span class=p>.</span><span class=nx>ChaincodeStubInterface</span><span class=p>)</span> <span class=nx>sc</span><span class=p>.</span><span class=nx>Response</span> <span class=p>{</span>
+  <span class=nx>res</span><span class=p>,</span> <span class=nx>found</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>cid</span><span class=p>.</span><span class=nf>GetAttributeValue</span><span class=p>(</span><span class=nx>APIstub</span><span class=p>,</span> <span class=s>&#34;usertype&#34;</span><span class=p>)</span>
+  <span class=k>if</span> <span class=nx>found</span> <span class=o>==</span> <span class=kc>false</span> <span class=p>{</span>
+  	 <span class=nx>shim</span><span class=p>.</span><span class=nf>Error</span><span class=p>(</span><span class=s>&#34;未查询到属性值&#34;</span><span class=p>)</span>
+  <span class=p>}</span><span class=k>else</span> <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span><span class=p>{</span>
+  	 <span class=nx>shim</span><span class=p>.</span><span class=nf>Error</span><span class=p>(</span><span class=s>&#34;查询错误&#34;</span><span class=p>)</span>
+  <span class=p>}</span>
+  <span class=k>return</span> <span class=nx>shim</span><span class=p>.</span><span class=nf>Success</span><span class=p>([]</span><span class=nb>byte</span><span class=p>(</span><span class=nx>res</span><span class=p>))</span>
+<span class=p>}</span>
+
+<span class=c1>//类型断言 -----用来判断是否当前的操作用户的attr的key与value是否与这里指定的值匹配
+</span><span class=c1></span><span class=kd>func</span> <span class=p>(</span><span class=nx>s</span> <span class=o>*</span><span class=nx>SmartContract</span><span class=p>)</span><span class=nf>AssertAttr</span><span class=p>(</span><span class=nx>APIstub</span> <span class=nx>shim</span><span class=p>.</span><span class=nx>ChaincodeStubInterface</span><span class=p>)</span> <span class=nx>sc</span><span class=p>.</span><span class=nx>Response</span> <span class=p>{</span>
+  <span class=nx>err</span> <span class=o>:=</span> <span class=nx>cid</span><span class=p>.</span><span class=nf>AssertAttributeValue</span><span class=p>(</span><span class=nx>APIstub</span><span class=p>,</span> <span class=s>&#34;usertype&#34;</span><span class=p>,</span> <span class=s>&#34;storeshop&#34;</span><span class=p>)</span>
+  <span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+    <span class=k>return</span> <span class=nx>shim</span><span class=p>.</span><span class=nf>Error</span><span class=p>(</span><span class=s>&#34;类型不是storeshop&#34;</span><span class=p>)</span>
+  <span class=p>}</span>
+  <span class=k>return</span> <span class=nx>shim</span><span class=p>.</span><span class=nf>Success</span><span class=p>([]</span><span class=nb>byte</span><span class=p>(</span><span class=s>&#34;类型是storeshop&#34;</span><span class=p>))</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>演示一个在Java-SDK中通过<code>CID</code>库进行链码访问控制的例子：</p><p>链码地址如下：</p><p>fabric-SDK-Java的客户端代码为:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=cm>/*
+</span><span class=cm>SPDX-License-Identifier: Apache-2.0
+</span><span class=cm>*/</span>
+
+<span class=kn>package</span> <span class=nn>org.example</span><span class=o>;</span>
+
+<span class=kn>import</span> <span class=nn>java.nio.file.Paths</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>java.util.Properties</span><span class=o>;</span>
+
+<span class=kn>import</span> <span class=nn>org.example.Common.User</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.gateway.Wallet</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.gateway.Wallet.Identity</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.sdk.Enrollment</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.sdk.security.CryptoSuite</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.sdk.security.CryptoSuiteFactory</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.Attribute</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.EnrollmentRequest</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.HFCAClient</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.RegistrationRequest</span><span class=o>;</span>
+
+<span class=kd>public</span> <span class=kd>class</span> <span class=nc>RegisterUser</span> <span class=o>{</span>
+
+    <span class=kd>static</span> <span class=o>{</span>
+        <span class=n>System</span><span class=o>.</span><span class=na>setProperty</span><span class=o>(</span><span class=s>&#34;org.hyperledger.fabric.sdk.service_discovery.as_localhost&#34;</span><span class=o>,</span> <span class=s>&#34;true&#34;</span><span class=o>);</span>
+    <span class=o>}</span>
+
+    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>main</span><span class=o>(</span><span class=n>String</span><span class=o>[]</span> <span class=n>args</span><span class=o>)</span> <span class=kd>throws</span> <span class=n>Exception</span> <span class=o>{</span>
+
+        <span class=c1>// Create a CA client for interacting with the CA.
+</span><span class=c1></span>        <span class=n>Properties</span> <span class=n>props</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Properties</span><span class=o>();</span>
+        <span class=n>props</span><span class=o>.</span><span class=na>put</span><span class=o>(</span><span class=s>&#34;pemFile&#34;</span><span class=o>,</span> <span class=n>EnrollAdmin</span><span class=o>.</span><span class=na>CERTIFICATION_PATH</span><span class=o>);</span>
+        <span class=n>props</span><span class=o>.</span><span class=na>put</span><span class=o>(</span><span class=s>&#34;allowAllHostNames&#34;</span><span class=o>,</span> <span class=s>&#34;true&#34;</span><span class=o>);</span>
+        <span class=n>HFCAClient</span> <span class=n>caClient</span> <span class=o>=</span> <span class=n>HFCAClient</span><span class=o>.</span><span class=na>createNewInstance</span><span class=o>(</span><span class=n>EnrollAdmin</span><span class=o>.</span><span class=na>PATH_AND_PORT</span><span class=o>,</span> <span class=n>props</span><span class=o>);</span>
+        <span class=n>CryptoSuite</span> <span class=n>cryptoSuite</span> <span class=o>=</span> <span class=n>CryptoSuiteFactory</span><span class=o>.</span><span class=na>getDefault</span><span class=o>().</span><span class=na>getCryptoSuite</span><span class=o>();</span>
+        <span class=n>caClient</span><span class=o>.</span><span class=na>setCryptoSuite</span><span class=o>(</span><span class=n>cryptoSuite</span><span class=o>);</span>
+
+        <span class=c1>// Create a wallet for managing identities
+</span><span class=c1></span>        <span class=n>Wallet</span> <span class=n>wallet</span> <span class=o>=</span> <span class=n>Wallet</span><span class=o>.</span><span class=na>createFileSystemWallet</span><span class=o>(</span><span class=n>Paths</span><span class=o>.</span><span class=na>get</span><span class=o>(</span><span class=s>&#34;src/main/resources/wallet&#34;</span><span class=o>));</span>
+
+        <span class=c1>// Check to see if we&#39;ve already enrolled the user.
+</span><span class=c1></span>        <span class=kt>boolean</span> <span class=n>userExists</span> <span class=o>=</span> <span class=n>wallet</span><span class=o>.</span><span class=na>exists</span><span class=o>(</span><span class=s>&#34;songjian&#34;</span><span class=o>);</span>
+        <span class=k>if</span> <span class=o>(</span><span class=n>userExists</span><span class=o>)</span> <span class=o>{</span>
+            <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;An identity for the user \&#34;songjian\&#34; already exists in the wallet&#34;</span><span class=o>);</span>
+            <span class=k>return</span><span class=o>;</span>
+        <span class=o>}</span>
+
+        <span class=n>userExists</span> <span class=o>=</span> <span class=n>wallet</span><span class=o>.</span><span class=na>exists</span><span class=o>(</span><span class=s>&#34;admin&#34;</span><span class=o>);</span>
+        <span class=k>if</span> <span class=o>(!</span><span class=n>userExists</span><span class=o>)</span> <span class=o>{</span>
+            <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;\&#34;admin\&#34; needs to be enrolled and added to the wallet first&#34;</span><span class=o>);</span>
+            <span class=k>return</span><span class=o>;</span>
+        <span class=o>}</span>
+
+        <span class=n>Identity</span> <span class=n>adminIdentity</span> <span class=o>=</span> <span class=n>wallet</span><span class=o>.</span><span class=na>get</span><span class=o>(</span><span class=s>&#34;admin&#34;</span><span class=o>);</span>
+        <span class=n>org</span><span class=o>.</span><span class=na>hyperledger</span><span class=o>.</span><span class=na>fabric</span><span class=o>.</span><span class=na>sdk</span><span class=o>.</span><span class=na>User</span> <span class=n>admin</span> <span class=o>=</span> <span class=k>new</span> <span class=n>User</span><span class=o>.</span><span class=na>Builder</span><span class=o>()</span>
+                <span class=o>.</span><span class=na>name</span><span class=o>(</span><span class=s>&#34;admin&#34;</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>affiliation</span><span class=o>(</span><span class=s>&#34;org1.department1&#34;</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>mspId</span><span class=o>(</span><span class=s>&#34;Org1MSP&#34;</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>enrollment</span><span class=o>(</span><span class=n>adminIdentity</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>build</span><span class=o>();</span>
+
+        <span class=c1>// Register the user, enroll the user, and import the new identity into the wallet.
+</span><span class=c1></span>        <span class=n>RegistrationRequest</span> <span class=n>registrationRequest</span> <span class=o>=</span> <span class=k>new</span> <span class=n>RegistrationRequest</span><span class=o>(</span><span class=s>&#34;songjian&#34;</span><span class=o>);</span>
+        <span class=n>registrationRequest</span><span class=o>.</span><span class=na>setAffiliation</span><span class=o>(</span><span class=s>&#34;org1.department1&#34;</span><span class=o>);</span>
+        <span class=n>registrationRequest</span><span class=o>.</span><span class=na>setEnrollmentID</span><span class=o>(</span><span class=s>&#34;songjian&#34;</span><span class=o>);</span>
+
+        <span class=c1>//register的时候设置用户自定义的属性类型
+</span><span class=c1></span>        <span class=n>registrationRequest</span><span class=o>.</span><span class=na>addAttribute</span><span class=o>(</span><span class=k>new</span> <span class=n>Attribute</span><span class=o>(</span><span class=s>&#34;usertype&#34;</span><span class=o>,</span><span class=s>&#34;worker&#34;</span><span class=o>));</span>
+        <span class=n>String</span> <span class=n>enrollmentSecret</span> <span class=o>=</span> <span class=n>caClient</span><span class=o>.</span><span class=na>register</span><span class=o>(</span><span class=n>registrationRequest</span><span class=o>,</span> <span class=n>admin</span><span class=o>);</span>
+        <span class=c1>//enroll的时候，指定之前register的用户中的哪些属性要加入到证书中，如果不加，后买你在链码中就读取不到
+</span><span class=c1></span>        <span class=n>EnrollmentRequest</span> <span class=n>enrollmentRequest</span> <span class=o>=</span> <span class=k>new</span> <span class=n>EnrollmentRequest</span><span class=o>();</span>
+        <span class=n>enrollmentRequest</span><span class=o>.</span><span class=na>addAttrReq</span><span class=o>(</span><span class=s>&#34;hf.Affiliation&#34;</span><span class=o>);</span>		<span class=c1>//default attribute
+</span><span class=c1></span>        <span class=n>enrollmentRequest</span><span class=o>.</span><span class=na>addAttrReq</span><span class=o>(</span><span class=s>&#34;hf.EnrollmentID&#34;</span><span class=o>);</span>	<span class=c1>//default attribute
+</span><span class=c1></span>        <span class=n>enrollmentRequest</span><span class=o>.</span><span class=na>addAttrReq</span><span class=o>(</span><span class=s>&#34;hf.Type&#34;</span><span class=o>);</span>			<span class=c1>//default attribute
+</span><span class=c1></span>        <span class=n>enrollmentRequest</span><span class=o>.</span><span class=na>addAttrReq</span><span class=o>(</span><span class=s>&#34;usertype&#34;</span><span class=o>);</span>			<span class=c1>//user-defined attribute
+</span><span class=c1></span>
+        <span class=n>Enrollment</span> <span class=n>enrollment</span> <span class=o>=</span> <span class=n>caClient</span><span class=o>.</span><span class=na>enroll</span><span class=o>(</span><span class=s>&#34;songjian&#34;</span><span class=o>,</span> <span class=n>enrollmentSecret</span><span class=o>,</span><span class=n>enrollmentRequest</span><span class=o>);</span>
+        <span class=n>Identity</span> <span class=n>user</span> <span class=o>=</span> <span class=n>Identity</span><span class=o>.</span><span class=na>createIdentity</span><span class=o>(</span><span class=s>&#34;Org1MSP&#34;</span><span class=o>,</span> <span class=n>enrollment</span><span class=o>.</span><span class=na>getCert</span><span class=o>(),</span> <span class=n>enrollment</span><span class=o>.</span><span class=na>getKey</span><span class=o>());</span>
+        <span class=n>wallet</span><span class=o>.</span><span class=na>put</span><span class=o>(</span><span class=s>&#34;songjian&#34;</span><span class=o>,</span> <span class=n>user</span><span class=o>);</span>
+        <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;Successfully enrolled user \&#34;songjian\&#34; and imported it into the wallet&#34;</span><span class=o>);</span>
+    <span class=o>}</span>
+<span class=o>}</span>
+</code></pre></td></tr></table></div></div><blockquote><p>注意：在register中自定义了属性值之后，需要在最后进行Enroll的时候，将相关的属性放入<code>EnrollmentRequest</code>中，否则就会出现在链码中获取不到attribution的属性值，我这边就是Enroll的时候没加，导致我一度怀疑自己的链码出现了问题，最后看到网上大佬的才发现是这步不对，之前使用NodeSDK的时候好像没这个问题，估计是SDK不同pa。。。。也算是学到了hh</p></blockquote><p>这个例子想实现的就是，fabcar中的汽车，只有用户属性为<code>leader_car_department(汽车部门主管)</code>类型的才可以查看所有的汽车并且更改汽车的所有者,其他属性值的是看不了的，比如普通的工人<code>worker</code></p><p>用户属性<code>Attr</code>我们定义为<code>usertype</code>，但是<code>value</code>的值就可以有很多了，比如worker(员工)&mldr;..还有其他的。。。</p><p>上面是注册了一个<code>Attr</code>为<code>usertype</code>，<code>value</code>为<code>worker</code>的用户<code>songjian</code>，所以这个用户是不能调用<code>queryAllCars</code>和<code>changeCarOwner</code>的</p><p>下面我们再注册一个用户<code>yfhuang</code>，他的类型为<code>leader_car_department(汽车部门主管)</code>,所以就可以使用<code>queryAllCars</code>和<code>changeCarOwner</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span><span class=lnt>81
+</span><span class=lnt>82
+</span><span class=lnt>83
+</span><span class=lnt>84
+</span><span class=lnt>85
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=cm>/*
+</span><span class=cm>SPDX-License-Identifier: Apache-2.0
+</span><span class=cm>*/</span>
+
+<span class=kn>package</span> <span class=nn>org.example</span><span class=o>;</span>
+
+<span class=kn>import</span> <span class=nn>java.nio.file.Paths</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>java.util.Properties</span><span class=o>;</span>
+
+<span class=kn>import</span> <span class=nn>org.example.Common.User</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.gateway.Wallet</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.gateway.Wallet.Identity</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.sdk.Enrollment</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.sdk.security.CryptoSuite</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.sdk.security.CryptoSuiteFactory</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.Attribute</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.EnrollmentRequest</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.HFCAClient</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.RegistrationRequest</span><span class=o>;</span>
+
+<span class=kd>public</span> <span class=kd>class</span> <span class=nc>RegisterUser</span> <span class=o>{</span>
+
+    <span class=kd>static</span> <span class=o>{</span>
+        <span class=n>System</span><span class=o>.</span><span class=na>setProperty</span><span class=o>(</span><span class=s>&#34;org.hyperledger.fabric.sdk.service_discovery.as_localhost&#34;</span><span class=o>,</span> <span class=s>&#34;true&#34;</span><span class=o>);</span>
+    <span class=o>}</span>
+
+    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>main</span><span class=o>(</span><span class=n>String</span><span class=o>[]</span> <span class=n>args</span><span class=o>)</span> <span class=kd>throws</span> <span class=n>Exception</span> <span class=o>{</span>
+
+        <span class=c1>// Create a CA client for interacting with the CA.
+</span><span class=c1></span>        <span class=n>Properties</span> <span class=n>props</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Properties</span><span class=o>();</span>
+        <span class=n>props</span><span class=o>.</span><span class=na>put</span><span class=o>(</span><span class=s>&#34;pemFile&#34;</span><span class=o>,</span> <span class=n>EnrollAdmin</span><span class=o>.</span><span class=na>CERTIFICATION_PATH</span><span class=o>);</span>
+        <span class=n>props</span><span class=o>.</span><span class=na>put</span><span class=o>(</span><span class=s>&#34;allowAllHostNames&#34;</span><span class=o>,</span> <span class=s>&#34;true&#34;</span><span class=o>);</span>
+        <span class=n>HFCAClient</span> <span class=n>caClient</span> <span class=o>=</span> <span class=n>HFCAClient</span><span class=o>.</span><span class=na>createNewInstance</span><span class=o>(</span><span class=n>EnrollAdmin</span><span class=o>.</span><span class=na>PATH_AND_PORT</span><span class=o>,</span> <span class=n>props</span><span class=o>);</span>
+        <span class=n>CryptoSuite</span> <span class=n>cryptoSuite</span> <span class=o>=</span> <span class=n>CryptoSuiteFactory</span><span class=o>.</span><span class=na>getDefault</span><span class=o>().</span><span class=na>getCryptoSuite</span><span class=o>();</span>
+        <span class=n>caClient</span><span class=o>.</span><span class=na>setCryptoSuite</span><span class=o>(</span><span class=n>cryptoSuite</span><span class=o>);</span>
+
+        <span class=c1>// Create a wallet for managing identities
+</span><span class=c1></span>        <span class=n>Wallet</span> <span class=n>wallet</span> <span class=o>=</span> <span class=n>Wallet</span><span class=o>.</span><span class=na>createFileSystemWallet</span><span class=o>(</span><span class=n>Paths</span><span class=o>.</span><span class=na>get</span><span class=o>(</span><span class=s>&#34;src/main/resources/wallet&#34;</span><span class=o>));</span>
+
+        <span class=c1>// Check to see if we&#39;ve already enrolled the user.
+</span><span class=c1></span>        <span class=kt>boolean</span> <span class=n>userExists</span> <span class=o>=</span> <span class=n>wallet</span><span class=o>.</span><span class=na>exists</span><span class=o>(</span><span class=s>&#34;yfhuang&#34;</span><span class=o>);</span>
+        <span class=k>if</span> <span class=o>(</span><span class=n>userExists</span><span class=o>)</span> <span class=o>{</span>
+            <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;An identity for the user \&#34;yfhuang\&#34; already exists in the wallet&#34;</span><span class=o>);</span>
+            <span class=k>return</span><span class=o>;</span>
+        <span class=o>}</span>
+
+        <span class=n>userExists</span> <span class=o>=</span> <span class=n>wallet</span><span class=o>.</span><span class=na>exists</span><span class=o>(</span><span class=s>&#34;admin&#34;</span><span class=o>);</span>
+        <span class=k>if</span> <span class=o>(!</span><span class=n>userExists</span><span class=o>)</span> <span class=o>{</span>
+            <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;\&#34;admin\&#34; needs to be enrolled and added to the wallet first&#34;</span><span class=o>);</span>
+            <span class=k>return</span><span class=o>;</span>
+        <span class=o>}</span>
+
+        <span class=n>Identity</span> <span class=n>adminIdentity</span> <span class=o>=</span> <span class=n>wallet</span><span class=o>.</span><span class=na>get</span><span class=o>(</span><span class=s>&#34;admin&#34;</span><span class=o>);</span>
+        <span class=n>org</span><span class=o>.</span><span class=na>hyperledger</span><span class=o>.</span><span class=na>fabric</span><span class=o>.</span><span class=na>sdk</span><span class=o>.</span><span class=na>User</span> <span class=n>admin</span> <span class=o>=</span> <span class=k>new</span> <span class=n>User</span><span class=o>.</span><span class=na>Builder</span><span class=o>()</span>
+                <span class=o>.</span><span class=na>name</span><span class=o>(</span><span class=s>&#34;admin&#34;</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>affiliation</span><span class=o>(</span><span class=s>&#34;org1.department1&#34;</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>mspId</span><span class=o>(</span><span class=s>&#34;Org1MSP&#34;</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>enrollment</span><span class=o>(</span><span class=n>adminIdentity</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>build</span><span class=o>();</span>
+
+        <span class=c1>// Register the user, enroll the user, and import the new identity into the wallet.
+</span><span class=c1></span>        <span class=n>RegistrationRequest</span> <span class=n>registrationRequest</span> <span class=o>=</span> <span class=k>new</span> <span class=n>RegistrationRequest</span><span class=o>(</span><span class=s>&#34;yfhuang&#34;</span><span class=o>);</span>
+        <span class=n>registrationRequest</span><span class=o>.</span><span class=na>setAffiliation</span><span class=o>(</span><span class=s>&#34;org1.department1&#34;</span><span class=o>);</span>
+        <span class=n>registrationRequest</span><span class=o>.</span><span class=na>setEnrollmentID</span><span class=o>(</span><span class=s>&#34;yfhuang&#34;</span><span class=o>);</span>
+
+        <span class=c1>//register的时候设置用户自定义的属性类型
+</span><span class=c1></span>        <span class=n>registrationRequest</span><span class=o>.</span><span class=na>addAttribute</span><span class=o>(</span><span class=k>new</span> <span class=n>Attribute</span><span class=o>(</span><span class=s>&#34;usertype&#34;</span><span class=o>,</span><span class=s>&#34;leader_car_department&#34;</span><span class=o>));</span>
+
+        <span class=n>String</span> <span class=n>enrollmentSecret</span> <span class=o>=</span> <span class=n>caClient</span><span class=o>.</span><span class=na>register</span><span class=o>(</span><span class=n>registrationRequest</span><span class=o>,</span> <span class=n>admin</span><span class=o>);</span>
+
+        <span class=c1>//enroll的时候，指定之前register的用户中的哪些属性要加入到证书中，如果不加，后买你在链码中就读取不到
+</span><span class=c1></span>        <span class=n>EnrollmentRequest</span> <span class=n>enrollmentRequest</span> <span class=o>=</span> <span class=k>new</span> <span class=n>EnrollmentRequest</span><span class=o>();</span>
+        <span class=n>enrollmentRequest</span><span class=o>.</span><span class=na>addAttrReq</span><span class=o>(</span><span class=s>&#34;hf.Affiliation&#34;</span><span class=o>);</span>		<span class=c1>//default attribute
+</span><span class=c1></span>        <span class=n>enrollmentRequest</span><span class=o>.</span><span class=na>addAttrReq</span><span class=o>(</span><span class=s>&#34;hf.EnrollmentID&#34;</span><span class=o>);</span>	<span class=c1>//default attribute
+</span><span class=c1></span>        <span class=n>enrollmentRequest</span><span class=o>.</span><span class=na>addAttrReq</span><span class=o>(</span><span class=s>&#34;hf.Type&#34;</span><span class=o>);</span>			<span class=c1>//default attribute
+</span><span class=c1></span>        <span class=n>enrollmentRequest</span><span class=o>.</span><span class=na>addAttrReq</span><span class=o>(</span><span class=s>&#34;usertype&#34;</span><span class=o>);</span>				<span class=c1>//user-defined attribute
+</span><span class=c1></span>
+        <span class=n>Enrollment</span> <span class=n>enrollment</span> <span class=o>=</span> <span class=n>caClient</span><span class=o>.</span><span class=na>enroll</span><span class=o>(</span><span class=s>&#34;yfhuang&#34;</span><span class=o>,</span> <span class=n>enrollmentSecret</span><span class=o>,</span><span class=n>enrollmentRequest</span><span class=o>);</span>
+        <span class=n>Identity</span> <span class=n>user</span> <span class=o>=</span> <span class=n>Identity</span><span class=o>.</span><span class=na>createIdentity</span><span class=o>(</span><span class=s>&#34;Org1MSP&#34;</span><span class=o>,</span> <span class=n>enrollment</span><span class=o>.</span><span class=na>getCert</span><span class=o>(),</span> <span class=n>enrollment</span><span class=o>.</span><span class=na>getKey</span><span class=o>());</span>
+        <span class=n>wallet</span><span class=o>.</span><span class=na>put</span><span class=o>(</span><span class=s>&#34;yfhuang&#34;</span><span class=o>,</span> <span class=n>user</span><span class=o>);</span>
+        <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;Successfully enrolled user \&#34;yfhuang\&#34; and imported it into the wallet&#34;</span><span class=o>);</span>
+    <span class=o>}</span>
+
+<span class=o>}</span>
+
+</code></pre></td></tr></table></div></div><p>以<code>yfhuang</code>用户进行调用</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=kn>package</span> <span class=nn>org.example</span><span class=o>;</span>
+
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.gateway.Contract</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.gateway.Gateway</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.gateway.Network</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.gateway.Wallet</span><span class=o>;</span>
+
+<span class=kn>import</span> <span class=nn>java.nio.file.Path</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>java.nio.file.Paths</span><span class=o>;</span>
+
+<span class=cm>/**
+</span><span class=cm> * @author csj
+</span><span class=cm> * @date 2020/10/16 - 16:49
+</span><span class=cm> */</span>
+<span class=kd>public</span> <span class=kd>class</span> <span class=nc>clientCar</span> <span class=o>{</span>
+    <span class=kd>static</span> <span class=o>{</span>
+        <span class=n>System</span><span class=o>.</span><span class=na>setProperty</span><span class=o>(</span><span class=s>&#34;org.hyperledger.fabric.sdk.service_discovery.as_localhost&#34;</span><span class=o>,</span> <span class=s>&#34;false&#34;</span><span class=o>);</span>
+    <span class=o>}</span>
+
+    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>main</span><span class=o>(</span><span class=n>String</span><span class=o>[]</span> <span class=n>args</span><span class=o>)</span> <span class=kd>throws</span> <span class=n>Exception</span> <span class=o>{</span>
+        <span class=c1>// Load a file system based wallet for managing identities.
+</span><span class=c1></span>        <span class=n>Path</span> <span class=n>walletPath</span> <span class=o>=</span> <span class=n>Paths</span><span class=o>.</span><span class=na>get</span><span class=o>(</span><span class=s>&#34;src/main/resources/wallet&#34;</span><span class=o>);</span>
+        <span class=n>Wallet</span> <span class=n>wallet</span> <span class=o>=</span> <span class=n>Wallet</span><span class=o>.</span><span class=na>createFileSystemWallet</span><span class=o>(</span><span class=n>walletPath</span><span class=o>);</span>
+
+        <span class=c1>// load a CCP
+</span><span class=c1></span>        <span class=n>Path</span> <span class=n>networkConfigPath</span> <span class=o>=</span> <span class=n>Paths</span><span class=o>.</span><span class=na>get</span><span class=o>(</span><span class=s>&#34;src/main/resources/connection-org1.yaml&#34;</span><span class=o>);</span>
+
+        <span class=n>Gateway</span><span class=o>.</span><span class=na>Builder</span> <span class=n>builder</span> <span class=o>=</span> <span class=n>Gateway</span><span class=o>.</span><span class=na>createBuilder</span><span class=o>();</span>
+        <span class=n>builder</span><span class=o>.</span><span class=na>identity</span><span class=o>(</span><span class=n>wallet</span><span class=o>,</span> <span class=s>&#34;yfhuang&#34;</span><span class=o>).</span><span class=na>networkConfig</span><span class=o>(</span><span class=n>networkConfigPath</span><span class=o>).</span><span class=na>discovery</span><span class=o>(</span><span class=kc>false</span><span class=o>);</span>
+
+        <span class=c1>// create a gateway connection
+</span><span class=c1></span>        <span class=k>try</span> <span class=o>(</span><span class=n>Gateway</span> <span class=n>gateway</span> <span class=o>=</span> <span class=n>builder</span><span class=o>.</span><span class=na>connect</span><span class=o>())</span> <span class=o>{</span>
+
+            <span class=c1>// get the network and contract
+</span><span class=c1></span>            <span class=n>Network</span> <span class=n>network</span> <span class=o>=</span> <span class=n>gateway</span><span class=o>.</span><span class=na>getNetwork</span><span class=o>(</span><span class=s>&#34;mychannel&#34;</span><span class=o>);</span>
+            <span class=n>Contract</span> <span class=n>contract</span> <span class=o>=</span> <span class=n>network</span><span class=o>.</span><span class=na>getContract</span><span class=o>(</span><span class=s>&#34;fabcar&#34;</span><span class=o>);</span>
+            <span class=kt>byte</span><span class=o>[]</span> <span class=n>result</span><span class=o>;</span>
+           <span class=c1>//这个方法，如果不是用户注册属性为leader_car_department，就会抛出没有权限的错误
+</span><span class=c1></span>            <span class=n>result</span> <span class=o>=</span> <span class=n>contract</span><span class=o>.</span><span class=na>evaluateTransaction</span><span class=o>(</span><span class=s>&#34;queryAllCars&#34;</span><span class=o>);</span>
+            <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=k>new</span> <span class=n>String</span><span class=o>(</span><span class=n>result</span><span class=o>));</span>
+        <span class=o>}</span>
+    <span class=o>}</span>
+<span class=o>}</span>
+</code></pre></td></tr></table></div></div><p>可以看到，是可以查看到所有的汽车的：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=o>[{</span><span class=s>&#34;Key&#34;</span><span class=o>:</span><span class=s>&#34;CAR0&#34;</span><span class=o>,</span> <span class=s>&#34;Record&#34;</span><span class=o>:{</span><span class=s>&#34;colour&#34;</span><span class=o>:</span><span class=s>&#34;blue&#34;</span><span class=o>,</span><span class=s>&#34;make&#34;</span><span class=o>:</span><span class=s>&#34;Toyota&#34;</span><span class=o>,</span><span class=s>&#34;model&#34;</span><span class=o>:</span><span class=s>&#34;Prius&#34;</span><span class=o>,</span><span class=s>&#34;owner&#34;</span><span class=o>:</span><span class=s>&#34;Tomoko&#34;</span><span class=o>}},{</span><span class=s>&#34;Key&#34;</span><span class=o>:</span><span class=s>&#34;CAR1&#34;</span><span class=o>,</span> <span class=s>&#34;Record&#34;</span><span class=o>:{</span><span class=s>&#34;colour&#34;</span><span class=o>:</span><span class=s>&#34;red&#34;</span><span class=o>,</span><span class=s>&#34;make&#34;</span><span class=o>:</span><span class=s>&#34;Ford&#34;</span><span class=o>,</span><span class=s>&#34;model&#34;</span><span class=o>:</span><span class=s>&#34;Mustang&#34;</span><span class=o>,</span><span class=s>&#34;owner&#34;</span><span class=o>:</span><span class=s>&#34;Brad&#34;</span><span class=o>}},{</span><span class=s>&#34;Key&#34;</span><span class=o>:</span><span class=s>&#34;CAR2&#34;</span><span class=o>,</span> <span class=s>&#34;Record&#34;</span><span class=o>:{</span><span class=s>&#34;colour&#34;</span><span class=o>:</span><span class=s>&#34;green&#34;</span><span class=o>,</span><span class=s>&#34;make&#34;</span><span class=o>:</span><span class=s>&#34;Hyundai&#34;</span><span class=o>,</span><span class=s>&#34;model&#34;</span><span class=o>:</span><span class=s>&#34;Tucson&#34;</span><span class=o>,</span><span class=s>&#34;owner&#34;</span><span class=o>:</span><span class=s>&#34;Jin Soo&#34;</span><span class=o>}},{</span><span class=s>&#34;Key&#34;</span><span class=o>:</span><span class=s>&#34;CAR3&#34;</span><span class=o>,</span> <span class=s>&#34;Record&#34;</span><span class=o>:{</span><span class=s>&#34;colour&#34;</span><span class=o>:</span><span class=s>&#34;yellow&#34;</span><span class=o>,</span><span class=s>&#34;make&#34;</span><span class=o>:</span><span class=s>&#34;Volkswagen&#34;</span><span class=o>,</span><span class=s>&#34;model&#34;</span><span class=o>:</span><span class=s>&#34;Passat&#34;</span><span class=o>,</span><span class=s>&#34;owner&#34;</span><span class=o>:</span><span class=s>&#34;Max&#34;</span><span class=o>}},{</span><span class=s>&#34;Key&#34;</span><span class=o>:</span><span class=s>&#34;CAR4&#34;</span><span class=o>,</span> <span class=s>&#34;Record&#34;</span><span class=o>:{</span><span class=s>&#34;colour&#34;</span><span class=o>:</span><span class=s>&#34;black&#34;</span><span class=o>,</span><span class=s>&#34;make&#34;</span><span class=o>:</span><span class=s>&#34;Tesla&#34;</span><span class=o>,</span><span class=s>&#34;model&#34;</span><span class=o>:</span><span class=s>&#34;S&#34;</span><span class=o>,</span><span class=s>&#34;owner&#34;</span><span class=o>:</span><span class=s>&#34;Adriana&#34;</span><span class=o>}},{</span><span class=s>&#34;Key&#34;</span><span class=o>:</span><span class=s>&#34;CAR5&#34;</span><span class=o>,</span> <span class=s>&#34;Record&#34;</span><span class=o>:{</span><span class=s>&#34;colour&#34;</span><span class=o>:</span><span class=s>&#34;purple&#34;</span><span class=o>,</span><span class=s>&#34;make&#34;</span><span class=o>:</span><span class=s>&#34;Peugeot&#34;</span><span class=o>,</span><span class=s>&#34;model&#34;</span><span class=o>:</span><span class=s>&#34;205&#34;</span><span class=o>,</span><span class=s>&#34;owner&#34;</span><span class=o>:</span><span class=s>&#34;Michel&#34;</span><span class=o>}},{</span><span class=s>&#34;Key&#34;</span><span class=o>:</span><span class=s>&#34;CAR6&#34;</span><span class=o>,</span> <span class=s>&#34;Record&#34;</span><span class=o>:{</span><span class=s>&#34;colour&#34;</span><span class=o>:</span><span class=s>&#34;white&#34;</span><span class=o>,</span><span class=s>&#34;make&#34;</span><span class=o>:</span><span class=s>&#34;Chery&#34;</span><span class=o>,</span><span class=s>&#34;model&#34;</span><span class=o>:</span><span class=s>&#34;S22L&#34;</span><span class=o>,</span><span class=s>&#34;owner&#34;</span><span class=o>:</span><span class=s>&#34;Aarav&#34;</span><span class=o>}},{</span><span class=s>&#34;Key&#34;</span><span class=o>:</span><span class=s>&#34;CAR7&#34;</span><span class=o>,</span> <span class=s>&#34;Record&#34;</span><span class=o>:{</span><span class=s>&#34;colour&#34;</span><span class=o>:</span><span class=s>&#34;violet&#34;</span><span class=o>,</span><span class=s>&#34;make&#34;</span><span class=o>:</span><span class=s>&#34;Fiat&#34;</span><span class=o>,</span><span class=s>&#34;model&#34;</span><span class=o>:</span><span class=s>&#34;Punto&#34;</span><span class=o>,</span><span class=s>&#34;owner&#34;</span><span class=o>:</span><span class=s>&#34;Pari&#34;</span><span class=o>}},{</span><span class=s>&#34;Key&#34;</span><span class=o>:</span><span class=s>&#34;CAR8&#34;</span><span class=o>,</span> <span class=s>&#34;Record&#34;</span><span class=o>:{</span><span class=s>&#34;colour&#34;</span><span class=o>:</span><span class=s>&#34;indigo&#34;</span><span class=o>,</span><span class=s>&#34;make&#34;</span><span class=o>:</span><span class=s>&#34;Tata&#34;</span><span class=o>,</span><span class=s>&#34;model&#34;</span><span class=o>:</span><span class=s>&#34;Nano&#34;</span><span class=o>,</span><span class=s>&#34;owner&#34;</span><span class=o>:</span><span class=s>&#34;Valeria&#34;</span><span class=o>}},{</span><span class=s>&#34;Key&#34;</span><span class=o>:</span><span class=s>&#34;CAR9&#34;</span><span class=o>,</span> <span class=s>&#34;Record&#34;</span><span class=o>:{</span><span class=s>&#34;colour&#34;</span><span class=o>:</span><span class=s>&#34;brown&#34;</span><span class=o>,</span><span class=s>&#34;make&#34;</span><span class=o>:</span><span class=s>&#34;Holden&#34;</span><span class=o>,</span><span class=s>&#34;model&#34;</span><span class=o>:</span><span class=s>&#34;Barina&#34;</span><span class=o>,</span><span class=s>&#34;owner&#34;</span><span class=o>:</span><span class=s>&#34;Shotaro&#34;</span><span class=o>}}]</span>
+</code></pre></td></tr></table></div></div><p>以<code>songjian</code>用户进行调用：</p><p>可以看到爆出了权限错误</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=n>Exception</span> <span class=n>in</span> <span class=n>thread</span> <span class=s>&#34;main&#34;</span> <span class=n>org</span><span class=o>.</span><span class=na>hyperledger</span><span class=o>.</span><span class=na>fabric</span><span class=o>.</span><span class=na>gateway</span><span class=o>.</span><span class=na>ContractException</span><span class=o>:</span> <span class=n>没有权限</span>
+	<span class=n>at</span> <span class=n>org</span><span class=o>.</span><span class=na>hyperledger</span><span class=o>.</span><span class=na>fabric</span><span class=o>.</span><span class=na>gateway</span><span class=o>.</span><span class=na>impl</span><span class=o>.</span><span class=na>SingleQueryHandler</span><span class=o>.</span><span class=na>evaluate</span><span class=o>(</span><span class=n>SingleQueryHandler</span><span class=o>.</span><span class=na>java</span><span class=o>:</span><span class=n>50</span><span class=o>)</span>
+	<span class=n>at</span> <span class=n>org</span><span class=o>.</span><span class=na>hyperledger</span><span class=o>.</span><span class=na>fabric</span><span class=o>.</span><span class=na>gateway</span><span class=o>.</span><span class=na>impl</span><span class=o>.</span><span class=na>TransactionImpl</span><span class=o>.</span><span class=na>evaluate</span><span class=o>(</span><span class=n>TransactionImpl</span><span class=o>.</span><span class=na>java</span><span class=o>:</span><span class=n>213</span><span class=o>)</span>
+	<span class=n>at</span> <span class=n>org</span><span class=o>.</span><span class=na>hyperledger</span><span class=o>.</span><span class=na>fabric</span><span class=o>.</span><span class=na>gateway</span><span class=o>.</span><span class=na>impl</span><span class=o>.</span><span class=na>ContractImpl</span><span class=o>.</span><span class=na>evaluateTransaction</span><span class=o>(</span><span class=n>ContractImpl</span><span class=o>.</span><span class=na>java</span><span class=o>:</span><span class=n>55</span><span class=o>)</span>
+	<span class=n>at</span> <span class=n>org</span><span class=o>.</span><span class=na>example</span><span class=o>.</span><span class=na>clientCar</span><span class=o>.</span><span class=na>main</span><span class=o>(</span><span class=n>clientCar</span><span class=o>.</span><span class=na>java</span><span class=o>:</span><span class=n>43</span><span class=o>)</span>
+
+<span class=n>Process</span> <span class=n>finished</span> <span class=n>with</span> <span class=n>exit</span> <span class=n>code</span> <span class=n>1</span>
+</code></pre></td></tr></table></div></div><p>所以，基于链码的访问控制就完成了</p><hr><p>最后一个小tips：</p><blockquote><p>我们可以使用openssl工具来查看我们的证书文件，在我们使用SDK进行注册用户之后，会在相关的文件夹中生成两个文件，其中一个是私钥文件，还有一个是json类型的一个文件(其中有用户的证书certification),将证书粘贴到新建的pem文件中，然后使用spenssl工具将两个用户的证书转换成文本形式</p><ul><li><code>songjian</code>用户的证书</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>-----BEGIN CERTIFICATE-----
+MIICqTCCAk+gAwIBAgIUe7kl1iz7AC+JiI4V+GQSFMXh79gwCgYIKoZIzj0EAwIw
+czELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNh
+biBGcmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHDAaBgNVBAMT
+E2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjAxMDE2MTAwMzAwWhcNMjExMDE2MTAw
+ODAwWjBFMTAwDQYDVQQLEwZjbGllbnQwCwYDVQQLEwRvcmcxMBIGA1UECxMLZGVw
+YXJ0bWVudDExETAPBgNVBAMTCHNvbmdqaWFuMFkwEwYHKoZIzj0CAQYIKoZIzj0D
+AQcDQgAEwbOP5V6+LAQN7FLLeR0sNXIWmyG09TfE434e/7bbi/mJs4c1n6/8h3Ix
+KCE3DOQwiH5EbHNuSa3j8XaFPIWE46OB7jCB6zAOBgNVHQ8BAf8EBAMCB4AwDAYD
+VR0TAQH/BAIwADAdBgNVHQ4EFgQUixJa/Mionju24JKEGYwytn0rasIwKwYDVR0j
+BCQwIoAgKIGbpvymakg5F6IFyeRvFQKplozygNldEr5VdR3Kc1QwfwYIKgMEBQYH
+CAEEc3siYXR0cnMiOnsiaGYuQWZmaWxpYXRpb24iOiJvcmcxLmRlcGFydG1lbnQx
+IiwiaGYuRW5yb2xsbWVudElEIjoic29uZ2ppYW4iLCJoZi5UeXBlIjoiY2xpZW50
+IiwidXNlcnR5cGUiOiJ3b3JrZXIifX0wCgYIKoZIzj0EAwIDSAAwRQIhAKr6NRaL
+aGC+NC8AWiVR6KqIbL3+A2y0tMPYP/NvsRFcAiAEB8nCmpRjYXTvekctqTtKtykL
+utw3qJfW7wCFhnp8VQ==
+-----END CERTIFICATE-----
+</code></pre></td></tr></table></div></div><p>在命令行执行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>openssl x509 -in songjian.pem -noout -text
+</code></pre></td></tr></table></div></div><p>输出如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-text data-lang=text>Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            7b:b9:25:d6:2c:fb:00:2f:89:88:8e:15:f8:64:12:14:c5:e1:ef:d8
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C = US, ST = California, L = San Francisco, O = org1.example.com, CN = ca.org1.example.com
+        Validity
+            Not Before: Oct 16 10:03:00 2020 GMT
+            Not After : Oct 16 10:08:00 2021 GMT
+        Subject: OU = client + OU = org1 + OU = department1, CN = songjian
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:c1:b3:8f:e5:5e:be:2c:04:0d:ec:52:cb:79:1d:
+                    2c:35:72:16:9b:21:b4:f5:37:c4:e3:7e:1e:ff:b6:
+                    db:8b:f9:89:b3:87:35:9f:af:fc:87:72:31:28:21:
+                    37:0c:e4:30:88:7e:44:6c:73:6e:49:ad:e3:f1:76:
+                    85:3c:85:84:e3
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                8B:12:5A:FC:C8:A8:9E:3B:B6:E0:92:84:19:8C:32:B6:7D:2B:6A:C2
+            X509v3 Authority Key Identifier:
+                keyid:28:81:9B:A6:FC:A6:6A:48:39:17:A2:05:C9:E4:6F:15:02:A9:96:8C:F2:80:D9:5D:12:BE:55:75:1D:CA:73:54
+
+            1.2.3.4.5.6.7.8.1:
+                {&#34;attrs&#34;:{&#34;hf.Affiliation&#34;:&#34;org1.department1&#34;,&#34;hf.EnrollmentID&#34;:&#34;songjian&#34;,&#34;hf.Type&#34;:&#34;client&#34;,&#34;usertype&#34;:&#34;worker&#34;}}
+    Signature Algorithm: ecdsa-with-SHA256
+         30:45:02:21:00:aa:fa:35:16:8b:68:60:be:34:2f:00:5a:25:
+         51:e8:aa:88:6c:bd:fe:03:6c:b4:b4:c3:d8:3f:f3:6f:b1:11:
+         5c:02:20:04:07:c9:c2:9a:94:63:61:74:ef:7a:47:2d:a9:3b:
+         4a:b7:29:0b:ba:dc:37:a8:97:d6:ef:00:85:86:7a:7c:55
+</code></pre></td></tr></table></div></div><ul><li><code>yfhuang</code>的证书</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>-----BEGIN CERTIFICATE-----
+MIICuDCCAl6gAwIBAgIULUajiYT7HTD8cJT7HHMKC9Vm7yswCgYIKoZIzj0EAwIw
+czELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNh
+biBGcmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHDAaBgNVBAMT
+E2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjAxMDE2MTAwMzAwWhcNMjExMDE2MTAw
+ODAwWjBEMTAwDQYDVQQLEwZjbGllbnQwCwYDVQQLEwRvcmcxMBIGA1UECxMLZGVw
+YXJ0bWVudDExEDAOBgNVBAMTB3lmaHVhbmcwWTATBgcqhkjOPQIBBggqhkjOPQMB
+BwNCAATrR6GhF0ZUBqvM2suH8GN1qVnFCCXq9gZV4iPkcTLufwKij0zVDdw1/uM7
+RsPcEYtBGv4ofRW9UErmST58XynKo4H+MIH7MA4GA1UdDwEB/wQEAwIHgDAMBgNV
+HRMBAf8EAjAAMB0GA1UdDgQWBBSglzSxtWdYHuCT/DWwmBaF1i+phjArBgNVHSME
+JDAigCAogZum/KZqSDkXogXJ5G8VAqmWjPKA2V0SvlV1HcpzVDCBjgYIKgMEBQYH
+CAEEgYF7ImF0dHJzIjp7ImhmLkFmZmlsaWF0aW9uIjoib3JnMS5kZXBhcnRtZW50
+MSIsImhmLkVucm9sbG1lbnRJRCI6InlmaHVhbmciLCJoZi5UeXBlIjoiY2xpZW50
+IiwidXNlcnR5cGUiOiJsZWFkZXJfY2FyX2RlcGFydG1lbnQifX0wCgYIKoZIzj0E
+AwIDSAAwRQIhAKUSaUMnkbvZOaPCPnzW1FxVVJMJMRepFTgCQ9Eog80bAiBKoPHL
+IJzGv2uVMmt47P+ydhm1Sw+nLHUJ1CjB7PKVgQ==
+-----END CERTIFICATE-----
+</code></pre></td></tr></table></div></div><p>在命令行执行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>openssl x509 -in yfhuang.pem -noout -text
+</code></pre></td></tr></table></div></div><p>输出如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-text data-lang=text>Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            2d:46:a3:89:84:fb:1d:30:fc:70:94:fb:1c:73:0a:0b:d5:66:ef:2b
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C = US, ST = California, L = San Francisco, O = org1.example.com, CN = ca.org1.example.com
+        Validity
+            Not Before: Oct 16 10:03:00 2020 GMT
+            Not After : Oct 16 10:08:00 2021 GMT
+        Subject: OU = client + OU = org1 + OU = department1, CN = yfhuang
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:eb:47:a1:a1:17:46:54:06🆎cc:da:cb:87:f0:
+                    63:75:a9:59:c5:08:25:ea:f6:06:55:e2:23:e4:71:
+                    32:ee:7f:02:a2:8f:4c:d5:0d:dc:35:fe:e3:3b:46:
+                    c3:dc:11:8b:41:1a:fe:28:7d:15:bd:50:4a:e6:49:
+                    3e:7c:5f:29:ca
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                A0:97:34:B1:B5:67:58:1E:E0:93:FC:35:B0:98:16:85:D6:2F:A9:86
+            X509v3 Authority Key Identifier:
+                keyid:28:81:9B:A6:FC:A6:6A:48:39:17:A2:05:C9:E4:6F:15:02:A9:96:8C:F2:80:D9:5D:12:BE:55:75:1D:CA:73:54
+
+            1.2.3.4.5.6.7.8.1:
+                {&#34;attrs&#34;:{&#34;hf.Affiliation&#34;:&#34;org1.department1&#34;,&#34;hf.EnrollmentID&#34;:&#34;yfhuang&#34;,&#34;hf.Type&#34;:&#34;client&#34;,&#34;usertype&#34;:&#34;leader_car_department&#34;}}
+    Signature Algorithm: ecdsa-with-SHA256
+         30:45:02:21:00:a5:12:69:43:27:91:bb:d9:39:a3:c2:3e:7c:
+         d6:d4:5c:55:54:93:09:31:17:a9:15:38:02:43:d1:28:83💿
+         1b:02:20:4a:a0:f1:cb:20:9c:c6:bf:6b:95:32:6b:78:ec:ff:
+         b2:76:19:b5:4b:0f:a7:2c:75:09:d4:28:c1:ec:f2:95:81
+PS C:\Users\Bun\Desktop&gt; openssl x509 -in songjian.pem -noout -text
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            7b:b9:25:d6:2c:fb:00:2f:89:88:8e:15:f8:64:12:14:c5:e1:ef:d8
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C = US, ST = California, L = San Francisco, O = org1.example.com, CN = ca.org1.example.com
+        Validity
+            Not Before: Oct 16 10:03:00 2020 GMT
+        Subject: OU = client + OU = org1 + OU = department1, CN = songjian
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:c1:b3:8f:e5:5e:be:2c:04:0d:ec:52:cb:79:1d:
+                    2c:35:72:16:9b:21:b4:f5:37:c4:e3:7e:1e:ff:b6:
+                    db:8b:f9:89:b3:87:35:9f:af:fc:87:72:31:28:21:
+                    37:0c:e4:30:88:7e:44:6c:73:6e:49:ad:e3:f1:76:
+                    85:3c:85:84:e3
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                8B:12:5A:FC:C8:A8:9E:3B:B6:E0:92:84:19:8C:32:B6:7D:2B:6A:C2
+            X509v3 Authority Key Identifier:
+                keyid:28:81:9B:A6:FC:A6:6A:48:39:17:A2:05:C9:E4:6F:15:02:A9:96:8C:F2:80:D9:5D:12:BE:55:75:1D:CA:73:54
+
+            1.2.3.4.5.6.7.8.1:
+                {&#34;attrs&#34;:{&#34;hf.Affiliation&#34;:&#34;org1.department1&#34;,&#34;hf.EnrollmentID&#34;:&#34;songjian&#34;,&#34;hf.Type&#34;:&#34;client&#34;,&#34;usertype&#34;:&#34;worker&#34;}}
+    Signature Algorithm: ecdsa-with-SHA256
+         30:45:02:21:00:aa:fa:35:16:8b:68:60:be:34:2f:00:5a:25:
+         51:e8:aa:88:6c:bd:fe:03:6c:b4:b4:c3:d8:3f:f3:6f:b1:11:
+         5c:02:20:04:07:c9:c2:9a:94:63:61:74:ef:7a:47:2d:a9:3b:
+         4a:b7:29:0b:ba:dc:37:a8:97:d6:ef:00:85:86:7a:7c:55
+PS C:\Users\Bun\Desktop&gt; openssl x509 -in yfhuang.pem -noout -text
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            2d:46:a3:89:84:fb:1d:30:fc:70:94:fb:1c:73:0a:0b:d5:66:ef:2b
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C = US, ST = California, L = San Francisco, O = org1.example.com, CN = ca.org1.example.com
+        Validity
+            Not Before: Oct 16 10:03:00 2020 GMT
+            Not After : Oct 16 10:08:00 2021 GMT
+        Subject: OU = client + OU = org1 + OU = department1, CN = yfhuang
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:eb:47:a1:a1:17:46:54:06🆎cc:da:cb:87:f0:
+                    63:75:a9:59:c5:08:25:ea:f6:06:55:e2:23:e4:71:
+                    32:ee:7f:02:a2:8f:4c:d5:0d:dc:35:fe:e3:3b:46:
+                    c3:dc:11:8b:41:1a:fe:28:7d:15:bd:50:4a:e6:49:
+                    3e:7c:5f:29:ca
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                A0:97:34:B1:B5:67:58:1E:E0:93:FC:35:B0:98:16:85:D6:2F:A9:86
+            X509v3 Authority Key Identifier:
+                keyid:28:81:9B:A6:FC:A6:6A:48:39:17:A2:05:C9:E4:6F:15:02:A9:96:8C:F2:80:D9:5D:12:BE:55:75:1D:CA:73:54
+
+            1.2.3.4.5.6.7.8.1:
+                {&#34;attrs&#34;:{&#34;hf.Affiliation&#34;:&#34;org1.department1&#34;,&#34;hf.EnrollmentID&#34;:&#34;yfhuang&#34;,&#34;hf.Type&#34;:&#34;client&#34;,&#34;usertype&#34;:&#34;leader_car_department&#34;}}
+    Signature Algorithm: ecdsa-with-SHA256
+         30:45:02:21:00:a5:12:69:43:27:91:bb:d9:39:a3:c2:3e:7c:
+         d6:d4:5c:55:54:93:09:31:17:a9:15:38:02:43:d1:28:83💿
+         1b:02:20:4a:a0:f1:cb:20:9c:c6:bf:6b:95:32:6b:78:ec:ff:
+         b2:76:19:b5:4b:0f:a7:2c:75:09:d4:28:c1:ec:f2:95:81
+</code></pre></td></tr></table></div></div><p>可以观察到上面两个证书转换之后的文本中最后的attrs中的usertype是不一样的，也就是说明，我们的usertype已经enroll到证书中了，也就能在链码中读取了</p><p>我们再来看一个在注册用户的时候Enroll的时候没有指定将自定义的属性加入证书的例子(注意一个haha用户)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-java data-lang=java><span class=cm>/*
+</span><span class=cm>SPDX-License-Identifier: Apache-2.0
+</span><span class=cm>*/</span>
+
+<span class=kn>package</span> <span class=nn>org.example</span><span class=o>;</span>
+
+<span class=kn>import</span> <span class=nn>java.nio.file.Paths</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>java.util.Properties</span><span class=o>;</span>
+
+<span class=kn>import</span> <span class=nn>org.example.Common.User</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.gateway.Wallet</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.gateway.Wallet.Identity</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.sdk.Enrollment</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.sdk.security.CryptoSuite</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric.sdk.security.CryptoSuiteFactory</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.Attribute</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.EnrollmentRequest</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.HFCAClient</span><span class=o>;</span>
+<span class=kn>import</span> <span class=nn>org.hyperledger.fabric_ca.sdk.RegistrationRequest</span><span class=o>;</span>
+
+<span class=kd>public</span> <span class=kd>class</span> <span class=nc>RegisterUser</span> <span class=o>{</span>
+
+    <span class=kd>static</span> <span class=o>{</span>
+        <span class=n>System</span><span class=o>.</span><span class=na>setProperty</span><span class=o>(</span><span class=s>&#34;org.hyperledger.fabric.sdk.service_discovery.as_localhost&#34;</span><span class=o>,</span> <span class=s>&#34;true&#34;</span><span class=o>);</span>
+    <span class=o>}</span>
+    <span class=kd>public</span> <span class=kd>static</span> <span class=kt>void</span> <span class=nf>main</span><span class=o>(</span><span class=n>String</span><span class=o>[]</span> <span class=n>args</span><span class=o>)</span> <span class=kd>throws</span> <span class=n>Exception</span> <span class=o>{</span>
+        <span class=c1>// Create a CA client for interacting with the CA.
+</span><span class=c1></span>        <span class=n>Properties</span> <span class=n>props</span> <span class=o>=</span> <span class=k>new</span> <span class=n>Properties</span><span class=o>();</span>
+        <span class=n>props</span><span class=o>.</span><span class=na>put</span><span class=o>(</span><span class=s>&#34;pemFile&#34;</span><span class=o>,</span> <span class=n>EnrollAdmin</span><span class=o>.</span><span class=na>CERTIFICATION_PATH</span><span class=o>);</span>
+        <span class=n>props</span><span class=o>.</span><span class=na>put</span><span class=o>(</span><span class=s>&#34;allowAllHostNames&#34;</span><span class=o>,</span> <span class=s>&#34;true&#34;</span><span class=o>);</span>
+        <span class=n>HFCAClient</span> <span class=n>caClient</span> <span class=o>=</span> <span class=n>HFCAClient</span><span class=o>.</span><span class=na>createNewInstance</span><span class=o>(</span><span class=n>EnrollAdmin</span><span class=o>.</span><span class=na>PATH_AND_PORT</span><span class=o>,</span> <span class=n>props</span><span class=o>);</span>
+        <span class=n>CryptoSuite</span> <span class=n>cryptoSuite</span> <span class=o>=</span> <span class=n>CryptoSuiteFactory</span><span class=o>.</span><span class=na>getDefault</span><span class=o>().</span><span class=na>getCryptoSuite</span><span class=o>();</span>
+        <span class=n>caClient</span><span class=o>.</span><span class=na>setCryptoSuite</span><span class=o>(</span><span class=n>cryptoSuite</span><span class=o>);</span>
+
+        <span class=c1>// Create a wallet for managing identities
+</span><span class=c1></span>        <span class=n>Wallet</span> <span class=n>wallet</span> <span class=o>=</span> <span class=n>Wallet</span><span class=o>.</span><span class=na>createFileSystemWallet</span><span class=o>(</span><span class=n>Paths</span><span class=o>.</span><span class=na>get</span><span class=o>(</span><span class=s>&#34;src/main/resources/wallet&#34;</span><span class=o>));</span>
+
+        <span class=c1>// Check to see if we&#39;ve already enrolled the user.
+</span><span class=c1></span>        <span class=kt>boolean</span> <span class=n>userExists</span> <span class=o>=</span> <span class=n>wallet</span><span class=o>.</span><span class=na>exists</span><span class=o>(</span><span class=s>&#34;haha&#34;</span><span class=o>);</span>
+        <span class=k>if</span> <span class=o>(</span><span class=n>userExists</span><span class=o>)</span> <span class=o>{</span>
+            <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;An identity for the user \&#34;haha\&#34; already exists in the wallet&#34;</span><span class=o>);</span>
+            <span class=k>return</span><span class=o>;</span>
+        <span class=o>}</span>
+
+        <span class=n>userExists</span> <span class=o>=</span> <span class=n>wallet</span><span class=o>.</span><span class=na>exists</span><span class=o>(</span><span class=s>&#34;admin&#34;</span><span class=o>);</span>
+        <span class=k>if</span> <span class=o>(!</span><span class=n>userExists</span><span class=o>)</span> <span class=o>{</span>
+            <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;\&#34;admin\&#34; needs to be enrolled and added to the wallet first&#34;</span><span class=o>);</span>
+            <span class=k>return</span><span class=o>;</span>
+        <span class=o>}</span>
+        <span class=n>Identity</span> <span class=n>adminIdentity</span> <span class=o>=</span> <span class=n>wallet</span><span class=o>.</span><span class=na>get</span><span class=o>(</span><span class=s>&#34;admin&#34;</span><span class=o>);</span>
+        <span class=n>org</span><span class=o>.</span><span class=na>hyperledger</span><span class=o>.</span><span class=na>fabric</span><span class=o>.</span><span class=na>sdk</span><span class=o>.</span><span class=na>User</span> <span class=n>admin</span> <span class=o>=</span> <span class=k>new</span> <span class=n>User</span><span class=o>.</span><span class=na>Builder</span><span class=o>()</span>
+                <span class=o>.</span><span class=na>name</span><span class=o>(</span><span class=s>&#34;admin&#34;</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>affiliation</span><span class=o>(</span><span class=s>&#34;org1.department1&#34;</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>mspId</span><span class=o>(</span><span class=s>&#34;Org1MSP&#34;</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>enrollment</span><span class=o>(</span><span class=n>adminIdentity</span><span class=o>)</span>
+                <span class=o>.</span><span class=na>build</span><span class=o>();</span>
+        <span class=n>RegistrationRequest</span> <span class=n>registrationRequest</span> <span class=o>=</span> <span class=k>new</span> <span class=n>RegistrationRequest</span><span class=o>(</span><span class=s>&#34;haha&#34;</span><span class=o>);</span>
+        <span class=n>registrationRequest</span><span class=o>.</span><span class=na>setAffiliation</span><span class=o>(</span><span class=s>&#34;org1.department1&#34;</span><span class=o>);</span>
+        <span class=n>registrationRequest</span><span class=o>.</span><span class=na>setEnrollmentID</span><span class=o>(</span><span class=s>&#34;haha&#34;</span><span class=o>);</span>
+        <span class=c1>//register的时候设置用户自定义的属性类型
+</span><span class=c1></span>        <span class=n>registrationRequest</span><span class=o>.</span><span class=na>addAttribute</span><span class=o>(</span><span class=k>new</span> <span class=n>Attribute</span><span class=o>(</span><span class=s>&#34;usertype&#34;</span><span class=o>,</span><span class=s>&#34;leader_car_department&#34;</span><span class=o>));</span>
+        <span class=n>String</span> <span class=n>enrollmentSecret</span> <span class=o>=</span> <span class=n>caClient</span><span class=o>.</span><span class=na>register</span><span class=o>(</span><span class=n>registrationRequest</span><span class=o>,</span> <span class=n>admin</span><span class=o>);</span>
+        <span class=n>Enrollment</span> <span class=n>enrollment</span> <span class=o>=</span> <span class=n>caClient</span><span class=o>.</span><span class=na>enroll</span><span class=o>(</span><span class=s>&#34;haha&#34;</span><span class=o>,</span> <span class=n>enrollmentSecret</span><span class=o>);</span>
+        <span class=n>Identity</span> <span class=n>user</span> <span class=o>=</span> <span class=n>Identity</span><span class=o>.</span><span class=na>createIdentity</span><span class=o>(</span><span class=s>&#34;Org1MSP&#34;</span><span class=o>,</span> <span class=n>enrollment</span><span class=o>.</span><span class=na>getCert</span><span class=o>(),</span> <span class=n>enrollment</span><span class=o>.</span><span class=na>getKey</span><span class=o>());</span>
+        <span class=n>wallet</span><span class=o>.</span><span class=na>put</span><span class=o>(</span><span class=s>&#34;haha&#34;</span><span class=o>,</span> <span class=n>user</span><span class=o>);</span>
+        <span class=n>System</span><span class=o>.</span><span class=na>out</span><span class=o>.</span><span class=na>println</span><span class=o>(</span><span class=s>&#34;Successfully enrolled user \&#34;haha\&#34; and imported it into the wallet&#34;</span><span class=o>);</span>
+    <span class=o>}</span>
+<span class=o>}</span>
+</code></pre></td></tr></table></div></div><p>下面是这个用户的证书：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>-----BEGIN CERTIFICATE-----
+MIICjDCCAjOgAwIBAgIUJrH6/14VpN4DZAG/b3H7TwFxm0wwCgYIKoZIzj0EAwIw
+czELMAkGA1UEBhMCVVMxEzARBgNVBAgTCkNhbGlmb3JuaWExFjAUBgNVBAcTDVNh
+biBGcmFuY2lzY28xGTAXBgNVBAoTEG9yZzEuZXhhbXBsZS5jb20xHDAaBgNVBAMT
+E2NhLm9yZzEuZXhhbXBsZS5jb20wHhcNMjAxMDE2MTEwMzAwWhcNMjExMDE2MTEw
+ODAwWjBBMTAwDQYDVQQLEwZjbGllbnQwCwYDVQQLEwRvcmcxMBIGA1UECxMLZGVw
+YXJ0bWVudDExDTALBgNVBAMTBGhhaGEwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNC
+AATSOOKZ0tB7IRD97e+G8Rbka058hcLr+euj1WHNLipOOKeBvLFocCKMML2dL8hP
+2mkndM1zj00YAkVP8yTwO97zo4HWMIHTMA4GA1UdDwEB/wQEAwIHgDAMBgNVHRMB
+Af8EAjAAMB0GA1UdDgQWBBSuIp0UQPrfvmgbJ5iNhOZUh2e/1zArBgNVHSMEJDAi
+gCAogZum/KZqSDkXogXJ5G8VAqmWjPKA2V0SvlV1HcpzVDBnBggqAwQFBgcIAQRb
+eyJhdHRycyI6eyJoZi5BZmZpbGlhdGlvbiI6Im9yZzEuZGVwYXJ0bWVudDEiLCJo
+Zi5FbnJvbGxtZW50SUQiOiJoYWhhIiwiaGYuVHlwZSI6ImNsaWVudCJ9fTAKBggq
+hkjOPQQDAgNHADBEAiAYderD2wOsojvdK5k1zYyDLtK73KIYLS5dim02Oz3+BQIg
+DjZ1y7kctNRyWJ3uXPJlZWISnwD3fpzp8QccIKE5bUY=
+-----END CERTIFICATE-----
+</code></pre></td></tr></table></div></div><p>使用openssl工具，执行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>openssl x509 -in haha.pem -noout -text
+</code></pre></td></tr></table></div></div><p>转换得到文本</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            26:b1:fa:ff:5e:15:a4🇩🇪03:64:01:bf:6f:71:fb:4f:01:71:9b:4c
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: C = US, ST = California, L = San Francisco, O = org1.example.com, CN = ca.org1.example.com
+        Validity
+            Not Before: Oct 16 11:03:00 2020 GMT
+            Not After : Oct 16 11:08:00 2021 GMT
+        Subject: OU = client + OU = org1 + OU = department1, CN = haha
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:d2:38:e2:99:d2:d0:7b:21:10:fd:ed:ef:86:f1:
+                    16:e4:6b:4e:7c:85:c2:eb:f9:eb:a3:d5:61💿2e:
+                    2a:4e:38:a7:81:bc:b1:68:70:22:8c:30:bd:9d:2f:
+                    c8:4f:da:69:27:74:cd:73:8f:4d:18:02:45:4f:f3:
+                    24:f0:3b🇩🇪f3
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Subject Key Identifier:
+                AE:22:9D:14:40:FA:DF:BE:68:1B:27:98:8D:84:E6:54:87:67:BF:D7
+            X509v3 Authority Key Identifier:
+                keyid:28:81:9B:A6:FC:A6:6A:48:39:17:A2:05:C9:E4:6F:15:02:A9:96:8C:F2:80:D9:5D:12:BE:55:75:1D:CA:73:54
+
+            1.2.3.4.5.6.7.8.1:
+                {&#34;attrs&#34;:{&#34;hf.Affiliation&#34;:&#34;org1.department1&#34;,&#34;hf.EnrollmentID&#34;:&#34;haha&#34;,&#34;hf.Type&#34;:&#34;client&#34;}}
+    Signature Algorithm: ecdsa-with-SHA256
+         30:44:02:20:18:75:ea:c3:db:03:ac:a2:3b:dd:2b:99:35💿
+         8c:83:2e:d2:bb:dc:a2:18:2d:2e:5d:8a:6d:36:3b:3d:fe:05:
+         02:20:0e:36:75:cb:b9:1c:b4:d4:72:58:9d:ee:5c:f2:65:65:
+         62:12:9f:00:f7:7e:9c:e9:f1:07:1c:20:a1:39:6d:46
+</code></pre></td></tr></table></div></div><p>可以看到attrs中并没有加入usertype</p></blockquote><p>当然链码的控制还可以使用断言的方式进行</p><p>好了，大功告成！！！！</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>VegeBun-csj</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-08-29</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/>区块链</a>
+<a href=/tags/golang/>golang</a></div><nav class=post-nav><a class=prev href=/post/fabricnodesdk/%E4%BA%A4%E6%98%93invoke%E7%9A%84%E4%BD%BF%E7%94%A8/><i class="iconfont icon-left"></i><span class="prev-text nav-default">交易invoke的使用</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/fabricnodesdk/ccp-connection-file%E7%9A%84%E8%AE%BE%E7%BD%AE/><span class="next-text nav-default">ccp文件的设置</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:your@email.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=http://localhost:1313 class="iconfont icon-linkedin" title=linkedin></a><a href=http://localhost:1313 class="iconfont icon-google" title=google></a><a href=https://github.com/VegeBun-csj class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=http://localhost:1313 class="iconfont icon-zhihu" title=zhihu></a><a href=http://localhost:1313 class="iconfont icon-douban" title=douban></a><a href=http://localhost:1313 class="iconfont icon-pocket" title=pocket></a><a href=http://localhost:1313 class="iconfont icon-tumblr" title=tumblr></a><a href=http://localhost:1313 class="iconfont icon-instagram" title=instagram></a><a href=http://localhost:1313 class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=http://localhost:1313/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2019 -
+2020<span class=heart><i class="iconfont icon-heart"></i></span><span>VegeBun-csj</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js></script><script type=text/javascript>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],tags:'ams',}};</script><script type=text/javascript async src=/lib/mathjax/es5/tex-mml-chtml.js></script></body></html>

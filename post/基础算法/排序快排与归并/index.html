@@ -1,0 +1,155 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>排序(快排与归并) - This is a blog written by VegeBun-csj to record the tech</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="VegeBun-csj"><meta name=description content="对于基础算法可以形成模板来进行记忆，主要在于算法的思想和熟练度！！！ 快速排序 基本思想 找分界点，随便找，一般是a[l]，a[r]，a[l+r&"><meta name=keywords content="Hugo,theme,even"><meta name=generator content="Hugo 0.74.3 with theme even"><link rel=canonical href=http://localhost:1313/post/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E5%BF%AB%E6%8E%92%E4%B8%8E%E5%BD%92%E5%B9%B6/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/sass/main.min.bc0b12ed61ed3ac44989a209a068b1f65d38d472dba8f2ba8d482994ff056cb7.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="排序(快排与归并)"><meta property="og:description" content="对于基础算法可以形成模板来进行记忆，主要在于算法的思想和熟练度！！！ 快速排序 基本思想 找分界点，随便找，一般是a[l]，a[r]，a[l+r&"><meta property="og:type" content="article"><meta property="og:url" content="http://localhost:1313/post/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/%E6%8E%92%E5%BA%8F%E5%BF%AB%E6%8E%92%E4%B8%8E%E5%BD%92%E5%B9%B6/"><meta property="article:published_time" content="2020-08-30T10:15:11+08:00"><meta property="article:modified_time" content="2020-08-30T10:15:11+08:00"><meta itemprop=name content="排序(快排与归并)"><meta itemprop=description content="对于基础算法可以形成模板来进行记忆，主要在于算法的思想和熟练度！！！ 快速排序 基本思想 找分界点，随便找，一般是a[l]，a[r]，a[l+r&"><meta itemprop=datePublished content="2020-08-30T10:15:11+08:00"><meta itemprop=dateModified content="2020-08-30T10:15:11+08:00"><meta itemprop=wordCount content="1368"><meta itemprop=keywords content="排序,C++,算法基础,双指针,"><meta name=twitter:card content="summary"><meta name=twitter:title content="排序(快排与归并)"><meta name=twitter:description content="对于基础算法可以形成模板来进行记忆，主要在于算法的思想和熟练度！！！ 快速排序 基本思想 找分界点，随便找，一般是a[l]，a[r]，a[l+r&"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>VegeBun-csj</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>VegeBun-csj</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>排序(快排与归并)</h1><div class=post-meta><span class=post-time>2020-08-30</span><div class=post-category><a href=/categories/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/>基础算法</a></div><span class=more-meta>1368 words</span>
+<span class=more-meta>3 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><ul><li></li><li><a href=#快速排序>快速排序</a></li><li><a href=#归并排序>归并排序</a></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><blockquote><h5 id=对于基础算法可以形成模板来进行记忆主要在于算法的思想和熟练度>对于基础算法可以形成模板来进行记忆，主要在于算法的思想和熟练度！！！</h5></blockquote><h3 id=快速排序>快速排序</h3><ul><li><blockquote><p>基本思想</p></blockquote><ol><li>找分界点，随便找，一般是a[l]，a[r]，a[l+r&#187;1]</li><li>划分区间（划分的规则就是使得分界点的左区间都是&lt;=分界点，分界点的右区间都是>=分界点）</li><li>递归左右区间</li></ol></li><li><blockquote><p>题目</p></blockquote><p>给定你一个长度为n的整数数列。</p><p>请你使用快速排序对这个数列按照从小到大进行排序。</p><p>并将排好序的数列按顺序输出。</p><h4 id=输入格式>输入格式</h4><p>输入共两行，第一行包含整数 n。</p><p>第二行包含 n 个整数（所有整数均在1~10^9范围内），表示整个数列。</p><h4 id=输出格式>输出格式</h4><p>输出共一行，包含 n 个整数，表示排好序的数列。</p><h4 id=数据范围>数据范围</h4><p>1≤n≤100000</p><p><strong>输入样例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>5
+3 1 2 4 5
+</code></pre></td></tr></table></div></div><p><strong>输出样例：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>1 2 3 4 5
+</code></pre></td></tr></table></div></div></li><li><blockquote><p>代码</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-c++ data-lang=c++><span class=cp>#include</span><span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span><span class=cp></span><span class=k>using</span> <span class=k>namespace</span> <span class=n>std</span><span class=p>;</span>
+  
+<span class=k>const</span> <span class=kt>int</span> <span class=n>maxn</span> <span class=o>=</span> <span class=mi>1000000</span><span class=p>;</span>
+<span class=kt>int</span> <span class=n>n</span><span class=p>;</span>
+<span class=kt>int</span> <span class=n>q</span><span class=p>[</span><span class=n>maxn</span><span class=p>];</span>
+  
+<span class=kt>void</span> <span class=nf>quick_sort</span><span class=p>(</span><span class=kt>int</span> <span class=n>q</span><span class=p>[],</span><span class=kt>int</span> <span class=n>l</span><span class=p>,</span><span class=kt>int</span> <span class=n>r</span><span class=p>){</span>
+    <span class=k>if</span><span class=p>(</span><span class=n>l</span><span class=o>&gt;=</span><span class=n>r</span><span class=p>)</span> <span class=k>return</span><span class=p>;</span>
+    <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=n>l</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span><span class=n>j</span> <span class=o>=</span> <span class=n>r</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span> <span class=n>x</span> <span class=o>=</span> <span class=n>q</span><span class=p>[(</span><span class=n>l</span><span class=o>+</span><span class=n>r</span><span class=p>)</span><span class=o>&gt;&gt;</span><span class=mi>1</span><span class=p>];</span>	<span class=c1>//1.选定分界点(此处是区间中点)
+</span><span class=c1></span>    <span class=k>while</span><span class=p>(</span><span class=n>i</span> <span class=o>&lt;</span> <span class=n>j</span><span class=p>){</span>							<span class=c1>//2.区间划分
+</span><span class=c1></span>        <span class=k>while</span><span class=p>(</span><span class=n>q</span><span class=p>[</span><span class=o>++</span><span class=n>i</span><span class=p>]</span><span class=o>&lt;</span><span class=n>x</span><span class=p>);</span>
+        <span class=k>while</span><span class=p>(</span><span class=n>q</span><span class=p>[</span><span class=o>--</span><span class=n>j</span><span class=p>]</span><span class=o>&gt;</span><span class=n>x</span><span class=p>);</span>
+        <span class=k>if</span><span class=p>(</span><span class=n>i</span><span class=o>&lt;</span><span class=n>j</span><span class=p>)</span> <span class=n>swap</span><span class=p>(</span><span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=p>],</span><span class=n>q</span><span class=p>[</span><span class=n>j</span><span class=p>]);</span>
+    <span class=p>}</span>
+  
+    <span class=n>quick_sort</span><span class=p>(</span><span class=n>q</span><span class=p>,</span><span class=n>l</span><span class=p>,</span><span class=n>j</span><span class=p>);</span>						<span class=c1>//3.递归处理左右边界
+</span><span class=c1></span>    <span class=n>quick_sort</span><span class=p>(</span><span class=n>q</span><span class=p>,</span><span class=n>j</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span><span class=n>r</span><span class=p>);</span>
+<span class=p>}</span>
+  
+<span class=kt>int</span> <span class=nf>main</span><span class=p>(){</span>
+    <span class=n>cin</span><span class=o>&gt;&gt;</span><span class=n>n</span><span class=p>;</span>
+    <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span><span class=n>i</span> <span class=o>&lt;</span> <span class=n>n</span><span class=p>;</span><span class=n>i</span> <span class=o>++</span><span class=p>)</span> <span class=n>cin</span><span class=o>&gt;&gt;</span><span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=p>];</span>
+    <span class=n>quick_sort</span><span class=p>(</span><span class=n>q</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=n>n</span><span class=o>-</span><span class=mi>1</span><span class=p>);</span>
+    <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span> <span class=p>;</span><span class=n>i</span> <span class=o>&lt;</span> <span class=n>n</span><span class=p>;</span><span class=n>i</span> <span class=o>++</span><span class=p>)</span> <span class=n>cout</span><span class=o>&lt;&lt;</span><span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=p>];</span>
+    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><blockquote><p><strong>注意：在一开始i = l - 1,j = r + 1，是因为下面while循环的时候是先移动i和j，然后再将对应位置的值与x比较的</strong></p></blockquote></li></ul><h3 id=归并排序>归并排序</h3><ul><li><blockquote><p>思想：</p></blockquote><ol><li>找分界点（归并里面的分界点就是区间的中点）</li><li>递归处理左右区间</li><li>归并（两个有序的合并为一个有序的）</li></ol></li><li><blockquote><p>题目</p></blockquote><p>给定你一个长度为n的整数数列。</p><p>请你使用归并排序对这个数列按照从小到大进行排序。</p><p>并将排好序的数列按顺序输出。</p><h4 id=输入格式-1>输入格式</h4><p>输入共两行，第一行包含整数 n。</p><p>第二行包含 n 个整数（所有整数均在1~10^9范围内），表示整个数列。</p><h4 id=输出格式-1>输出格式</h4><p>输出共一行，包含 n 个整数，表示排好序的数列。</p><h4 id=数据范围-1>数据范围</h4><p>1≤n≤1000001</p><h4 id=输入样例>输入样例：</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>5
+3 1 2 4 5
+</code></pre></td></tr></table></div></div><h4 id=输出样例>输出样例：</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>1 2 3 4 5
+</code></pre></td></tr></table></div></div></li><li><p>代码</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-c++ data-lang=c++><span class=cp>#include</span><span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span><span class=cp></span><span class=k>using</span> <span class=k>namespace</span> <span class=n>std</span><span class=p>;</span>
+  
+<span class=kt>int</span> <span class=n>n</span><span class=p>;</span>
+<span class=k>const</span> <span class=kt>int</span> <span class=n>maxn</span> <span class=o>=</span> <span class=mi>1000000</span><span class=p>;</span>
+<span class=kt>int</span> <span class=n>q</span><span class=p>[</span><span class=n>maxn</span><span class=p>],</span><span class=n>temp</span><span class=p>[</span><span class=n>maxn</span><span class=p>];</span>
+  
+<span class=kt>void</span> <span class=nf>merge_sort</span><span class=p>(</span><span class=kt>int</span> <span class=n>q</span><span class=p>[],</span><span class=kt>int</span> <span class=n>l</span><span class=p>,</span><span class=kt>int</span> <span class=n>r</span><span class=p>){</span>
+    <span class=k>if</span><span class=p>(</span><span class=n>l</span> <span class=o>&gt;=</span> <span class=n>r</span><span class=p>)</span> <span class=k>return</span><span class=p>;</span>
+    <span class=kt>int</span> <span class=n>mid</span> <span class=o>=</span> <span class=p>(</span><span class=n>l</span><span class=o>+</span><span class=n>r</span><span class=p>)</span><span class=o>&gt;&gt;</span><span class=mi>1</span><span class=p>;</span>
+    <span class=n>merge_sort</span><span class=p>(</span><span class=n>q</span><span class=p>,</span><span class=n>l</span><span class=p>,</span><span class=n>mid</span><span class=p>);</span>
+    <span class=n>merge_sort</span><span class=p>(</span><span class=n>q</span><span class=p>,</span><span class=n>mid</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span><span class=n>r</span><span class=p>);</span>
+    <span class=c1>//i,j分别代表两个区间的起始位置下标，k为暂存数组下标
+</span><span class=c1></span>    <span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=n>l</span><span class=p>,</span><span class=n>j</span> <span class=o>=</span> <span class=n>mid</span> <span class=o>+</span><span class=mi>1</span><span class=p>,</span><span class=n>k</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+    <span class=c1>//合并两个有序区间（起始时都是一个元素，都是有序的，然后递归层层往上走）
+</span><span class=c1></span>    <span class=k>while</span><span class=p>(</span><span class=n>i</span><span class=o>&lt;=</span><span class=n>mid</span><span class=o>&amp;&amp;</span><span class=n>j</span><span class=o>&lt;=</span><span class=n>r</span><span class=p>){</span>
+        <span class=k>if</span><span class=p>(</span><span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=p>]</span><span class=o>&lt;=</span><span class=n>q</span><span class=p>[</span><span class=n>j</span><span class=p>])</span> <span class=n>temp</span><span class=p>[</span><span class=n>k</span><span class=o>++</span><span class=p>]</span> <span class=o>=</span> <span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=o>++</span><span class=p>];</span>
+        <span class=k>else</span> <span class=n>temp</span><span class=p>[</span><span class=n>k</span><span class=o>++</span><span class=p>]</span> <span class=o>=</span> <span class=n>q</span><span class=p>[</span><span class=n>j</span><span class=o>++</span><span class=p>];</span>
+    <span class=p>}</span>
+    <span class=c1>//如果其中任意一个序列还有剩余，就将剩下的部分逐个加入临时数组
+</span><span class=c1></span>    <span class=k>while</span><span class=p>(</span><span class=n>i</span><span class=o>&lt;=</span><span class=n>mid</span><span class=p>)</span> <span class=n>temp</span><span class=p>[</span><span class=n>k</span><span class=o>++</span><span class=p>]</span> <span class=o>=</span> <span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=o>++</span><span class=p>];</span>
+    <span class=k>while</span><span class=p>(</span><span class=n>j</span><span class=o>&lt;=</span><span class=n>r</span><span class=p>)</span> <span class=n>temp</span><span class=p>[</span><span class=n>k</span><span class=o>++</span><span class=p>]</span> <span class=o>=</span> <span class=n>q</span><span class=p>[</span><span class=n>j</span><span class=o>++</span><span class=p>];</span>
+      
+    <span class=c1>//将临时数组中的元素赋值给原数组
+</span><span class=c1></span>    <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=n>l</span><span class=p>,</span><span class=n>j</span> <span class=o>=</span><span class=mi>0</span> <span class=p>;</span><span class=n>i</span><span class=o>&lt;=</span><span class=n>r</span><span class=p>;</span><span class=n>i</span><span class=o>++</span><span class=p>,</span><span class=n>j</span><span class=o>++</span><span class=p>)</span> <span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>temp</span><span class=p>[</span><span class=n>j</span><span class=p>];</span>
+<span class=p>}</span>
+  
+  
+<span class=kt>int</span> <span class=nf>main</span><span class=p>(){</span>
+    <span class=n>scanf</span><span class=p>(</span><span class=s>&#34;%d&#34;</span><span class=p>,</span><span class=o>&amp;</span><span class=n>n</span><span class=p>);</span>
+    <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span><span class=n>i</span> <span class=o>&lt;</span> <span class=n>n</span><span class=p>;</span><span class=n>i</span> <span class=o>++</span><span class=p>)</span> <span class=n>scanf</span><span class=p>(</span><span class=s>&#34;%d&#34;</span><span class=p>,</span><span class=o>&amp;</span><span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=p>]);</span>
+    <span class=n>merge_sort</span><span class=p>(</span><span class=n>q</span><span class=p>,</span><span class=mi>0</span><span class=p>,</span><span class=n>n</span><span class=o>-</span><span class=mi>1</span><span class=p>);</span>
+    <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span><span class=n>i</span> <span class=o>&lt;</span> <span class=n>n</span><span class=p>;</span><span class=n>i</span> <span class=o>++</span><span class=p>)</span> <span class=n>printf</span><span class=p>(</span><span class=s>&#34;%d &#34;</span><span class=p>,</span><span class=n>q</span><span class=p>[</span><span class=n>i</span><span class=p>]);</span>
+    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><blockquote><p>归并排序中需要有一个临时数组来暂存归并的序列，首先是经过递归处理，直到每个区间都是1个元素的时候，默认是有序的，然后归并为序列为2的序列，再层层向上归并，最终成为一个有序序列</p></blockquote></li></ul><p>总结：</p><ol><li>快排和归并都是采用的 <strong>分治</strong> 的思想，将大问题拆分为一个个相似的小问题，再逐个解决，最后将这些小问题的结果汇总出来形成最终问题的解。但是快排和归并的分治规则不一样：快排是按照一个数x(x的左边区间都小于这个数，右边区间都大于这个数)来进行分的；归并排序是按照区间的中点进行划分,即 l + r &#187;1</li><li>快排是找分界点，先划分区间，再进行递归区间；归并排序是先进行递归区间，再进行归并。因为快排的区间划分需要找到分界点，而分界点是通过首位指针移动来实现的；但是归并的分界点一开始就很明确，就是区间的中点，所以先递归，到最底层之后，再两两序列归并。</li><li>都是采用的双指针算法。快排是采用的首尾指针，而归并是相当于两个数组的头指针进行移动(因为可以把左右区间理解为两个数组)</li></ol></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>VegeBun-csj</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-08-30</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/%E6%8E%92%E5%BA%8F/>排序</a>
+<a href=/tags/c++/>C++</a>
+<a href=/tags/%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80/>算法基础</a>
+<a href=/tags/%E5%8F%8C%E6%8C%87%E9%92%88/>双指针</a></div><nav class=post-nav><a class=prev href=/post/%E5%9F%BA%E7%A1%80%E7%AE%97%E6%B3%95/%E5%BF%AB%E9%80%9F%E9%80%89%E6%8B%A9%E5%BF%AB%E6%8E%92%E5%8F%98%E7%A7%8D-%E6%B1%82%E7%AC%ACk%E4%B8%AA%E6%95%B0/><i class="iconfont icon-left"></i><span class="prev-text nav-default">快速选择(快排变种)--求第k个数</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/ipfs/ipfs-js%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/><span class="next-text nav-default">IPFS-js的简单使用</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:your@email.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=http://localhost:1313 class="iconfont icon-linkedin" title=linkedin></a><a href=http://localhost:1313 class="iconfont icon-google" title=google></a><a href=https://github.com/VegeBun-csj class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=http://localhost:1313 class="iconfont icon-zhihu" title=zhihu></a><a href=http://localhost:1313 class="iconfont icon-douban" title=douban></a><a href=http://localhost:1313 class="iconfont icon-pocket" title=pocket></a><a href=http://localhost:1313 class="iconfont icon-tumblr" title=tumblr></a><a href=http://localhost:1313 class="iconfont icon-instagram" title=instagram></a><a href=http://localhost:1313 class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=http://localhost:1313/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2019 -
+2020<span class=heart><i class="iconfont icon-heart"></i></span><span>VegeBun-csj</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js></script><script type=text/javascript>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],tags:'ams',}};</script><script type=text/javascript async src=/lib/mathjax/es5/tex-mml-chtml.js></script></body></html>

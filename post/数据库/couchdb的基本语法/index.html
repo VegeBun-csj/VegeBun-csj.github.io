@@ -1,0 +1,390 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>CouchDB的基本语法 - This is a blog written by VegeBun-csj to record the tech</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="VegeBun-csj"><meta name=description content="CouchDB基本语法 CouchDB的查询语法是json格式的，在其中可以通过特定的字段构建查询的逻辑，它的selector语法和Mongo"><meta name=keywords content="Hugo,theme,even"><meta name=generator content="Hugo 0.74.3 with theme even"><link rel=canonical href=http://localhost:1313/post/%E6%95%B0%E6%8D%AE%E5%BA%93/couchdb%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/sass/main.min.bc0b12ed61ed3ac44989a209a068b1f65d38d472dba8f2ba8d482994ff056cb7.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="CouchDB的基本语法"><meta property="og:description" content="CouchDB基本语法 CouchDB的查询语法是json格式的，在其中可以通过特定的字段构建查询的逻辑，它的selector语法和Mongo"><meta property="og:type" content="article"><meta property="og:url" content="http://localhost:1313/post/%E6%95%B0%E6%8D%AE%E5%BA%93/couchdb%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/"><meta property="article:published_time" content="2020-10-11T21:16:52+08:00"><meta property="article:modified_time" content="2020-10-11T21:16:52+08:00"><meta itemprop=name content="CouchDB的基本语法"><meta itemprop=description content="CouchDB基本语法 CouchDB的查询语法是json格式的，在其中可以通过特定的字段构建查询的逻辑，它的selector语法和Mongo"><meta itemprop=datePublished content="2020-10-11T21:16:52+08:00"><meta itemprop=dateModified content="2020-10-11T21:16:52+08:00"><meta itemprop=wordCount content="3010"><meta itemprop=keywords content="CouchDB,"><meta name=twitter:card content="summary"><meta name=twitter:title content="CouchDB的基本语法"><meta name=twitter:description content="CouchDB基本语法 CouchDB的查询语法是json格式的，在其中可以通过特定的字段构建查询的逻辑，它的selector语法和Mongo"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>VegeBun-csj</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>VegeBun-csj</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>CouchDB的基本语法</h1><div class=post-meta><span class=post-time>2020-10-11</span><div class=post-category><a href=/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/>数据库</a></div><span class=more-meta>3010 words</span>
+<span class=more-meta>7 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#couchdb基本语法>CouchDB基本语法</a><ul><li><ul><li><a href=#查询基础>查询基础：</a></li><li><a href=#子字段subfields>子字段(Subfields)</a></li><li><a href=#操作符>操作符</a></li><li><a href=#隐式操作符>隐式操作符</a></li><li><a href=#显式操作符>显式操作符</a></li><li><a href=#combination-operations组合操作符>Combination Operations（组合操作符）</a></li><li><a href=#condition-operators条件运算符>Condition Operators（条件运算符）</a></li></ul></li><li><a href=#sort-syntax排序语法>Sort Syntax（排序语法）</a><ul><li></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><h1 id=couchdb基本语法>CouchDB基本语法</h1><p>CouchDB的查询语法是json格式的，在其中可以通过特定的字段构建查询的逻辑，它的selector语法和MongoDB是相似的</p><h3 id=查询基础>查询基础：</h3><blockquote><p>查询的格式：需要去指定1个或者多个字段以及它们对应需要的值</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-sql data-lang=sql><span class=err>{</span>
+    <span class=s2>&#34;director&#34;</span><span class=p>:</span> <span class=s2>&#34;Lars von Trier&#34;</span>
+<span class=err>}</span>
+</code></pre></td></tr></table></div></div><p>这个就是指定<code>director</code>字段需要为<code>Lars von Trier</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=o>{</span>
+    <span class=s2>&#34;name&#34;</span>: <span class=s2>&#34;Paul&#34;</span>,
+    <span class=s2>&#34;location&#34;</span>: <span class=s2>&#34;Boston&#34;</span>
+<span class=o>}</span>
+</code></pre></td></tr></table></div></div><p>上面就是指定了两个字段</p><h3 id=子字段subfields>子字段(Subfields)</h3><p>比较复杂的selector语句会需要为某些嵌套的对象或者字段指定一些值，可以用json结构来指定一个字段和子字段</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;imdb&#34;</span><span class=p>:</span> <span class=p>{</span>
+        <span class=nt>&#34;rating&#34;</span><span class=p>:</span> <span class=mi>8</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>当然也可以采用缩写的方式(使用<code>.</code>进行连接)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;imdb.rating&#34;</span><span class=p>:</span><span class=mi>8</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=操作符>操作符</h3><blockquote><p>通过在名称字段中使用美元符号（<code>$</code>）前缀来标识运算符。</p></blockquote><p>在selector语句中有两种重要的操作符：</p><ul><li>Combination operators(组合操作符)</li><li>Condition Operators(条件操作符)</li></ul><p>组合操作符在selector语句中有最高的优先级，通常被用来组合一些条件，创建一些条件组合</p><p>每一个显式的操作符有以下的形式：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;$opeartor&#34;</span><span class=p>:</span><span class=s2>&#34;argument&#34;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>如果一个selector语句中没有显式的操作符，就会被创建隐式的运算符（通常是根据特定的selector语句被创建的）</p><h3 id=隐式操作符>隐式操作符</h3><p>有两种隐式操作符</p><ul><li>Equality（等于）</li><li>And（并且）</li></ul><p>在一个selector语句中，任何一个字段都包含一个Value，但是可以没有操作符（此时就是默认的为一个equality），隐式的equality也同样适用于子字段</p><p>任何一个没有参数的json对象都有一个隐式的<code>$and</code>操作符在每个字段上</p><p>在下面的例子中，使用一个操作符来匹配所有文档中，字段<code>year</code>大于<code>2010</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;year&#34;</span><span class=p>:{</span>
+        <span class=nt>&#34;$gt&#34;</span><span class=p>:</span><span class=mi>2010</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>下面的例子是显式地使用<code>$eq</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;director&#34;</span><span class=p>:{</span>
+        <span class=nt>&#34;$eq&#34;</span><span class=p>:</span><span class=s2>&#34;this is a book&#34;</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>下面的是要求<code>imdb</code>的子字段<code>rating</code>必须为<code>8</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;imdb&#34;</span><span class=p>:{</span>
+        <span class=nt>&#34;rating&#34;</span><span class=p>:</span><span class=mi>8</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+
+<span class=err>//或者显式地使用`$eq`</span>
+<span class=p>{</span>
+    <span class=nt>&#34;imdb&#34;</span><span class=p>:{</span>
+        <span class=nt>&#34;rating&#34;</span><span class=p>:{</span>
+            <span class=nt>&#34;$eq&#34;</span><span class=p>:</span><span class=mi>8</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>下面是<code>$eq</code>在全文索引中的使用</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;selector&#34;</span><span class=p>:{</span>
+        <span class=nt>&#34;year&#34;</span><span class=p>:{</span>
+            <span class=nt>&#34;$eq&#34;</span><span class=p>:</span><span class=mi>2001</span>
+        <span class=p>}</span>
+    <span class=p>},</span>
+    <span class=nt>&#34;sort&#34;</span><span class=p>:[</span>
+        <span class=s2>&#34;title:string&#34;</span>
+    <span class=p>],</span>
+    <span class=nt>&#34;fields&#34;</span><span class=p>:[</span>
+        <span class=s2>&#34;title&#34;</span>
+    <span class=p>]</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>下面是在数据库索引中使用<code>$eq</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;selector&#34;</span><span class=p>:{</span>
+        <span class=nt>&#34;year&#34;</span><span class=p>:{</span>
+            <span class=nt>&#34;$eq&#34;</span><span class=p>:</span><span class=mi>2001</span>
+        <span class=p>}</span>
+    <span class=p>},</span>
+    <span class=nt>&#34;sort&#34;</span><span class=p>:{</span>
+        <span class=nt>&#34;year&#34;</span>
+    <span class=p>},</span>
+    <span class=nt>&#34;fields&#34;</span><span class=p>:[</span>
+        <span class=s2>&#34;year&#34;</span>
+    <span class=p>]</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>可以同时显式地使用<code>$and</code>和<code>eq</code>操作符</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;$and&#34;</span><span class=p>:</span> <span class=p>[</span>
+        <span class=p>{</span>
+            <span class=nt>&#34;director&#34;</span><span class=p>:</span> <span class=p>{</span>
+                <span class=nt>&#34;$eq&#34;</span><span class=p>:</span> <span class=s2>&#34;Lars von Trier&#34;</span>
+            <span class=p>}</span>
+        <span class=p>},</span>
+        <span class=p>{</span>
+            <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=p>{</span>
+                <span class=nt>&#34;$eq&#34;</span><span class=p>:</span> <span class=mi>2003</span>
+            <span class=p>}</span>
+        <span class=p>}</span>
+    <span class=p>]</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=显式操作符>显式操作符</h3><p>所有地操作符中，除了<code>$eq</code>和<code>and</code>操作符，其他的操作符必须显式地表示！！！</p><blockquote><p>不同划分的角度看，可以看到操作符可以分为显式和隐式的</p></blockquote><hr><hr><h3 id=combination-operations组合操作符>Combination Operations（组合操作符）</h3><p>组合操作符被用来组合selector，除了在大多数编程语言中出现的<code>boolean</code>操作符之外，这里还有三种组合操作符（<code>$all</code>、<code>$elemMatch</code>、<code>$allMatch</code>）可以用来操作json数组，还有一种可以用来操作json maps (<code>keyMapMatch</code>)</p><blockquote><p>一个组合运算符只有一个参数，这个参数可以是<code>一个selector，也可以是一个selector数组</code></p></blockquote><p>下面是组合运算符</p><table><thead><tr><th>Operator</th><th>Argument</th><th>Purpose</th></tr></thead><tbody><tr><td><code>$and</code></td><td>Array</td><td>数组中所有的selector都匹配才行</td></tr><tr><td><code>$or</code></td><td>Array</td><td>数组中任意一个selector匹配即可（所有的selector必须使用相同的索引）</td></tr><tr><td><code>$not</code></td><td>Selector</td><td>selector不匹配的时候才可以</td></tr><tr><td><code>$nor</code></td><td>Array</td><td>数组中所有的selector都不匹配才行</td></tr><tr><td><code>$all</code></td><td>Array</td><td>匹配一个数组中所有的元素才行</td></tr><tr><td><code>$elemMatch</code></td><td>Selector</td><td>Matches and returns all documents that contain an array field with at least one element that matches all the specified query criteria.</td></tr><tr><td><code>$allMatch</code></td><td>Selector</td><td>Matches and returns all documents that contain an array field with all its elements matching all the specified query criteria.</td></tr><tr><td><code>$keyMapMatch</code></td><td>Selector</td><td>Matches and returns all documents that contain a map that contains at least one key that matches all the specified query criteria.</td></tr></tbody></table><ul><li><p><code>$and</code>操作符</p><p>下面是使用的两个字段，当这个selector数组中都匹配了，才匹配</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+  <span class=nt>&#34;selector&#34;</span><span class=p>:</span> <span class=p>{</span>
+    <span class=nt>&#34;$and&#34;</span><span class=p>:</span> <span class=p>[</span>
+      <span class=p>{</span>
+        <span class=nt>&#34;$title&#34;</span><span class=p>:</span> <span class=s2>&#34;Total Recall&#34;</span>
+      <span class=p>},</span>
+      <span class=p>{</span>
+        <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=p>{</span>
+          <span class=nt>&#34;$in&#34;</span><span class=p>:</span> <span class=p>[</span><span class=mi>1984</span><span class=p>,</span> <span class=mi>1991</span><span class=p>]</span>
+        <span class=p>}</span>
+      <span class=p>}</span>
+    <span class=p>]</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;fields&#34;</span><span class=p>:</span> <span class=p>[</span>
+    <span class=s2>&#34;year&#34;</span><span class=p>,</span>
+    <span class=s2>&#34;title&#34;</span><span class=p>,</span>
+    <span class=s2>&#34;cast&#34;</span>
+  <span class=p>]</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>下面是使用的<code>_all_docs</code>作为主键的例子</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;$and&#34;</span><span class=p>:</span> <span class=p>[</span>
+        <span class=p>{</span>
+            <span class=nt>&#34;_id&#34;</span><span class=p>:</span> <span class=p>{</span> <span class=nt>&#34;$gt&#34;</span><span class=p>:</span> <span class=kc>null</span> <span class=p>}</span>
+        <span class=p>},</span>
+        <span class=p>{</span>
+            <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=p>{</span>
+                <span class=nt>&#34;$in&#34;</span><span class=p>:</span> <span class=p>[</span><span class=mi>2014</span><span class=p>,</span> <span class=mi>2015</span><span class=p>]</span>
+            <span class=p>}</span>
+        <span class=p>}</span>
+    <span class=p>]</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div></li><li><p><code>$or</code>操作符</p><p>selector中只要有一个匹配即可</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=mi>1977</span><span class=p>,</span>
+    <span class=nt>&#34;$or&#34;</span><span class=p>:</span> <span class=p>[</span>
+        <span class=p>{</span> <span class=nt>&#34;director&#34;</span><span class=p>:</span> <span class=s2>&#34;George Lucas&#34;</span> <span class=p>},</span>
+        <span class=p>{</span> <span class=nt>&#34;director&#34;</span><span class=p>:</span> <span class=s2>&#34;Steven Spielberg&#34;</span> <span class=p>}</span>
+    <span class=p>]</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div></li><li><p><code>$not</code>操作符</p><p>selector不匹配才行(下面的就要求year不能等于1901)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=p>{</span>
+        <span class=nt>&#34;$gte&#34;</span><span class=p>:</span> <span class=mi>1900</span>
+    <span class=p>},</span>
+    <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=p>{</span>
+        <span class=nt>&#34;$lte&#34;</span><span class=p>:</span> <span class=mi>1903</span>
+    <span class=p>},</span>
+    <span class=nt>&#34;$not&#34;</span><span class=p>:</span> <span class=p>{</span>
+        <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=mi>1901</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div></li><li><p><code>$nor</code>操作符</p><p>selector数组中的所有的都不匹配才行（下面就要求year不能等于1901，1905，1907）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=p>{</span>
+        <span class=nt>&#34;$gte&#34;</span><span class=p>:</span> <span class=mi>1900</span>
+    <span class=p>},</span>
+    <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=p>{</span>
+        <span class=nt>&#34;$lte&#34;</span><span class=p>:</span> <span class=mi>1910</span>
+    <span class=p>},</span>
+    <span class=nt>&#34;$nor&#34;</span><span class=p>:</span> <span class=p>[</span>
+        <span class=p>{</span> <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=mi>1901</span> <span class=p>},</span>
+        <span class=p>{</span> <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=mi>1905</span> <span class=p>},</span>
+        <span class=p>{</span>  <span class=nt>&#34;year&#34;</span><span class=p>:</span> <span class=mi>1907</span> <span class=p>}</span>
+    <span class=p>]</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div></li><li><p><code>$all</code>操作符</p><p>它匹配的是一个数组元素，要求其中需要包含所有指定的元素才匹配</p><p>下面的例子使用主索引<code>_all_docs</code>，进行全局扫描</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json>    <span class=s2>&#34;_id&#34;</span><span class=err>:</span> <span class=p>{</span>
+        <span class=nt>&#34;$gt&#34;</span><span class=p>:</span> <span class=kc>null</span>
+    <span class=p>}</span><span class=err>,</span>
+    <span class=s2>&#34;genre&#34;</span><span class=err>:</span> <span class=p>{</span>
+        <span class=nt>&#34;$all&#34;</span><span class=p>:</span> <span class=p>[</span><span class=s2>&#34;Comedy&#34;</span><span class=p>,</span><span class=s2>&#34;Short&#34;</span><span class=p>]</span>
+    <span class=p>}</span>
+<span class=err>}</span>
+</code></pre></td></tr></table></div></div></li><li><p><code>$elemMatch</code>操作符</p><p>匹配一个数组字段中至少一个元素即可</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;_id&#34;</span><span class=p>:</span> <span class=p>{</span> <span class=nt>&#34;$gt&#34;</span><span class=p>:</span> <span class=kc>null</span> <span class=p>},</span>
+    <span class=nt>&#34;genre&#34;</span><span class=p>:</span> <span class=p>{</span>
+        <span class=nt>&#34;$elemMatch&#34;</span><span class=p>:</span> <span class=p>{</span>
+            <span class=nt>&#34;$eq&#34;</span><span class=p>:</span> <span class=s2>&#34;Horror&#34;</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div></li><li><p><code>allMatch</code>操作符</p><p>匹配一个数组字段中所有的元素</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;_id&#34;</span><span class=p>:</span> <span class=p>{</span> <span class=nt>&#34;$gt&#34;</span><span class=p>:</span> <span class=kc>null</span> <span class=p>},</span>
+    <span class=nt>&#34;genre&#34;</span><span class=p>:</span> <span class=p>{</span>
+        <span class=nt>&#34;$allMatch&#34;</span><span class=p>:</span> <span class=p>{</span>
+            <span class=nt>&#34;$eq&#34;</span><span class=p>:</span> <span class=s2>&#34;Horror&#34;</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div></li><li><p><code>$keyMapMatch</code></p><p>匹配map中的一个键即可</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;_id&#34;</span><span class=p>:</span> <span class=p>{</span> <span class=nt>&#34;$gt&#34;</span><span class=p>:</span> <span class=kc>null</span> <span class=p>},</span>
+    <span class=nt>&#34;cameras&#34;</span><span class=p>:</span> <span class=p>{</span>
+        <span class=nt>&#34;$keyMapMatch&#34;</span><span class=p>:</span> <span class=p>{</span>
+            <span class=nt>&#34;$eq&#34;</span><span class=p>:</span> <span class=s2>&#34;secondary&#34;</span>
+        <span class=p>}</span>
+    <span class=p>}</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div></li></ul><h3 id=condition-operators条件运算符>Condition Operators（条件运算符）</h3><blockquote><p>条件运算符通常是指定一个字段，用来评估一个字段是否符合预期的参数，例如<code>$eq</code>操作符用来匹配所有和给定参数相等的字段</p></blockquote><p>除了基本的等于(<code>$eq</code>)和不等于(<code>$ne</code>)操作符之外，还有一些<code>元操作符</code>(他们可以接受不标准的json内容作为参数)，其他的条件运算符就必须要有指定的json格式了</p><table><thead><tr><th>Operator type</th><th>Operator</th><th>Argument</th><th>Purpose</th></tr></thead><tbody><tr><td>(In)equality</td><td><code>$lt</code></td><td>Any JSON</td><td>The field is less than the argument</td></tr><tr><td></td><td><code>$lte</code></td><td>Any JSON</td><td>The field is less than or equal to the argument.</td></tr><tr><td></td><td><code>$eq</code></td><td>Any JSON</td><td>The field is equal to the argument</td></tr><tr><td></td><td><code>$ne</code></td><td>Any JSON</td><td>The field is not equal to the argument.</td></tr><tr><td></td><td><code>$gte</code></td><td>Any JSON</td><td>The field is greater than or equal to the argument.</td></tr><tr><td></td><td><code>$gt</code></td><td>Any JSON</td><td>The field is greater than the to the argument.</td></tr><tr><td>Object</td><td><code>$exists</code></td><td>Boolean</td><td>Check whether the field exists or not, regardless of its value.</td></tr><tr><td></td><td><code>$type</code></td><td>String</td><td>Check the document field’s type. Valid values are <code>"null"</code>, <code>"boolean"</code>, <code>"number"</code>, <code>"string"</code>, <code>"array"</code>, and <code>"object"</code>.</td></tr><tr><td>Array</td><td><code>$in</code></td><td>Array of JSON values</td><td>The document field must exist in the list provided.</td></tr><tr><td></td><td><code>$nin</code></td><td>Array of JSON values</td><td>The document field not must exist in the list provided.</td></tr><tr><td></td><td><code>$size</code></td><td>Integer</td><td>Special condition to match the length of an array field in a document. Non-array fields cannot match this condition.</td></tr><tr><td>Miscellaneous</td><td><code>$mod</code></td><td>[Divisor, Remainder]</td><td>Divisor and Remainder are both positive or negative integers. Non-integer values result in a 404. Matches documents where <code>field % Divisor == Remainder</code> is true, and only when the document field is an integer.</td></tr><tr><td></td><td><code>$regex</code></td><td>String</td><td>A regular expression pattern to match against the document field. Only matches when the field is a string value and matches the supplied regular expression. The matching algorithms are based on the Perl Compatible Regular Expression (PCRE) library. For more information about what is implemented, see the see the <a href=http://erlang.org/doc/man/re.html>Erlang Regular Expression</a></td></tr></tbody></table><blockquote><p>正则表达式不适用于索引，它们可以用来过滤大数据集，但是它们可以用来限制 <a href=https://docs.couchdb.org/en/stable/api/database/find.html#find-partial-indexes>partial index</a></p></blockquote><p>通常<code>$eq</code>, <code>$gt</code>, <code>$gte</code>, <code>$lt</code>, and <code>$lte</code>这些操作符可以用于基础的查询，至少应该在一个selector中包含其中一个</p><p>下面是希望找到<code>afieldname</code>字段中以A开头的所有文档，这就会报错，因为没有索引，数据库会对主索引进行全局扫描</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>{
+    &#34;selector&#34;: {
+        &#34;afieldname&#34;: {&#34;$regex&#34;: &#34;^A&#34;}
+    }
+}
+</code></pre></td></tr></table></div></div><blockquote><p>所以在生产环境中建议使用正确的索引</p></blockquote><h2 id=sort-syntax排序语法>Sort Syntax（排序语法）</h2><p>排序字段通常包含一个键值对的列表(list)，通过一个数组来表述，第一个键值优先级最高，第二个次之</p><p>该字段可以是任何字段，如果子文档字段需要的话，可以使用点分符号。</p><p>通常由两个导向值，一个是升序（<code>$asc</code>），一个是降序（<code>desc</code>）,如果不指定，默认就是升序（<code>asc</code>）</p><p>下面就是通过两个字段进行排序(降序)</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>[{</span><span class=nt>&#34;fieldName1&#34;</span><span class=p>:</span> <span class=s2>&#34;desc&#34;</span><span class=p>},</span> <span class=p>{</span><span class=nt>&#34;fieldName2&#34;</span><span class=p>:</span> <span class=s2>&#34;desc&#34;</span> <span class=p>}]</span>
+</code></pre></td></tr></table></div></div><p>下面就是默认的导向序列（升序）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>[{</span><span class=nt>&#34;fieldName1&#34;</span><span class=p>,</span><span class=nt>&#34;fieldName2&#34;</span><span class=p>}]</span>
+</code></pre></td></tr></table></div></div><blockquote><p>通常是根据一个字段的内容查找到结果集，然后根据某个特定的字段对结果集进行排序</p></blockquote><h4 id=如果使用排序需要确保>如果使用排序，需要确保：</h4><ul><li>selector中至少由一个排序字段</li><li><strong>已经定义了索引（其中的所有的排序字段都是相同的排序顺序）</strong></li><li>排序数组中的每一个对象都有一个键</li></ul><blockquote><p>如果排序数组中的对象没有键，则生成的排序顺序是随机的，是变化的</p><p>“查找”不支持具有不同排序顺序的多个字段，因此方向必须全部为升序或全部为降序。</p></blockquote><p>对于文本搜索排序中的字段名称，有时需要指定字段类型，例如：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json> <span class=p>{</span> <span class=nt>&#34;&lt;fieldname&gt;:string&#34;</span><span class=p>:</span> <span class=s2>&#34;asc&#34;</span><span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>如果可能，尝试根据选择器发现字段类型。在不明确的情况下，必须明确提供字段类型。当字段包含不同的数据类型时，排序顺序是不确定的。</p><p>下面是一个排序的例子</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;selector&#34;</span><span class=p>:</span> <span class=p>{</span><span class=nt>&#34;Actor_name&#34;</span><span class=p>:</span> <span class=s2>&#34;Robert De Niro&#34;</span><span class=p>},</span>
+    <span class=nt>&#34;sort&#34;</span><span class=p>:</span> <span class=p>[{</span><span class=nt>&#34;Actor_name&#34;</span><span class=p>:</span> <span class=s2>&#34;asc&#34;</span><span class=p>},</span> <span class=p>{</span><span class=nt>&#34;Movie_runtime&#34;</span><span class=p>:</span> <span class=s2>&#34;asc&#34;</span><span class=p>}]</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><hr><p>到这就告一段落了。</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>VegeBun-csj</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-10-11</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/couchdb/>CouchDB</a></div><nav class=post-nav><a class=prev href=/post/chaincode%E5%BC%80%E5%8F%91/fabric%E5%90%AF%E7%94%A8couchdb%E4%BD%9C%E4%B8%BA%E7%8A%B6%E6%80%81%E6%95%B0%E6%8D%AE%E5%BA%93/><i class="iconfont icon-left"></i><span class="prev-text nav-default">Fabric启用CouchDB作为状态数据库</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/fabric%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/fabric%E4%BA%A4%E6%98%93%E6%B5%81%E7%A8%8B%E7%9A%84%E8%AF%A6%E7%BB%86%E5%88%86%E6%9E%90/><span class="next-text nav-default">Fabric交易流程的详细分析</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:your@email.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=http://localhost:1313 class="iconfont icon-linkedin" title=linkedin></a><a href=http://localhost:1313 class="iconfont icon-google" title=google></a><a href=https://github.com/VegeBun-csj class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=http://localhost:1313 class="iconfont icon-zhihu" title=zhihu></a><a href=http://localhost:1313 class="iconfont icon-douban" title=douban></a><a href=http://localhost:1313 class="iconfont icon-pocket" title=pocket></a><a href=http://localhost:1313 class="iconfont icon-tumblr" title=tumblr></a><a href=http://localhost:1313 class="iconfont icon-instagram" title=instagram></a><a href=http://localhost:1313 class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=http://localhost:1313/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2019 -
+2020<span class=heart><i class="iconfont icon-heart"></i></span><span>VegeBun-csj</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js></script><script type=text/javascript>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],tags:'ams',}};</script><script type=text/javascript async src=/lib/mathjax/es5/tex-mml-chtml.js></script></body></html>

@@ -1,0 +1,485 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Fabric启用CouchDB作为状态数据库 - This is a blog written by VegeBun-csj to record the tech</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="VegeBun-csj"><meta name=description content="Fabric中启用CouchDB 使用CouchDB的注意点 当chaincode的数据模型被构建为Json格式的时候，可以使用CouchDB，"><meta name=keywords content="Hugo,theme,even"><meta name=generator content="Hugo 0.74.3 with theme even"><link rel=canonical href=http://localhost:1313/post/chaincode%E5%BC%80%E5%8F%91/fabric%E5%90%AF%E7%94%A8couchdb%E4%BD%9C%E4%B8%BA%E7%8A%B6%E6%80%81%E6%95%B0%E6%8D%AE%E5%BA%93/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/sass/main.min.bc0b12ed61ed3ac44989a209a068b1f65d38d472dba8f2ba8d482994ff056cb7.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="Fabric启用CouchDB作为状态数据库"><meta property="og:description" content="Fabric中启用CouchDB 使用CouchDB的注意点 当chaincode的数据模型被构建为Json格式的时候，可以使用CouchDB，"><meta property="og:type" content="article"><meta property="og:url" content="http://localhost:1313/post/chaincode%E5%BC%80%E5%8F%91/fabric%E5%90%AF%E7%94%A8couchdb%E4%BD%9C%E4%B8%BA%E7%8A%B6%E6%80%81%E6%95%B0%E6%8D%AE%E5%BA%93/"><meta property="article:published_time" content="2020-10-18T21:22:31+08:00"><meta property="article:modified_time" content="2020-10-18T21:22:31+08:00"><meta itemprop=name content="Fabric启用CouchDB作为状态数据库"><meta itemprop=description content="Fabric中启用CouchDB 使用CouchDB的注意点 当chaincode的数据模型被构建为Json格式的时候，可以使用CouchDB，"><meta itemprop=datePublished content="2020-10-18T21:22:31+08:00"><meta itemprop=dateModified content="2020-10-18T21:22:31+08:00"><meta itemprop=wordCount content="6372"><meta itemprop=keywords content="区块链,CouchDB,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Fabric启用CouchDB作为状态数据库"><meta name=twitter:description content="Fabric中启用CouchDB 使用CouchDB的注意点 当chaincode的数据模型被构建为Json格式的时候，可以使用CouchDB，"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>VegeBun-csj</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>VegeBun-csj</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Fabric启用CouchDB作为状态数据库</h1><div class=post-meta><span class=post-time>2020-10-18</span><div class=post-category><a href=/categories/hyperledger-fabric-chaincode%E5%BC%80%E5%8F%91/>Hyperledger Fabric--chaincode开发</a></div><span class=more-meta>6372 words</span>
+<span class=more-meta>13 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><a href=#fabric中启用couchdb>Fabric中启用CouchDB</a><ul><li><ul><li><a href=#使用couchdb的注意点>使用CouchDB的注意点</a></li><li><a href=#couchdb的配置以及知识点>CouchDB的配置以及知识点</a></li><li><a href=#创建索引>创建索引</a></li><li><a href=#将索引添加到链码文件夹>将索引添加到链码文件夹</a></li><li><a href=#启动网络>启动网络</a></li><li><a href=#安装并实例化链码>安装并实例化链码</a></li><li><a href=#验证索引是否部署>验证索引是否部署</a></li><li><a href=#查询couchdb状态数据库>查询CouchDB状态数据库</a></li><li><a href=#在chaincode上构建一个查询>在chaincode上构建一个查询</a></li><li><a href=#查询和索引queries-and-indexes的最佳实践>查询和索引(queries and indexes)的最佳实践</a></li><li><a href=#利用couchdb进行分页查询>利用CouchDB进行分页查询</a></li><li><a href=#更新索引>更新索引</a></li><li><a href=#重复定义索引>重复定义索引</a></li><li><a href=#删除索引>删除索引</a></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><h1 id=fabric中启用couchdb>Fabric中启用CouchDB</h1><h3 id=使用couchdb的注意点>使用CouchDB的注意点</h3><ol><li><p>当chaincode的数据模型被构建为<code>Json</code>格式的时候，可以使用CouchDB，因为它支持丰富的查询，通过<code>建立索引</code>，基于内容查询而不仅仅是基于Key的查询</p><blockquote><p>couchDB是一种以json文档存储的数据库，而不是单一的键值数据库</p></blockquote></li><li><p>如果要启用CouchDB，那么就要在启动网络之前就配置完成，不能将已经启动levelDB的peer转为启用CouchDB，如果这样就会存在数据的不一致，所有的节点，要么全部使用CouchDB,要么全部使用LevelDB，还有就是如果启用CouchDB，那么一个peer节点使用一个CouchDB，同时这两个最好在同一个服务器上！！！</p></li><li><p>如果同时有json数据和二进制数据，仍然可以启用CouchDB，但是二进制的数据智能通过单一的key、key的范围查询，以及组合键的查询</p></li></ol><h3 id=couchdb的配置以及知识点>CouchDB的配置以及知识点</h3><p>如果要启用CouchDB，需要设置peer容器的yaml上加几行配置即可，同时需要有<code>docker-compose-couchdb.yaml</code>类似的用于启动couchdb容器的文件</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-yaml data-lang=yaml><span class=c># Copyright IBM Corp. All Rights Reserved.</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w></span><span class=c># SPDX-License-Identifier: Apache-2.0</span><span class=w>
+</span><span class=w></span><span class=c>#</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=k>version</span><span class=p>:</span><span class=w> </span><span class=s1>&#39;2&#39;</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=k>networks</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=k>byfn</span><span class=p>:</span><span class=w>
+</span><span class=w>
+</span><span class=w></span><span class=k>services</span><span class=p>:</span><span class=w>
+</span><span class=w>  </span><span class=k>couchdb0</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>couchdb0<span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>hyperledger/fabric-couchdb<span class=w>
+</span><span class=w>    </span><span class=c># Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password</span><span class=w>
+</span><span class=w>    </span><span class=c># for CouchDB.  This will prevent CouchDB from operating in an &#34;Admin Party&#34; mode.</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- COUCHDB_USER=<span class=w>
+</span><span class=w>      </span>- COUCHDB_PASSWORD=<span class=w>
+</span><span class=w>    </span><span class=c># Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,</span><span class=w>
+</span><span class=w>    </span><span class=c># for example map it to utilize Fauxton User Interface in dev environments.</span><span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=s2>&#34;5984:5984&#34;</span><span class=w>
+</span><span class=w>    </span><span class=k>networks</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- byfn<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=k>peer0.org1.example.com</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_STATEDATABASE=CouchDB<span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb0<span class=p>:</span><span class=m>5984</span><span class=w>
+</span><span class=w>      </span><span class=c># The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD</span><span class=w>
+</span><span class=w>      </span><span class=c># provide the credentials for ledger to connect to CouchDB.  The username and password must</span><span class=w>
+</span><span class=w>      </span><span class=c># match the username and password set for the associated CouchDB.</span><span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=<span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=<span class=w>
+</span><span class=w>    </span><span class=k>depends_on</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- couchdb0<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=k>couchdb1</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>couchdb1<span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>hyperledger/fabric-couchdb<span class=w>
+</span><span class=w>    </span><span class=c># Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password</span><span class=w>
+</span><span class=w>    </span><span class=c># for CouchDB.  This will prevent CouchDB from operating in an &#34;Admin Party&#34; mode.</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- COUCHDB_USER=<span class=w>
+</span><span class=w>      </span>- COUCHDB_PASSWORD=<span class=w>
+</span><span class=w>    </span><span class=c># Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,</span><span class=w>
+</span><span class=w>    </span><span class=c># for example map it to utilize Fauxton User Interface in dev environments.</span><span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=s2>&#34;6984:5984&#34;</span><span class=w>
+</span><span class=w>    </span><span class=k>networks</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- byfn<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=k>peer1.org1.example.com</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_STATEDATABASE=CouchDB<span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb1<span class=p>:</span><span class=m>5984</span><span class=w>
+</span><span class=w>      </span><span class=c># The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD</span><span class=w>
+</span><span class=w>      </span><span class=c># provide the credentials for ledger to connect to CouchDB.  The username and password must</span><span class=w>
+</span><span class=w>      </span><span class=c># match the username and password set for the associated CouchDB.</span><span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=<span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=<span class=w>
+</span><span class=w>    </span><span class=k>depends_on</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- couchdb1<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=k>couchdb2</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>couchdb2<span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>hyperledger/fabric-couchdb<span class=w>
+</span><span class=w>    </span><span class=c># Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password</span><span class=w>
+</span><span class=w>    </span><span class=c># for CouchDB.  This will prevent CouchDB from operating in an &#34;Admin Party&#34; mode.</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- COUCHDB_USER=<span class=w>
+</span><span class=w>      </span>- COUCHDB_PASSWORD=<span class=w>
+</span><span class=w>    </span><span class=c># Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,</span><span class=w>
+</span><span class=w>    </span><span class=c># for example map it to utilize Fauxton User Interface in dev environments.</span><span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=s2>&#34;7984:5984&#34;</span><span class=w>
+</span><span class=w>    </span><span class=k>networks</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- byfn<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=k>peer0.org2.example.com</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_STATEDATABASE=CouchDB<span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb2<span class=p>:</span><span class=m>5984</span><span class=w>
+</span><span class=w>      </span><span class=c># The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD</span><span class=w>
+</span><span class=w>      </span><span class=c># provide the credentials for ledger to connect to CouchDB.  The username and password must</span><span class=w>
+</span><span class=w>      </span><span class=c># match the username and password set for the associated CouchDB.</span><span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=<span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=<span class=w>
+</span><span class=w>    </span><span class=k>depends_on</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- couchdb2<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=k>couchdb3</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>container_name</span><span class=p>:</span><span class=w> </span>couchdb3<span class=w>
+</span><span class=w>    </span><span class=k>image</span><span class=p>:</span><span class=w> </span>hyperledger/fabric-couchdb<span class=w>
+</span><span class=w>    </span><span class=c># Populate the COUCHDB_USER and COUCHDB_PASSWORD to set an admin user and password</span><span class=w>
+</span><span class=w>    </span><span class=c># for CouchDB.  This will prevent CouchDB from operating in an &#34;Admin Party&#34; mode.</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- COUCHDB_USER=<span class=w>
+</span><span class=w>      </span>- COUCHDB_PASSWORD=<span class=w>
+</span><span class=w>    </span><span class=c># Comment/Uncomment the port mapping if you want to hide/expose the CouchDB service,</span><span class=w>
+</span><span class=w>    </span><span class=c># for example map it to utilize Fauxton User Interface in dev environments.</span><span class=w>
+</span><span class=w>    </span><span class=k>ports</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- <span class=s2>&#34;8984:5984&#34;</span><span class=w>
+</span><span class=w>    </span><span class=k>networks</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- byfn<span class=w>
+</span><span class=w>
+</span><span class=w>  </span><span class=k>peer1.org2.example.com</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span><span class=k>environment</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_STATEDATABASE=CouchDB<span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS=couchdb3<span class=p>:</span><span class=m>5984</span><span class=w>
+</span><span class=w>      </span><span class=c># The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD</span><span class=w>
+</span><span class=w>      </span><span class=c># provide the credentials for ledger to connect to CouchDB.  The username and password must</span><span class=w>
+</span><span class=w>      </span><span class=c># match the username and password set for the associated CouchDB.</span><span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME=<span class=w>
+</span><span class=w>      </span>- CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD=<span class=w>
+</span><span class=w>    </span><span class=k>depends_on</span><span class=p>:</span><span class=w>
+</span><span class=w>      </span>- couchdb3<span class=w>
+</span><span class=w>
+</span></code></pre></td></tr></table></div></div><p>可以看到，核心的就是几行：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>  - <span class=nv>CORE_LEDGER_STATE_STATEDATABASE</span><span class=o>=</span>CouchDB
+  - <span class=nv>CORE_LEDGER_STATE_COUCHDBCONFIG_COUCHDBADDRESS</span><span class=o>=</span>couchdb2:5984
+      <span class=c1># The CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME and CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD</span>
+      <span class=c1># provide the credentials for ledger to connect to CouchDB.  The username and password must</span>
+      <span class=c1># match the username and password set for the associated CouchDB.</span>
+  - <span class=nv>CORE_LEDGER_STATE_COUCHDBCONFIG_USERNAME</span><span class=o>=</span>
+  - <span class=nv>CORE_LEDGER_STATE_COUCHDBCONFIG_PASSWORD</span><span class=o>=</span>
+</code></pre></td></tr></table></div></div><h3 id=创建索引>创建索引</h3><p>通常建立index是非常方便的，如果一个查询需要进行排序，那么在CouchDB中需要有一个排序的索引，不然会报错</p><p>一般情况下，<strong>一个chaincode中对应一个<code>doctype</code>(通常这个字段是必须的！！！！),用于标识一个chaincode(标识一类状态数据)</strong>，一个chaincode代表一个couchdb文档，通过<code>docType</code>来区分不同的chaincode数据（比如：有的chaincode描述的是marble数据，有的是描述的dog数据，有的是描述car的数据，这样的话它们的<code>docType</code>就要不一样，以便进行区分）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=kd>type</span> <span class=nx>marble</span> <span class=kd>struct</span> <span class=p>{</span>
+         <span class=nx>ObjectType</span> <span class=kt>string</span> <span class=s>`json:&#34;docType&#34;`</span> <span class=c1>//docType is used to distinguish the various types of objects in state database
+</span><span class=c1></span>         <span class=nx>Name</span>       <span class=kt>string</span> <span class=s>`json:&#34;name&#34;`</span>    <span class=c1>//the field tags are needed to keep case from bouncing around
+</span><span class=c1></span>         <span class=nx>Color</span>      <span class=kt>string</span> <span class=s>`json:&#34;color&#34;`</span>
+         <span class=nx>Size</span>       <span class=kt>int</span>    <span class=s>`json:&#34;size&#34;`</span>
+         <span class=nx>Owner</span>      <span class=kt>string</span> <span class=s>`json:&#34;owner&#34;`</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>当建立索引以便chaincode进行查询的时候，要以couchDB的json文件格式建立索引</p><p>基本的格式就是：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;index&#34;</span><span class=p>:{</span>
+        <span class=nt>&#34;fields&#34;</span><span class=p>:[</span><span class=s2>&#34;...&#34;</span><span class=p>,</span><span class=s2>&#34;...&#34;</span><span class=p>]</span>	<span class=err>#建立索引的字段</span>
+    <span class=p>},</span>
+    <span class=nt>&#34;ddoc&#34;</span><span class=p>:</span><span class=s2>&#34;...DOC&#34;</span>	<span class=err>#可选的，但是建议加上，而且看官方的写法都是使用“索引名+DOC”</span>
+    <span class=s2>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;索引名&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;type&#34;</span><span class=p>:</span><span class=s2>&#34;json&#34;</span><span class=err>#注意这个type是固定的，在Fabric中只支持json类型的couchdb索引</span>
+    
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>例如下面:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json>  <span class=s2>&#34;index&#34;</span><span class=err>:</span><span class=p>{</span>
+      <span class=nt>&#34;fields&#34;</span><span class=p>:[</span><span class=s2>&#34;owner&#34;</span><span class=p>]</span> <span class=err>//</span> <span class=err>Names</span> <span class=err>of</span> <span class=err>the</span> <span class=err>fields</span> <span class=err>to</span> <span class=err>be</span> <span class=err>queried</span>
+  <span class=p>}</span><span class=err>,</span>
+  <span class=s2>&#34;ddoc&#34;</span><span class=err>:</span><span class=s2>&#34;index1Doc&#34;</span><span class=err>,</span> <span class=err>//</span> <span class=err>(optional)</span> <span class=err>Name</span> <span class=err>of</span> <span class=err>the</span> <span class=err>design</span> <span class=err>document</span> <span class=err>in</span> <span class=err>which</span> <span class=err>the</span> <span class=err>index</span> <span class=err>will</span> <span class=err>be</span> <span class=err>created.</span>
+  <span class=s2>&#34;name&#34;</span><span class=err>:</span><span class=s2>&#34;index1&#34;</span><span class=err>,</span>
+  <span class=s2>&#34;type&#34;</span><span class=err>:</span><span class=s2>&#34;json&#34;</span>
+<span class=err>}</span>
+
+<span class=p>{</span>
+  <span class=nt>&#34;index&#34;</span><span class=p>:{</span>
+      <span class=nt>&#34;fields&#34;</span><span class=p>:[</span><span class=s2>&#34;owner&#34;</span><span class=p>,</span> <span class=s2>&#34;color&#34;</span><span class=p>]</span> <span class=err>//</span> <span class=err>Names</span> <span class=err>of</span> <span class=err>the</span> <span class=err>fields</span> <span class=err>to</span> <span class=err>be</span> <span class=err>queried</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;ddoc&#34;</span><span class=p>:</span><span class=s2>&#34;index2Doc&#34;</span><span class=p>,</span> <span class=err>//</span> <span class=err>(optional)</span> <span class=err>Name</span> <span class=err>of</span> <span class=err>the</span> <span class=err>design</span> <span class=err>document</span> <span class=err>in</span> <span class=err>which</span> <span class=err>the</span> <span class=err>index</span> <span class=err>will</span> <span class=err>be</span> <span class=err>created.</span>
+  <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;index2&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;type&#34;</span><span class=p>:</span><span class=s2>&#34;json&#34;</span>
+<span class=p>}</span>
+
+<span class=p>{</span>
+  <span class=nt>&#34;index&#34;</span><span class=p>:{</span>
+      <span class=nt>&#34;fields&#34;</span><span class=p>:[</span><span class=s2>&#34;owner&#34;</span><span class=p>,</span> <span class=s2>&#34;color&#34;</span><span class=p>,</span> <span class=s2>&#34;size&#34;</span><span class=p>]</span> <span class=err>//</span> <span class=err>Names</span> <span class=err>of</span> <span class=err>the</span> <span class=err>fields</span> <span class=err>to</span> <span class=err>be</span> <span class=err>queried</span>
+  <span class=p>},</span>
+  <span class=nt>&#34;ddoc&#34;</span><span class=p>:</span><span class=s2>&#34;index3Doc&#34;</span><span class=p>,</span> <span class=err>//</span> <span class=err>(optional)</span> <span class=err>Name</span> <span class=err>of</span> <span class=err>the</span> <span class=err>design</span> <span class=err>document</span> <span class=err>in</span> <span class=err>which</span> <span class=err>the</span> <span class=err>index</span> <span class=err>will</span> <span class=err>be</span> <span class=err>created.</span>
+  <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;index3&#34;</span><span class=p>,</span>
+  <span class=nt>&#34;type&#34;</span><span class=p>:</span><span class=s2>&#34;json&#34;</span>
+<span class=p>}</span>
+</code></pre></td></tr></table></div></div><blockquote><p>ddoc属性（design document，设计文档），可以清除地辨别用的那个索引进行的查询，如果没有指定名称，会被自动创建</p><p>从上面的索引可以看出：</p><p><strong>一个Index可以由1个或者多个字段进行指定，一个字段可以出现在多个Index中</strong></p></blockquote><p>总体来说，index的fields字段应该匹配一些字段，可以用于查询或者排序；Fabric将索引数据文档称为"<code>index warming</code>&rdquo;</p><h3 id=将索引添加到链码文件夹>将索引添加到链码文件夹</h3><ul><li><p>当时用SDK安装和实例化链码的时候，可以自定义索引的目录</p></li><li><p>当使用CLI命令行安装和实例化链码的时候，必须将索引的json文件放在链码的同级目录下，并且目录结构必须为<code>META-INF/statedb/couchdb/indexes</code></p><p><img src=C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201011205454539.png alt=image-20201011205454539></p></li></ul><p>在marbles的例子中，使用了索引，如下：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span><span class=nt>&#34;index&#34;</span><span class=p>:{</span><span class=nt>&#34;fields&#34;</span><span class=p>:[</span><span class=s2>&#34;docType&#34;</span><span class=p>,</span><span class=s2>&#34;owner&#34;</span><span class=p>]},</span><span class=nt>&#34;ddoc&#34;</span><span class=p>:</span><span class=s2>&#34;indexOwnerDoc&#34;</span><span class=p>,</span> <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;indexOwner&#34;</span><span class=p>,</span><span class=nt>&#34;type&#34;</span><span class=p>:</span><span class=s2>&#34;json&#34;</span><span class=p>}</span>
+</code></pre></td></tr></table></div></div><h3 id=启动网络>启动网络</h3><p>使用first-network示例：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>./byfn.sh up -c mychannel -s couchdb
+</code></pre></td></tr></table></div></div><h3 id=安装并实例化链码>安装并实例化链码</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>docker <span class=nb>exec</span> -it cli bash
+<span class=c1>#安装</span>
+peer chaincode install -n marbles -v 1.0 -p github.com/chaincode/marbles02/go
+<span class=c1>#实例化</span>
+<span class=nb>export</span> <span class=nv>CHANNEL_NAME</span><span class=o>=</span>mychannel
+peer chaincode instantiate -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C <span class=nv>$CHANNEL_NAME</span> -n marbles -v 1.0 -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;init&#34;]}&#39;</span> -P <span class=s2>&#34;OR (&#39;Org0MSP.peer&#39;,&#39;Org1MSP.peer&#39;)&#34;</span>
+</code></pre></td></tr></table></div></div><h3 id=验证索引是否部署>验证索引是否部署</h3><p>可以通过peer节点的日志查看</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>docker logs peer0.org1.example.com  2&gt;<span class=p>&amp;</span><span class=m>1</span> <span class=p>|</span> grep <span class=s2>&#34;CouchDB index&#34;</span>
+</code></pre></td></tr></table></div></div><p>输出如下即代表索引部署成功：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=o>[</span>couchdb<span class=o>]</span> CreateIndex -&gt; INFO 0be Created CouchDB index <span class=o>[</span>indexOwner<span class=o>]</span> in state database <span class=o>[</span>mychannel_marbles<span class=o>]</span> using design document <span class=o>[</span>_design/indexOwnerDoc<span class=o>]</span>
+</code></pre></td></tr></table></div></div><h3 id=查询couchdb状态数据库>查询CouchDB状态数据库</h3><p>建议在查询的时候指定参数，使用<code>use_index</code>字段指定<code>index name</code>，不然查询会很慢</p><p>因为index在chaincode部署的时候被部署，当使用chaincode进行查询的时候，索引会自动使用，也就是说如果不指定那个索引，CouchDB也会在索引文件中寻找使用哪个索引，但是这个自动检测也是需要时间的，所以建议指定索引的名称进行查询</p><h3 id=在chaincode上构建一个查询>在chaincode上构建一个查询</h3><blockquote><p>selector查询语法相关文档</p><p><a href=https://docs.couchdb.org/en/stable/api/database/find.html>https://docs.couchdb.org/en/stable/api/database/find.html</a></p></blockquote><p>首先在账本中创建一个owner为<code>tom</code>的marble，以供后面查询</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>peer chaincode invoke -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;initMarble&#34;,&#34;marble1&#34;,&#34;blue&#34;,&#34;35&#34;,&#34;tom&#34;]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>然后使用couchDB进行查询</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>peer chaincode query -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c 
+<span class=s1>&#39;{&#34;Args&#34;:[&#34;queryMarbles&#34;, 
+</span><span class=s1>&#34;{\&#34;selector\&#34;:{\&#34;docType\&#34;:\&#34;marble\&#34;,\&#34;owner\&#34;:\&#34;tom\&#34;}, \&#34;use_index\&#34;:[\&#34;_design/indexOwnerDoc\&#34;, \&#34;indexOwner\&#34;]}&#34;
+</span><span class=s1>]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>其中有<strong>三个参数</strong>：</p><ul><li><code>queryMarbles</code>：这是chaincode中的方法</li><li><code>{"selector":{"docType":"marble","owner":"tom"}</code>：这是查询地querystring,查询owner为tom的所有的marble</li><li><code>"use_index":["_design/indexOwnerDoc", "indexOwner"]</code>:这里就是指定使用哪种索引，是一个数组，其中第一个是ddoc,第二个是index的name</li></ul><p>查询结果为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=o>[{</span><span class=s2>&#34;Key&#34;</span>:<span class=s2>&#34;marble1&#34;</span>, <span class=s2>&#34;Record&#34;</span>:<span class=o>{</span><span class=s2>&#34;color&#34;</span>:<span class=s2>&#34;blue&#34;</span>,<span class=s2>&#34;docType&#34;</span>:<span class=s2>&#34;marble&#34;</span>,<span class=s2>&#34;name&#34;</span>:<span class=s2>&#34;marble1&#34;</span>,<span class=s2>&#34;owner&#34;</span>:<span class=s2>&#34;tom&#34;</span>,<span class=s2>&#34;size&#34;</span>:35<span class=o>}}]</span>
+</code></pre></td></tr></table></div></div><h3 id=查询和索引queries-and-indexes的最佳实践>查询和索引(queries and indexes)的最佳实践</h3><p>使用索引的查询非常快，不需要扫描整个CouchDB数据库，了解索引将使您能够编写查询以提高性能，并帮助您的应用程序处理网络上的大量数据或数据块。</p><p>将索引和chaincode代码一起安装非常重要，每个链码只需要安装几个索引就能满足绝大部分的查询需求，<code>添加太多索引，或在索引中使用过多字段，都会降低网络性能</code>,这是因为在提交每个区块之后都会更新索引。</p><p>通过“index warming”更新的索引越多，完成事务所需的时间就越长。</p><p>下面的实例中会演示如何使用查询索引，以及什么样的索引会展现最好的性能，在编写查询语句的时候要记住以下几点：</p><ul><li>索引中的所有字段也必须在查询的选择器selector或排序部分 sort sections中，才能使用索引。</li><li>太复杂的索引会降低网络的性能，并且也不大可能使用索引</li><li>应尽量避免使用全表扫描或全索引扫描的运算符，例如<code>$or</code>, <code>$in</code> and <code>$regex</code>等</li></ul><p>之前使用的Marbles中的查询：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>peer chaincode query -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;queryMarbles&#34;, &#34;{\&#34;selector\&#34;:{\&#34;docType\&#34;:\&#34;marble\&#34;,\&#34;owner\&#34;:\&#34;tom\&#34;}, \&#34;use_index\&#34;:[\&#34;indexOwnerDoc\&#34;, \&#34;indexOwner\&#34;]}&#34;]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>Marbles的链码同时被安装了 <code>indexOwnerDoc</code>索引</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=o>{</span><span class=s2>&#34;index&#34;</span>:<span class=o>{</span><span class=s2>&#34;fields&#34;</span>:<span class=o>[</span><span class=s2>&#34;docType&#34;</span>,<span class=s2>&#34;owner&#34;</span><span class=o>]}</span>,<span class=s2>&#34;ddoc&#34;</span>:<span class=s2>&#34;indexOwnerDoc&#34;</span>, <span class=s2>&#34;name&#34;</span>:<span class=s2>&#34;indexOwner&#34;</span>,<span class=s2>&#34;type&#34;</span>:<span class=s2>&#34;json&#34;</span><span class=o>}</span>
+</code></pre></td></tr></table></div></div><p>可以注意到，上面的索引的查询字段中有两个参数<code>docType</code>和<code>owner</code>，这就是一个<strong>索引支持的查询(query fully supported by the index)</strong>，表明该查询将能够使用索引中的数据，而不必搜索整个数据库，像这样的fully Supported queries<strong>比链码中的其他查询返回得更快</strong>。</p><blockquote><p>所谓的query fully supported by the index，其实可以简单(不恰当地)地理解为查询条件字段和索引中字段一致</p></blockquote><p>如果在上面得查询中增加一个字段，这个查询仍然会使用这个索引，但是这个索引会额外地去查询索引中的其他字段，这就会产生延长的响应时间</p><p>举个例子，下面这个查询仍然会使用上面的索引，但是查询会比之前的查询慢一会</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1>#Example two: query fully supported by the index with additional data</span>
+
+peer chaincode query -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;queryMarbles&#34;, &#34;{\&#34;selector\&#34;:{\&#34;docType\&#34;:\&#34;marble\&#34;,\&#34;owner\&#34;:\&#34;tom\&#34;,\&#34;color\&#34;:\&#34;red\&#34;}, \&#34;use_index\&#34;:[\&#34;/indexOwnerDoc\&#34;, \&#34;indexOwner\&#34;]}&#34;]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>可以看到这个查询中不光查询了owner为tom的，还要同时查到color为red的，而color字段是上面建立的索引中没有的，所以此时就需要全局扫描数据库</p><p>再有一个例子，下面的查询是搜索owner,但是没有指定它拥有的东西的类型，因为我们上面上面建立的索引是包含了<code>docType</code>和<code>owner</code>两个字段的(也就是我们建立的这个索引是针对的marbles这个产品的索引，至于owner是否还拥有其他的产品就不知道了，所以需要全局扫描)，这样在查找的时候，并不会使用上面的索引，而是采用全局的扫描</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1>#Example three: query not supported by the index</span>
+
+peer chaincode query -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;queryMarbles&#34;, &#34;{\&#34;selector\&#34;:{\&#34;owner\&#34;:\&#34;tom\&#34;}, \&#34;use_index\&#34;:[\&#34;indexOwnerDoc\&#34;, \&#34;indexOwner\&#34;]}&#34;]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>总的来说，越复杂的查询需要耗费更多的时间，并且使用索引进行查询的几率会小很多，像<code>$or</code>, ``$in<code>,</code>$regex`这几个操作符通常都是全局扫描，并不会使用索引，所以当数据量很大的时候，尽量避免使用它们</p><p>举个例子，下面的查询会包含一个<code>$or</code>操作符来查找每一个<code>marbles</code>并且它的拥有者为<code>tom</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># Example four: query with $or supported by the index</span>
+
+peer chaincode query -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;queryMarbles&#34;, &#34;{\&#34;selector\&#34;:{&#34;\$or\&#34;:[{\&#34;docType\:\&#34;marble\&#34;},{\&#34;owner\&#34;:\&#34;tom\&#34;}]}, \&#34;use_index\&#34;:[\&#34;indexOwnerDoc\&#34;, \&#34;indexOwner\&#34;]}&#34;]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>这个查询中的查询字段都在索引中，所以会使用索引查询，但是因为<code>$or</code>操作符的原因，要求全局扫描进行查询，从而导致了更长的查询时间。</p><p>下面再举一个例子，这是一个复杂的查询，并没有使用索引进行查询</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># Example five: Query with $or not supported by the index</span>
+
+peer chaincode query -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;queryMarbles&#34;, &#34;{\&#34;selector\&#34;:{&#34;\$or\&#34;:[{\&#34;docType\&#34;:\&#34;marble\&#34;,\&#34;owner\&#34;:\&#34;tom\&#34;},{&#34;\color\&#34;:&#34;\yellow\&#34;}]}, \&#34;use_index\&#34;:[\&#34;indexOwnerDoc\&#34;, \&#34;indexOwner\&#34;]}&#34;]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>这个查询会寻找所有owner为tom的Marbles的或者所有的黄色物品(不仅是marbles)，这个查询不会使用索引，因为它会扫描整个表来达成<code>$or</code>的条件，如果说账本上有非常多的数据，这种情况下可能会消耗大量的时间，甚至是超时</p><p>尽管上面介绍了几个查询的注意点，但是索引并不是大数据量查询的解决方式，区块链的数据结构是为了优化验证和确认交易，并不适合直接用来进行数据分析，如果想要使用一个仪表盘来对应用程序中的数据进行分析，比较好的方式是采用链下数据库(链上数据的副本)，其实这也是从另一个角度来思考区块链的性能问题，可以数据上链，然后查询本地数据库</p><blockquote><p>这里抛出一个疑问：既然到了链下，那链下数据被篡改了怎么办？？？？虽然性能提升了，但是安全系数降低了</p></blockquote><p>通常可以在应用程序中使用<code>区块/链码的事件</code>，将交易数据写到链下的数据库中，对于每一个被提交的区块，区块监听器需要遍历区块中的所有的交易，读取它们的读写集，并通过键值对的方式中构建一个数据存储，SDK的事件机制提供了可重放的事件，确保数据存储的完整性，所以可以通过事件的监听，将区块链上的数据写入到外部的数据库中，可以在fabric-samples中的<a href=https://github.com/hyperledger/fabric-samples/tree/master/off_chain_data>Off chain data sample</a>中找到实例</p><h3 id=利用couchdb进行分页查询>利用CouchDB进行分页查询</h3><p>当查询的结果数据集合比较大的时候，需要对查询结果进行分页，通过分页机制可以将查询的结果通过特定的页面大小（<code>pagesize</code>，一页可以展示的数据条数）和书签（<code>bookmark</code>）来进行显示(类似于书的页数和一页可以展示的内容)，客户端程序会重复调用chaincode进行查询，直到没有数据可以返回，更详细的信息，可以参考 <a href=http://hyperledger-fabric.readthedocs.io/en/master/couchdb_as_state_database.html#couchdb-pagination>topic on pagination with CouchDB</a>.</p><p>使用marbles案例中的<code>queryMarblesWithPagination</code>来展示分页功能，</p><p>首先需要好几个数据才能展示，下面添加几个数据</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>peer chaincode invoke -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;initMarble&#34;,&#34;marble2&#34;,&#34;red&#34;,&#34;25&#34;,&#34;tom&#34;]}&#39;</span>
+peer chaincode invoke -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;initMarble&#34;,&#34;marble3&#34;,&#34;yellow&#34;,&#34;35&#34;,&#34;tom&#34;]}&#39;</span>
+peer chaincode invoke -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;initMarble&#34;,&#34;marble4&#34;,&#34;green&#34;,&#34;20&#34;,&#34;tom&#34;]}&#39;</span>
+peer chaincode invoke -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;initMarble&#34;,&#34;marble5&#34;,&#34;purple&#34;,&#34;20&#34;,&#34;tom&#34;]}&#39;</span>
+peer chaincode invoke -o orderer.example.com:7050 --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;initMarble&#34;,&#34;marble6&#34;,&#34;blue&#34;,&#34;40&#34;,&#34;tom&#34;]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>除了之前的例子中的查询参数以外，这个分页的函数<code>queryMarblesWithPagination</code>，还需要传入<code>pagesize</code>和<code>bookmark</code>；<code>pagesize</code>指定每次(页)查询返回的数据量，<code>bookmark</code>是一个锚点，告诉couchDB从哪里开始新的一页（每一页的结果都会返回一个<code>bookmark</code>）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=nf>getQueryResultForQueryStringWithPagination</span><span class=p>(</span><span class=nx>stub</span><span class=p>,</span> <span class=nx>queryString</span><span class=p>,</span> <span class=nb>int32</span><span class=p>(</span><span class=nx>pageSize</span><span class=p>),</span> <span class=nx>bookmark</span><span class=p>)</span>
+</code></pre></td></tr></table></div></div><p>查询分页的函数中调用的是<code>getQueryResultForQueryStringWithPagination</code>方法，同时传入了一页的大小和书签标记。</p><p>下面的一个例子演示调用这个分页的函数，指定<code>pagesize</code>大小为<code>3</code>，不指定<code>bookmark</code></p><blockquote><p>如果不指定<code>bookmark</code>,那么查询会默认从第一页的记录开始</p></blockquote><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=c1># Rich Query with index name explicitly specified and a page size of 3:</span>
+
+peer chaincode query -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;queryMarblesWithPagination&#34;, &#34;{\&#34;selector\&#34;:{\&#34;docType\&#34;:\&#34;marble\&#34;,\&#34;owner\&#34;:\&#34;tom\&#34;}, \&#34;use_index\&#34;:[\&#34;_design/indexOwnerDoc\&#34;, \&#34;indexOwner\&#34;]}&#34;,&#34;3&#34;,&#34;&#34;]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>下面就是返回的数据</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=o>[{</span><span class=s2>&#34;Key&#34;</span>:<span class=s2>&#34;marble1&#34;</span>, <span class=s2>&#34;Record&#34;</span>:<span class=o>{</span><span class=s2>&#34;color&#34;</span>:<span class=s2>&#34;blue&#34;</span>,<span class=s2>&#34;docType&#34;</span>:<span class=s2>&#34;marble&#34;</span>,<span class=s2>&#34;name&#34;</span>:<span class=s2>&#34;marble1&#34;</span>,<span class=s2>&#34;owner&#34;</span>:<span class=s2>&#34;tom&#34;</span>,<span class=s2>&#34;size&#34;</span>:35<span class=o>}}</span>,
+<span class=o>{</span><span class=s2>&#34;Key&#34;</span>:<span class=s2>&#34;marble2&#34;</span>, <span class=s2>&#34;Record&#34;</span>:<span class=o>{</span><span class=s2>&#34;color&#34;</span>:<span class=s2>&#34;red&#34;</span>,<span class=s2>&#34;docType&#34;</span>:<span class=s2>&#34;marble&#34;</span>,<span class=s2>&#34;name&#34;</span>:<span class=s2>&#34;marble2&#34;</span>,<span class=s2>&#34;owner&#34;</span>:<span class=s2>&#34;tom&#34;</span>,<span class=s2>&#34;size&#34;</span>:25<span class=o>}}</span>,
+<span class=o>{</span><span class=s2>&#34;Key&#34;</span>:<span class=s2>&#34;marble3&#34;</span>, <span class=s2>&#34;Record&#34;</span>:<span class=o>{</span><span class=s2>&#34;color&#34;</span>:<span class=s2>&#34;yellow&#34;</span>,<span class=s2>&#34;docType&#34;</span>:<span class=s2>&#34;marble&#34;</span>,<span class=s2>&#34;name&#34;</span>:<span class=s2>&#34;marble3&#34;</span>,<span class=s2>&#34;owner&#34;</span>:<span class=s2>&#34;tom&#34;</span>,<span class=s2>&#34;size&#34;</span>:35<span class=o>}}]</span>
+
+<span class=o>[{</span><span class=s2>&#34;ResponseMetadata&#34;</span>:<span class=o>{</span><span class=s2>&#34;RecordsCount&#34;</span>:<span class=s2>&#34;3&#34;</span>, <span class=s2>&#34;Bookmark&#34;</span>:<span class=s2>&#34;g1AAAABLeJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYqz5yYWJeWkGoOkOWDSOSANIFk2iCyIyVySn5uVBQAGEhRz&#34;</span><span class=o>}}]</span>
+</code></pre></td></tr></table></div></div><p>可以看到查询到三条数据（但是我们前面的弹珠并不止3个）</p><blockquote><p>注意：查询返回的不止查询的数据，couchdb还会为每一次查询生成一个唯一的<code>bookmark</code>的hash值，它也包含在结果集中，通过传递返回的这个<code>bookmark</code>的值来实现下一页的查询</p></blockquote><p>下面的查询就是通过调用分页查询，<code>pagesize</code>置为3，同时<code>bookmark</code>是从上一次返回的那个hash值开始的</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>peer chaincode query -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;queryMarblesWithPagination&#34;, &#34;{\&#34;selector\&#34;:{\&#34;docType\&#34;:\&#34;marble\&#34;,\&#34;owner\&#34;:\&#34;tom\&#34;}, \&#34;use_index\&#34;:[\&#34;_design/indexOwnerDoc\&#34;, \&#34;indexOwner\&#34;]}&#34;,&#34;3&#34;,&#34;g1AAAABLeJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYqz5yYWJeWkGoOkOWDSOSANIFk2iCyIyVySn5uVBQAGEhRz&#34;]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>查询的就是剩下来的Marbles数据：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=o>[{</span><span class=s2>&#34;Key&#34;</span>:<span class=s2>&#34;marble4&#34;</span>, <span class=s2>&#34;Record&#34;</span>:<span class=o>{</span><span class=s2>&#34;color&#34;</span>:<span class=s2>&#34;green&#34;</span>,<span class=s2>&#34;docType&#34;</span>:<span class=s2>&#34;marble&#34;</span>,<span class=s2>&#34;name&#34;</span>:<span class=s2>&#34;marble4&#34;</span>,<span class=s2>&#34;owner&#34;</span>:<span class=s2>&#34;tom&#34;</span>,<span class=s2>&#34;size&#34;</span>:20<span class=o>}}</span>,
+<span class=o>{</span><span class=s2>&#34;Key&#34;</span>:<span class=s2>&#34;marble5&#34;</span>, <span class=s2>&#34;Record&#34;</span>:<span class=o>{</span><span class=s2>&#34;color&#34;</span>:<span class=s2>&#34;purple&#34;</span>,<span class=s2>&#34;docType&#34;</span>:<span class=s2>&#34;marble&#34;</span>,<span class=s2>&#34;name&#34;</span>:<span class=s2>&#34;marble5&#34;</span>,<span class=s2>&#34;owner&#34;</span>:<span class=s2>&#34;tom&#34;</span>,<span class=s2>&#34;size&#34;</span>:20<span class=o>}}</span>,
+<span class=o>{</span><span class=s2>&#34;Key&#34;</span>:<span class=s2>&#34;marble6&#34;</span>, <span class=s2>&#34;Record&#34;</span>:<span class=o>{</span><span class=s2>&#34;color&#34;</span>:<span class=s2>&#34;blue&#34;</span>,<span class=s2>&#34;docType&#34;</span>:<span class=s2>&#34;marble&#34;</span>,<span class=s2>&#34;name&#34;</span>:<span class=s2>&#34;marble6&#34;</span>,<span class=s2>&#34;owner&#34;</span>:<span class=s2>&#34;tom&#34;</span>,<span class=s2>&#34;size&#34;</span>:40<span class=o>}}]</span>
+
+<span class=o>[{</span><span class=s2>&#34;ResponseMetadata&#34;</span>:<span class=o>{</span><span class=s2>&#34;RecordsCount&#34;</span>:<span class=s2>&#34;3&#34;</span>, <span class=s2>&#34;Bookmark&#34;</span>:<span class=s2>&#34;g1AAAABLeJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYqz5yYWJeWkmoGkOWDSOSANIFk2iCyIyVySn5uVBQAGihR2&#34;</span><span class=o>}}]</span>
+</code></pre></td></tr></table></div></div><p>下面再继续调用分页查询，<code>pagesize</code>依然为<code>3</code>,<code>bookmark</code>才能过上一次开始</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>peer chaincode query -C <span class=nv>$CHANNEL_NAME</span> -n marbles -c <span class=s1>&#39;{&#34;Args&#34;:[&#34;queryMarblesWithPagination&#34;, &#34;{\&#34;selector\&#34;:{\&#34;docType\&#34;:\&#34;marble\&#34;,\&#34;owner\&#34;:\&#34;tom\&#34;}, \&#34;use_index\&#34;:[\&#34;_design/indexOwnerDoc\&#34;, \&#34;indexOwner\&#34;]}&#34;,&#34;3&#34;,&#34;g1AAAABLeJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYqz5yYWJeWkmoGkOWDSOSANIFk2iCyIyVySn5uVBQAGihR2&#34;]}&#39;</span>
+</code></pre></td></tr></table></div></div><p>查询结果为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=o>[]</span>
+<span class=o>[{</span><span class=s2>&#34;ResponseMetadata&#34;</span>:<span class=o>{</span><span class=s2>&#34;RecordsCount&#34;</span>:<span class=s2>&#34;0&#34;</span>, <span class=s2>&#34;Bookmark&#34;</span>:<span class=s2>&#34;g1AAAABLeJzLYWBgYMpgSmHgKy5JLCrJTq2MT8lPzkzJBYqz5yYWJeWkmoGkOWDSOSANIFk2iCyIyVySn5uVBQAGihR2&#34;</span><span class=o>}}]</span>
+</code></pre></td></tr></table></div></div><p>可以看到已经没有数据可以查询了</p><blockquote><p>上面的例子就是演示了客户端如何通过结果集来进行分页</p></blockquote><h3 id=更新索引>更新索引</h3><p>随着时间的推移，很有必要更新索引，在安装链码的后续版本中，可能会存在相同的索引，为了更新索引，原来的索引定义中必须包含设计文档<code>ddoc</code>属性和<code>索引名称index name</code>。</p><p>如果要更新索引，还是使用原来的索引名称，但是需要对内容定义进行修改，编辑索引的Json文件，从索引中增加或者删除一些字段</p><blockquote><p>注意：Fabric中只支持Json类型的索引，其他类型不支持</p></blockquote><p>更新的索引定义会在chaincode被安装和实例化的时候部署，改变<code>索引的名称index name</code>或者<code>ddoc</code>会创建出新的索引，而原来的索引仍会保留，直到被删除</p><blockquote><p>如果状态数据库中有大量数据，则重建索引将花费一些时间，在此期间，链码调用会导致查询失败或超时。</p></blockquote><h3 id=重复定义索引>重复定义索引</h3><p>在开发环境中，可以尝试不同的索引来支持链码查询，但是，对链码的任何更改都需要重新部署。可以使用 <a href=http://docs.couchdb.org/en/latest/fauxton/index.html>CouchDB Fauxton interface</a> 接口来自定义创建和更新索引</p><blockquote><p>The Fauxton interface提供了一个web界面来创建、更新、部署CouchDB的索引，可以在浏览器中访问<code>http://localhost:5984/_utils</code>查看，当然也可以通过curl命令</p></blockquote><h3 id=删除索引>删除索引</h3><p>索引的定义并不受fabric的工具管理，可以通过curl命令或者 the Fauxton interface图形化界面删除索引</p><p>删除索引的curl命令格式为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>curl -X DELETE http://localhost:5984/<span class=o>{</span>database_name<span class=o>}</span>/_index/<span class=o>{</span>design_doc<span class=o>}</span>/json/<span class=o>{</span>index_name<span class=o>}</span> -H  <span class=s2>&#34;accept: */*&#34;</span> -H  <span class=s2>&#34;Host: localhost:5984&#34;</span>
+</code></pre></td></tr></table></div></div><p>例如删除本示例中的索引就是：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell>curl -X DELETE http://localhost:5984/mychannel_marbles/_index/indexOwnerDoc/json/indexOwner -H  <span class=s2>&#34;accept: */*&#34;</span> -H  <span class=s2>&#34;Host: localhost:5984&#34;</span>
+</code></pre></td></tr></table></div></div><p>下面来动手实践一下，体验一下CouchDB的查询快感！！！！</p><p>我们增加一个Color的索引，在chaincode/marbles02/go/META-INF/statedb/couchdb/indexes目录下面</p><p><img src=C:%5CUsers%5CBun%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20201011200034730.png alt=image-20201011200034730></p><p>我们仿照原来的<code>indexOwner.json</code>写一个<code>indexColor.json</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-json data-lang=json><span class=p>{</span>
+    <span class=nt>&#34;index&#34;</span><span class=p>:{</span>
+      <span class=nt>&#34;fields&#34;</span><span class=p>:[</span>
+        <span class=s2>&#34;docType&#34;</span><span class=p>,</span>
+        <span class=s2>&#34;color&#34;</span><span class=p>]</span>
+    <span class=p>},</span>
+    <span class=nt>&#34;ddoc&#34;</span><span class=p>:</span><span class=s2>&#34;indexColorDoc&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;indexColor&#34;</span><span class=p>,</span>
+    <span class=nt>&#34;type&#34;</span><span class=p>:</span><span class=s2>&#34;json&#34;</span>
+  <span class=p>}</span>
+</code></pre></td></tr></table></div></div><p>这样就直接在容器中产生映射了，可以在命令行中进行调用</p><p>我们来查询所有的颜色为green的marbles</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>peer chaincode query -C $CHANNEL_NAME -n marbles -c &#39;{&#34;Args&#34;:[&#34;queryMarbles&#34;, &#34;{\&#34;selector\&#34;:{\&#34;docType\&#34;:\&#34;marble\&#34;,\&#34;color\&#34;:\&#34;green\&#34;}, \&#34;use_index\&#34;:[\&#34;_design/indexColorDoc\&#34;, \&#34;indexColor\&#34;]}&#34;]}&#39;
+</code></pre></td></tr></table></div></div><p>结果为</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-shell data-lang=shell><span class=o>[{</span><span class=s2>&#34;Key&#34;</span>:<span class=s2>&#34;marble4&#34;</span>, <span class=s2>&#34;Record&#34;</span>:<span class=o>{</span><span class=s2>&#34;color&#34;</span>:<span class=s2>&#34;green&#34;</span>,<span class=s2>&#34;docType&#34;</span>:<span class=s2>&#34;marble&#34;</span>,<span class=s2>&#34;name&#34;</span>:<span class=s2>&#34;marble4&#34;</span>,<span class=s2>&#34;owner&#34;</span>:<span class=s2>&#34;tom&#34;</span>,<span class=s2>&#34;size&#34;</span>:20<span class=o>}}]</span>
+</code></pre></td></tr></table></div></div><p>和预期的一样！！！这样我们就可以不局限于Key进行查找了，可以进行很多形式的查询！</p><blockquote><p>注意：一个索引一个json文件</p></blockquote></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>VegeBun-csj</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-10-18</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/>区块链</a>
+<a href=/tags/couchdb/>CouchDB</a></div><nav class=post-nav><a class=prev href=/post/chaincode%E5%BC%80%E5%8F%91/%E9%93%BE%E7%A0%81%E5%B8%B8%E8%A7%81%E7%9A%84api/><i class="iconfont icon-left"></i><span class="prev-text nav-default">链码常见的API</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/%E6%95%B0%E6%8D%AE%E5%BA%93/couchdb%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95/><span class="next-text nav-default">CouchDB的基本语法</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:your@email.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=http://localhost:1313 class="iconfont icon-linkedin" title=linkedin></a><a href=http://localhost:1313 class="iconfont icon-google" title=google></a><a href=https://github.com/VegeBun-csj class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=http://localhost:1313 class="iconfont icon-zhihu" title=zhihu></a><a href=http://localhost:1313 class="iconfont icon-douban" title=douban></a><a href=http://localhost:1313 class="iconfont icon-pocket" title=pocket></a><a href=http://localhost:1313 class="iconfont icon-tumblr" title=tumblr></a><a href=http://localhost:1313 class="iconfont icon-instagram" title=instagram></a><a href=http://localhost:1313 class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=http://localhost:1313/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2019 -
+2020<span class=heart><i class="iconfont icon-heart"></i></span><span>VegeBun-csj</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js></script><script type=text/javascript>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],tags:'ams',}};</script><script type=text/javascript async src=/lib/mathjax/es5/tex-mml-chtml.js></script></body></html>
