@@ -1,0 +1,27 @@
+[submodule "themes/meme"]
+	path = themes/meme
+	url = https://github.com/reuixiy/hugo-theme-meme.git
+[submodule "themes/paper"]
+	path = themes/paper
+	url = https://github.com/nanxiaobei/hugo-paper
+[submodule "themes/mixedpaper"]
+	path = themes/mixedpaper
+	url = https://github.com/wayjam/hugo-theme-mixedpaper.git
+[submodule "themes/ramium"]
+	path = themes/ramium
+	url = https://github.com/rafed/ramium.git
+[submodule "themes/hugo-theme-techdoc"]
+	path = themes/hugo-theme-techdoc
+	url = https://github.com/thingsym/hugo-theme-techdoc.git
+[submodule "themes/Blonde"]
+	path = themes/Blonde
+	url = https://github.com/opera7133/Blonde.git
+[submodule "themes/hugo-theme-stack"]
+	path = themes/hugo-theme-stack
+	url = https://github.com/CaiJimmy/hugo-theme-stack.git
+[submodule "themes/even"]
+	path = themes/even
+	url = https://github.com/olOwOlo/hugo-theme-even.git
+[submodule "public"]
+	path = public
+	url = https://github.com/VegeBun-csj/VegeBun-csj.github.io.git
