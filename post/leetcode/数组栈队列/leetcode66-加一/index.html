@@ -44,22 +44,22 @@
 </span><span class=lnt>14
 </span><span class=lnt>15
 </span><span class=lnt>16
-</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>class Solution {
-public:
-    vector&lt;int&gt; plusOne(vector&lt;int&gt;&amp; digits) {
-        int t = 1;
-        int sum;
-        for(int i = digits.size() - 1 ;i &gt;= 0; i --){
-            if(t){
-                sum = t + digits[i];
-                digits[i] = sum % 10;
-                t = sum &gt; 9 ? 1 : 0;
-            }
-        }
-        if(t) digits.insert(digits.begin(),1);
-        return digits;
-    }
-};
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-c++ data-lang=c++><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+<span class=k>public</span><span class=o>:</span>
+    <span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>plusOne</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&amp;</span> <span class=n>digits</span><span class=p>)</span> <span class=p>{</span>
+        <span class=kt>int</span> <span class=n>t</span> <span class=o>=</span> <span class=mi>1</span><span class=p>;</span>
+        <span class=kt>int</span> <span class=n>sum</span><span class=p>;</span>
+        <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=n>digits</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>-</span> <span class=mi>1</span> <span class=p>;</span><span class=n>i</span> <span class=o>&gt;=</span> <span class=mi>0</span><span class=p>;</span> <span class=n>i</span> <span class=o>--</span><span class=p>){</span>
+            <span class=k>if</span><span class=p>(</span><span class=n>t</span><span class=p>){</span>
+                <span class=n>sum</span> <span class=o>=</span> <span class=n>t</span> <span class=o>+</span> <span class=n>digits</span><span class=p>[</span><span class=n>i</span><span class=p>];</span>
+                <span class=n>digits</span><span class=p>[</span><span class=n>i</span><span class=p>]</span> <span class=o>=</span> <span class=n>sum</span> <span class=o>%</span> <span class=mi>10</span><span class=p>;</span>
+                <span class=n>t</span> <span class=o>=</span> <span class=n>sum</span> <span class=o>&gt;</span> <span class=mi>9</span> <span class=o>?</span> <span class=mi>1</span> <span class=o>:</span> <span class=mi>0</span><span class=p>;</span>
+            <span class=p>}</span>
+        <span class=p>}</span>
+        <span class=k>if</span><span class=p>(</span><span class=n>t</span><span class=p>)</span> <span class=n>digits</span><span class=p>.</span><span class=n>insert</span><span class=p>(</span><span class=n>digits</span><span class=p>.</span><span class=n>begin</span><span class=p>(),</span><span class=mi>1</span><span class=p>);</span>
+        <span class=k>return</span> <span class=n>digits</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>};</span>
 </code></pre></td></tr></table></div></div><blockquote><p>时间复杂度为O(n)，空间复杂度为O(1)</p><p>执行用时：0 ms, 在所有 C++ 提交中击败了100.00%的用户</p><p>内存消耗：9.1 MB, 在所有 C++ 提交中击败了5.27%的用户</p></blockquote><p>可以看出来，对于第一种解法，不管是那种进位情况，都要将整个循环跑完，而第二种情况是及时中止，因为如果中间有某个位没有进位，剩下的操作就没什么意义，直接退出即可；还有对于第一种是新开设了地址空间进行存储，而第二种并没有开设空间存储，并且如果没有最高位进位，就不需要进行最高位插入1的操作，所以时间复杂度大大降低。</p></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
 <span class=item-content>VegeBun-csj</span></p><p class=copyright-item><span class=item-title>LastMod</span>
 <span class=item-content>2020-11-10</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/%E7%AE%97%E6%B3%95/>算法</a>
@@ -74,4 +74,4 @@ public:
 <span class=division>|</span>
 <span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
 2019 -
-2020<span class=heart><i class="iconfont icon-heart"></i></span><span>VegeBun-csj</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js></script><script type=text/javascript>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],tags:'ams',}};</script><script type=text/javascript async src=/lib/mathjax/es5/tex-mml-chtml.js></script></body></html>
+2021<span class=heart><i class="iconfont icon-heart"></i></span><span>VegeBun-csj</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js></script><script type=text/javascript>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],tags:'ams',}};</script><script type=text/javascript async src=/lib/mathjax/es5/tex-mml-chtml.js></script></body></html>

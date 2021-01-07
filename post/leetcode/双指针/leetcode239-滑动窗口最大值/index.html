@@ -1,0 +1,116 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Leetcode239 滑动窗口最大值 - This is a blog written by VegeBun-csj to record the tech</title><meta name=renderer content="webkit"><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta http-equiv=cache-control content="no-transform"><meta http-equiv=cache-control content="no-siteapp"><meta name=theme-color content="#f8f5ec"><meta name=msapplication-navbutton-color content="#f8f5ec"><meta name=apple-mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="#f8f5ec"><meta name=author content="VegeBun-csj"><meta name=description content="在进入leetcode题目之前先来个Acwing的题目热个身：题目来自https://www.acwing.com/，由北大yxc大佬建的刷"><meta name=keywords content="Hugo,theme,even"><meta name=generator content="Hugo 0.74.3 with theme even"><link rel=canonical href=http://localhost:1313/post/leetcode/%E5%8F%8C%E6%8C%87%E9%92%88/leetcode239-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC/><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/manifest.json><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><link href=/sass/main.min.bc0b12ed61ed3ac44989a209a068b1f65d38d472dba8f2ba8d482994ff056cb7.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin=anonymous><meta property="og:title" content="Leetcode239 滑动窗口最大值"><meta property="og:description" content="在进入leetcode题目之前先来个Acwing的题目热个身：题目来自https://www.acwing.com/，由北大yxc大佬建的刷"><meta property="og:type" content="article"><meta property="og:url" content="http://localhost:1313/post/leetcode/%E5%8F%8C%E6%8C%87%E9%92%88/leetcode239-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E6%9C%80%E5%A4%A7%E5%80%BC/"><meta property="article:published_time" content="2020-11-30T11:38:17+08:00"><meta property="article:modified_time" content="2020-11-30T11:38:17+08:00"><meta itemprop=name content="Leetcode239 滑动窗口最大值"><meta itemprop=description content="在进入leetcode题目之前先来个Acwing的题目热个身：题目来自https://www.acwing.com/，由北大yxc大佬建的刷"><meta itemprop=datePublished content="2020-11-30T11:38:17+08:00"><meta itemprop=dateModified content="2020-11-30T11:38:17+08:00"><meta itemprop=wordCount content="1295"><meta itemprop=keywords content="算法,leetcode,"><meta name=twitter:card content="summary"><meta name=twitter:title content="Leetcode239 滑动窗口最大值"><meta name=twitter:description content="在进入leetcode题目之前先来个Acwing的题目热个身：题目来自https://www.acwing.com/，由北大yxc大佬建的刷"><!--[if lte IE 9]><script src=https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js></script><![endif]--><!--[if lt IE 9]><script src=https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js></script><script src=https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js></script><![endif]--></head><body><div id=mobile-navbar class=mobile-navbar><div class=mobile-header-logo><a href=/ class=logo>VegeBun-csj</a></div><div class=mobile-navbar-icon><span></span><span></span><span></span></div></div><nav id=mobile-menu class="mobile-menu slideout-menu"><ul class=mobile-menu-list><a href=/><li class=mobile-menu-item>Home</li></a><a href=/post/><li class=mobile-menu-item>Archives</li></a><a href=/tags/><li class=mobile-menu-item>Tags</li></a><a href=/categories/><li class=mobile-menu-item>Categories</li></a></ul></nav><div class=container id=mobile-panel><header id=header class=header><div class=logo-wrapper><a href=/ class=logo>VegeBun-csj</a></div><nav class=site-navbar><ul id=menu class=menu><li class=menu-item><a class=menu-item-link href=/>Home</a></li><li class=menu-item><a class=menu-item-link href=/post/>Archives</a></li><li class=menu-item><a class=menu-item-link href=/tags/>Tags</a></li><li class=menu-item><a class=menu-item-link href=/categories/>Categories</a></li></ul></nav></header><main id=main class=main><div class=content-wrapper><div id=content class=content><article class=post><header class=post-header><h1 class=post-title>Leetcode239 滑动窗口最大值</h1><div class=post-meta><span class=post-time>2020-11-30</span><div class=post-category><a href=/categories/%E5%8F%8C%E6%8C%87%E9%92%88/>双指针</a>
+<a href=/categories/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/>滑动窗口</a></div><span class=more-meta>1295 words</span>
+<span class=more-meta>3 mins read</span>
+<span id=busuanzi_container_page_pv class=more-meta><span id=busuanzi_value_page_pv><img src=/img/spinner.svg alt=spinner.svg></span> times read</span></div></header><div class=post-toc id=post-toc><h2 class=post-toc-title>Contents</h2><div class="post-toc-content always-active"><nav id=TableOfContents><ul><li><ul><li><ul><li></li><li><a href=#代码><strong>代码</strong></a></li><li><a href=#题目描述><strong>题目描述</strong></a></li><li><a href=#题目链接><strong>题目链接</strong></a></li><li><a href=#思路><strong>思路</strong></a></li><li><a href=#代码-1><strong>代码</strong></a></li><li><a href=#复杂度分析><strong>复杂度分析</strong></a></li></ul></li></ul></li></ul></nav></div></div><div class=post-content><p>在进入leetcode题目之前先来个Acwing的题目热个身：题目来自https://www.acwing.com/，由北大yxc大佬建的刷题网站，非常Nice</p><blockquote><p>给定一个大小为 n ≤ $10^{6}$的数组。</p><p>有一个大小为 k 的滑动窗口，它从数组的最左边移动到最右边。</p><p>您只能在窗口中看到 k 个数字。</p><p>每次滑动窗口向右移动一个位置。</p><p>以下是一个例子：</p><p>该数组为 [1 3 -1 -3 5 3 6 7] ，k为3。输入格式</p><p>输入包含两行。</p><p>第一行包含两个整数 n 和 k ，分别代表数组长度和滑动窗口的长度。</p><p>第二行有 n 个整数，代表数组的具体数值。</p><p>同行数据之间用空格隔开。</p><h4 id=输出格式>输出格式</h4><p>输出包含两个。</p><p>第一行输出，从左至右，每个位置滑动窗口中的最小值。</p><p>第二行输出，从左至右，每个位置滑动窗口中的最大值。</p><h4 id=输入样例>输入样例：</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>8 3
+1 3 -1 -3 5 3 6 7
+</code></pre></td></tr></table></div></div><h4 id=输出样例>输出样例：</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>-1 -3 -3 -3 3 3
+3 3 5 5 6 7
+</code></pre></td></tr></table></div></div></blockquote><h3 id=代码><strong>代码</strong></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-c++ data-lang=c++><span class=cp>#include</span><span class=cpf>&lt;iostream&gt;</span><span class=cp>
+</span><span class=cp></span><span class=k>using</span> <span class=k>namespace</span> <span class=n>std</span><span class=p>;</span>
+<span class=k>const</span> <span class=kt>int</span> <span class=n>maxn</span> <span class=o>=</span> <span class=mi>1000010</span><span class=p>;</span>
+<span class=c1>//a数组存值，q数组存下标
+</span><span class=c1></span><span class=kt>int</span> <span class=n>a</span><span class=p>[</span><span class=n>maxn</span><span class=p>],</span><span class=n>q</span><span class=p>[</span><span class=n>maxn</span><span class=p>];</span>
+<span class=kt>int</span> <span class=n>n</span><span class=p>,</span><span class=n>k</span><span class=p>;</span>
+<span class=kt>int</span> <span class=nf>main</span><span class=p>(){</span>   
+    <span class=n>cin</span> <span class=o>&gt;&gt;</span> <span class=n>n</span> <span class=o>&gt;&gt;</span> <span class=n>k</span><span class=p>;</span>
+    <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span><span class=n>i</span> <span class=o>&lt;</span> <span class=n>n</span><span class=p>;</span><span class=n>i</span> <span class=o>++</span><span class=p>)</span> <span class=n>cin</span> <span class=o>&gt;&gt;</span> <span class=n>a</span><span class=p>[</span><span class=n>i</span><span class=p>];</span>
+    
+    <span class=kt>int</span> <span class=n>h</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span><span class=n>t</span> <span class=o>=</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span>
+    <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span><span class=n>i</span> <span class=o>&lt;</span> <span class=n>n</span><span class=p>;</span><span class=n>i</span> <span class=o>++</span><span class=p>){</span>
+        <span class=k>if</span><span class=p>(</span><span class=n>h</span> <span class=o>&lt;=</span> <span class=n>t</span> <span class=o>&amp;&amp;</span> <span class=n>i</span> <span class=o>-</span> <span class=n>k</span> <span class=o>+</span> <span class=mi>1</span> <span class=o>&gt;</span> <span class=n>q</span><span class=p>[</span><span class=n>h</span><span class=p>])</span> <span class=n>h</span> <span class=o>++</span><span class=p>;</span>
+        <span class=k>while</span><span class=p>(</span><span class=n>h</span> <span class=o>&lt;=</span> <span class=n>t</span> <span class=o>&amp;&amp;</span> <span class=n>a</span><span class=p>[</span><span class=n>q</span><span class=p>[</span><span class=n>t</span><span class=p>]]</span> <span class=o>&gt;=</span> <span class=n>a</span><span class=p>[</span><span class=n>i</span><span class=p>])</span> <span class=n>t</span> <span class=o>--</span><span class=p>;</span>
+        <span class=n>q</span><span class=p>[</span><span class=o>++</span> <span class=n>t</span><span class=p>]</span> <span class=o>=</span> <span class=n>i</span><span class=p>;</span>
+        <span class=k>if</span><span class=p>(</span><span class=n>i</span> <span class=o>&gt;=</span> <span class=n>k</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>a</span><span class=p>[</span><span class=n>q</span><span class=p>[</span><span class=n>h</span><span class=p>]]</span> <span class=o>&lt;&lt;</span> <span class=s>&#34; &#34;</span><span class=p>;</span>
+    <span class=p>}</span>
+    <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>endl</span><span class=p>;</span>
+    
+    <span class=n>h</span> <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=n>t</span> <span class=o>=</span> <span class=o>-</span><span class=mi>1</span><span class=p>;</span>
+    <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span><span class=n>i</span> <span class=o>&lt;</span> <span class=n>n</span><span class=p>;</span><span class=n>i</span> <span class=o>++</span><span class=p>){</span>
+        <span class=k>if</span><span class=p>(</span><span class=n>h</span> <span class=o>&lt;=</span> <span class=n>t</span> <span class=o>&amp;&amp;</span> <span class=n>i</span> <span class=o>-</span> <span class=n>k</span> <span class=o>+</span> <span class=mi>1</span> <span class=o>&gt;</span> <span class=n>q</span><span class=p>[</span><span class=n>h</span><span class=p>])</span> <span class=n>h</span> <span class=o>++</span><span class=p>;</span>
+        <span class=k>while</span><span class=p>(</span><span class=n>h</span> <span class=o>&lt;=</span> <span class=n>t</span> <span class=o>&amp;&amp;</span> <span class=n>a</span><span class=p>[</span><span class=n>q</span><span class=p>[</span><span class=n>t</span><span class=p>]]</span> <span class=o>&lt;=</span> <span class=n>a</span><span class=p>[</span><span class=n>i</span><span class=p>])</span> <span class=n>t</span> <span class=o>--</span><span class=p>;</span>
+        <span class=n>q</span><span class=p>[</span><span class=o>++</span> <span class=n>t</span><span class=p>]</span> <span class=o>=</span> <span class=n>i</span><span class=p>;</span>
+        <span class=k>if</span><span class=p>(</span><span class=n>i</span> <span class=o>&gt;=</span> <span class=n>k</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=n>cout</span> <span class=o>&lt;&lt;</span> <span class=n>a</span><span class=p>[</span><span class=n>q</span><span class=p>[</span><span class=n>h</span><span class=p>]]</span> <span class=o>&lt;&lt;</span> <span class=s>&#34; &#34;</span><span class=p>;</span>
+    <span class=p>}</span>
+    <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+<span class=p>}</span>
+
+</code></pre></td></tr></table></div></div><blockquote><ul><li><p>朴素的做法：</p><p>对窗口中的K个元素进行遍历，找到最值元素；然后每移动一次窗口，遍历一次窗口内的元素，得到最值。这样总的时间复杂度就是O(KN)，就不是线性的复杂度了，时间复杂度比较高。</p></li><li><p>使用一个<code>单调队列</code>，同时又是一个<code>双端队列</code>，实现求<code>滑动窗口中的最值</code>。大体思路就是用一个队列来维护一个数组元素下标，并且这个<code>队列中的元素下标所对应的值</code>是<code>单调的</code>，要找窗口最值元素的时候，只需要<code>输出队头</code>即可.</p><ul><li>如果要寻找窗口的最大值，那么将当前<code>队尾元素下标对应的值</code>小于<code>当前遍历到的值</code>，那么当前队列中的下标就要<code>让位</code>，让当前遍历到的这个元素下标进队列，因为对于寻找最大值，队尾元素下标对应的值是不可能成为最大值的，因为后面这个更大的进来了。</li><li>如果要寻找窗口的最大值，那么将当前<code>队尾元素下标对应的值</code>大于<code>当前遍历到的值</code>，那么当前队列中的下标就要<code>让位</code>，让当前遍历到的这个元素下标进队列，因为对于寻找最小值，队尾元素下标对应的值是不可能成为最小值的，因为后面这个更小的进来了。</li></ul></li><li><p>算法流程演示：</p><ul><li>一开始，</li><li></li></ul></li></ul></blockquote><hr><p>下面是leetcode的题目：</p><h3 id=题目描述><strong>题目描述</strong></h3><blockquote><p>给定一个数组 nums，有一个大小为 k 的滑动窗口从数组的最左侧移动到数组的最右侧。你只可以看到在滑动窗口内的 k 个数字。滑动窗口每次只向右移动一位。</p><p>返回滑动窗口中的最大值。</p><p>进阶：</p><p>你能在线性时间复杂度内解决此题吗？</p></blockquote><h3 id=题目链接><strong>题目链接</strong></h3><blockquote><p><a href=https://leetcode-cn.com/problems/sliding-window-maximum>https://leetcode-cn.com/problems/sliding-window-maximum</a></p></blockquote><h3 id=思路><strong>思路</strong></h3><blockquote><p>其实和上面一样，只不过，在Leetcode上可以直接使用C++ STL库的deque双端队列来进行操作</p></blockquote><h3 id=代码-1><strong>代码</strong></h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-c++ data-lang=c++><span class=k>class</span> <span class=nc>Solution</span> <span class=p>{</span>
+<span class=k>public</span><span class=o>:</span>
+    <span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>maxSlidingWindow</span><span class=p>(</span><span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;&amp;</span> <span class=n>nums</span><span class=p>,</span> <span class=kt>int</span> <span class=n>k</span><span class=p>)</span> <span class=p>{</span>
+        <span class=c1>//结果数组
+</span><span class=c1></span>        <span class=n>vector</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>res</span><span class=p>;</span>
+        <span class=c1>//队列存下标
+</span><span class=c1></span>        <span class=n>deque</span><span class=o>&lt;</span><span class=kt>int</span><span class=o>&gt;</span> <span class=n>q</span><span class=p>;</span>
+        <span class=k>for</span><span class=p>(</span><span class=kt>int</span> <span class=n>i</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span><span class=n>i</span> <span class=o>&lt;</span> <span class=n>nums</span><span class=p>.</span><span class=n>size</span><span class=p>();</span><span class=n>i</span> <span class=o>++</span><span class=p>){</span>
+            <span class=k>if</span><span class=p>(</span><span class=n>q</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>&amp;&amp;</span> <span class=n>i</span> <span class=o>-</span> <span class=n>k</span> <span class=o>+</span> <span class=mi>1</span> <span class=o>&gt;</span> <span class=n>q</span><span class=p>.</span><span class=n>front</span><span class=p>())</span> <span class=n>q</span><span class=p>.</span><span class=n>pop_front</span><span class=p>();</span>
+            <span class=k>while</span><span class=p>(</span><span class=n>q</span><span class=p>.</span><span class=n>size</span><span class=p>()</span> <span class=o>&amp;&amp;</span> <span class=n>nums</span><span class=p>[</span><span class=n>q</span><span class=p>.</span><span class=n>back</span><span class=p>()]</span> <span class=o>&lt;=</span> <span class=n>nums</span><span class=p>[</span><span class=n>i</span><span class=p>])</span> <span class=n>q</span><span class=p>.</span><span class=n>pop_back</span><span class=p>();</span>
+            <span class=n>q</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>i</span><span class=p>);</span>
+            <span class=k>if</span><span class=p>(</span><span class=n>i</span> <span class=o>&gt;=</span> <span class=n>k</span> <span class=o>-</span> <span class=mi>1</span><span class=p>)</span> <span class=n>res</span><span class=p>.</span><span class=n>push_back</span><span class=p>(</span><span class=n>nums</span><span class=p>[</span><span class=n>q</span><span class=p>.</span><span class=n>front</span><span class=p>()]);</span>
+        <span class=p>}</span>
+        <span class=k>return</span> <span class=n>res</span><span class=p>;</span>
+    <span class=p>}</span>
+<span class=p>};</span>
+</code></pre></td></tr></table></div></div><h3 id=复杂度分析><strong>复杂度分析</strong></h3><blockquote><p>时间复杂度为O(N)，空间复杂度为O(N)；</p><p>注意每次出队的时候找到最值元素的时间复杂度为O(1)，只不过要找到N个最值元素，所以才是O(N)</p></blockquote></div><div class=post-copyright><p class=copyright-item><span class=item-title>Author</span>
+<span class=item-content>VegeBun-csj</span></p><p class=copyright-item><span class=item-title>LastMod</span>
+<span class=item-content>2020-11-30</span></p></div><footer class=post-footer><div class=post-tags><a href=/tags/%E7%AE%97%E6%B3%95/>算法</a>
+<a href=/tags/leetcode/>leetcode</a></div><nav class=post-nav><a class=prev href=/post/leetcode/%E9%93%BE%E8%A1%A8/leetcode92-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8ii/><i class="iconfont icon-left"></i><span class="prev-text nav-default">Leetcode92 反转链表II</span>
+<span class="prev-text nav-mobile">Prev</span></a>
+<a class=next href=/post/leetcode/%E5%8F%8C%E6%8C%87%E9%92%88/leetcode1052-%E7%88%B1%E7%94%9F%E6%B0%94%E7%9A%84%E4%B9%A6%E5%BA%97%E8%80%81%E6%9D%BF/><span class="next-text nav-default">Leetcode1052 爱生气的书店老板</span>
+<span class="next-text nav-mobile">Next</span>
+<i class="iconfont icon-right"></i></a></nav></footer></article></div></div></main><footer id=footer class=footer><div class=social-links><a href=mailto:your@email.com class="iconfont icon-email" title=email></a><a href=http://localhost:1313 class="iconfont icon-stack-overflow" title=stack-overflow></a><a href=http://localhost:1313 class="iconfont icon-twitter" title=twitter></a><a href=http://localhost:1313 class="iconfont icon-facebook" title=facebook></a><a href=http://localhost:1313 class="iconfont icon-linkedin" title=linkedin></a><a href=http://localhost:1313 class="iconfont icon-google" title=google></a><a href=https://github.com/VegeBun-csj class="iconfont icon-github" title=github></a><a href=http://localhost:1313 class="iconfont icon-weibo" title=weibo></a><a href=http://localhost:1313 class="iconfont icon-zhihu" title=zhihu></a><a href=http://localhost:1313 class="iconfont icon-douban" title=douban></a><a href=http://localhost:1313 class="iconfont icon-pocket" title=pocket></a><a href=http://localhost:1313 class="iconfont icon-tumblr" title=tumblr></a><a href=http://localhost:1313 class="iconfont icon-instagram" title=instagram></a><a href=http://localhost:1313 class="iconfont icon-gitlab" title=gitlab></a><a href=http://localhost:1313 class="iconfont icon-bilibili" title=bilibili></a><a href=http://localhost:1313/index.xml type=application/rss+xml class="iconfont icon-rss" title=rss></a></div><div class=copyright><span class=power-by>Powered by <a class=hexo-link href=https://gohugo.io>Hugo</a></span>
+<span class=division>|</span>
+<span class=theme-info>Theme -
+<a class=theme-link href=https://github.com/olOwOlo/hugo-theme-even>Even</a></span><div class=busuanzi-footer><span id=busuanzi_container_site_pv>site pv: <span id=busuanzi_value_site_pv><img src=/img/spinner.svg alt=spinner.svg></span></span>
+<span class=division>|</span>
+<span id=busuanzi_container_site_uv>site uv: <span id=busuanzi_value_site_uv><img src=/img/spinner.svg alt=spinner.svg></span></span></div><span class=copyright-year>&copy;
+2019 -
+2021<span class=heart><i class="iconfont icon-heart"></i></span><span>VegeBun-csj</span></span></div></footer><div class=back-to-top id=back-to-top><i class="iconfont icon-up"></i></div></div><script src=https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin=anonymous></script><script src=https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin=anonymous></script><script type=text/javascript src=/js/main.min.c12618f9a600c40bd024996677e951e64d3487006775aeb22e200c990006c5c7.js></script><script type=text/javascript>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],tags:'ams',}};</script><script type=text/javascript async src=/lib/mathjax/es5/tex-mml-chtml.js></script></body></html>
